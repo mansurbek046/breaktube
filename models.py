@@ -1,11 +1,13 @@
 from peewee import *
 import psycopg2
 import json
+from credentials import dbname, dbuser, dbhost, dbpassword
 
 db=PostgresqlDatabase(
-    'breaktubebot',
-    user='u0_a286',
-    host='localhost'
+    dbname,
+    user=dbuser,
+    host=dbhost,
+    password=dbpassword
 )
 
 class TgField(CharField):

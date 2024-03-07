@@ -10,10 +10,11 @@ import json
 from events import event_controller
 from pyrogram.types import InlineQueryResultArticle, InputTextMessageContent
 from datetime import datetime
-from credentials import API_KEY
+from credentials import API_KEY, api_hash, api_id, bot_token
+from emoji_dict import flags_emoji_dict
 
 db.connect()
-app = Client('BreakTubebot')
+app = Client('BreakTubebot', api_hash=api_hash, api_id=api_id, bot_token=bot_token)
 
 languages = ''
 with open('languages.json') as lang:
@@ -48,9 +49,19 @@ async def welcome(client, message):
         user.save()
     try:
         lang = from_user.language_code
-        await client.send_message(chat_id=message.chat.id, text=languages[lang]['wel'])
+        reply_markup=InlineKeyboardMarkup([
+        [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
+        [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
+        InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
+        ])
+        await client.send_message(chat_id=message.chat.id, text=languages[lang]['wel'], reply_markup=reply_markup)
     except KeyError:
-        await client.send_message(chat_id=message.chat.id, text=languages['uz']['wel'])
+        reply_markup=InlineKeyboardMarkup([
+        [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
+        [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
+        InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
+        ])
+        await client.send_message(chat_id=message.chat.id, text=languages['uz']['wel'], reply_markup=reply_markup)
 
 
 @app.on_message(filters.command('lang'))
@@ -58,9 +69,30 @@ async def set_lang(client, message):
     user = User.get(id=message.from_user.id)
     language_dict = {
         'O\'zbek': 'uz',
-        'English': 'en'
+        'English': 'en',
+        'Русский': 'ru',
+        'Français': 'fr',
+        'Bahasa Indonesia': 'id',
+        'Português': 'pt',
+        'فارسی': 'ir',
+        'Қазақ': 'kz',
+        'Bahasa Melayu': 'my',
+        'Italiano': 'it',
+        'Español': 'es',
+        'العربية': 'sa',
+        'Українська': 'ua',
+        'Deutsch': 'de'
     }
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(x, callback_data=f'lang:{y}') for x, y in language_dict.items()]])
+    buttons=[]
+    index=0
+    for x,y in language_dict.items():
+        if index%2==0:
+            buttons.append([InlineKeyboardButton(f'{flags_emoji_dict[y]} {x}', callback_data=f'lang:{y}')])
+        else:
+            buttons[(index//2)].append(InlineKeyboardButton(f'{flags_emoji_dict[y]} {x}', callback_data=f'lang:{y}'))
+        index+=1
+    
+    reply_markup = InlineKeyboardMarkup(buttons)
     await message.delete()
     await client.send_message(text=languages[user.lang]['lang'], chat_id=message.chat.id, reply_markup=reply_markup)
 

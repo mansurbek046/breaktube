@@ -177,7 +177,7 @@ def compare_dates(last, video):
 async def YtUpdate(client, id, chat_id):
     while True:
         user = User.select().where(User.id == id).first()
-        pr-int('While is working...')
+        print('While is working...')
         if user.get_channels():
             print('User has channels...')
             for channel_id in user.get_channels():
