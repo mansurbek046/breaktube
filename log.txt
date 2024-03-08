@@ -1,0 +1,345 @@
+Mar 08 03:37:44 ip-172-31-43-157 systemd[1]: Started Telegram Bot Service.
+Mar 08 04:08:37 ip-172-31-43-157 systemd[1]: Stopping Telegram Bot Service...
+Mar 08 04:08:39 ip-172-31-43-157 python[29751]: While is working...
+Mar 08 04:08:39 ip-172-31-43-157 python[29751]: While is working...
+Mar 08 04:08:39 ip-172-31-43-157 python[29751]: While is working...
+Mar 08 04:08:39 ip-172-31-43-157 python[29751]: While is working...
+Mar 08 04:08:39 ip-172-31-43-157 python[29751]: While is working...
+Mar 08 04:08:39 ip-172-31-43-157 python[29751]: An error occurred while fetching playlists: Telegram says: [400 MESSAGE_EMPTY] - The message sent is empty or contains invalid characters (caused by "messages.SendMessage")
+Mar 08 04:08:40 ip-172-31-43-157 systemd[1]: telegram-bot.service: Deactivated successfully.
+Mar 08 04:08:40 ip-172-31-43-157 systemd[1]: Stopped Telegram Bot Service.
+Mar 08 04:08:40 ip-172-31-43-157 systemd[1]: telegram-bot.service: Consumed 15.136s CPU time.
+Mar 08 04:10:23 ip-172-31-43-157 systemd[1]: Started Telegram Bot Service.
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]: ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   libavutil      56. 70.100 / 56. 70.100
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   libavcodec     58.134.100 / 58.134.100
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   libavformat    58. 76.100 / 58. 76.100
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   libavdevice    58. 13.100 / 58. 13.100
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   libavfilter     7.110.100 /  7.110.100
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   libswscale      5.  9.100 /  5.  9.100
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   libswresample   3.  9.100 /  3.  9.100
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   libpostproc    55.  9.100 / 55.  9.100
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]: Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/home/ubuntu/breaktube/Videos/Life in UZBEKISTAN  The CHEAPEST Country in the WORLD.mp4':
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Metadata:
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     major_brand     : dash
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     minor_version   : 0
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     compatible_brands: iso6avc1mp41
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     creation_time   : 2024-01-11T02:06:14.000000Z
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Duration: 00:08:50.20, start: 0.000000, bitrate: 2833 kb/s
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 38 kb/s, 25 fps, 25 tbr, 12800 tbn, 50 tbc (default)
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     Metadata:
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       creation_time   : 2024-01-11T02:06:14.000000Z
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       handler_name    : ISO Media file produced by Google Inc.
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       vendor_id       : [0][0][0][0]
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]: Input #1, mov,mp4,m4a,3gp,3g2,mj2, from '/home/ubuntu/breaktube/Audios/Life in UZBEKISTAN  The CHEAPEST Country in the WORLD.mp3':
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Metadata:
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     major_brand     : dash
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     minor_version   : 0
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     compatible_brands: iso6mp41
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     creation_time   : 2024-01-11T01:13:27.000000Z
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Duration: 00:08:50.34, start: 0.000000, bitrate: 48 kb/s
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Stream #1:0(eng): Audio: aac (HE-AAC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 0 kb/s (default)
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     Metadata:
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       creation_time   : 2024-01-11T01:13:27.000000Z
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       handler_name    : ISO Media file produced by Google Inc.
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       vendor_id       : [0][0][0][0]
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]: Output #0, mp4, to 'Merged/Life in UZBEKISTAN  The CHEAPEST Country in the WORLD.mp4':
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Metadata:
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     major_brand     : dash
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     minor_version   : 0
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     compatible_brands: iso6avc1mp41
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     encoder         : Lavf58.76.100
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 38 kb/s, 25 fps, 25 tbr, 12800 tbn, 12800 tbc (default)
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     Metadata:
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       creation_time   : 2024-01-11T02:06:14.000000Z
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       handler_name    : ISO Media file produced by Google Inc.
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       vendor_id       : [0][0][0][0]
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Stream #0:1(eng): Audio: aac (HE-AAC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 0 kb/s (default)
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:     Metadata:
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       creation_time   : 2024-01-11T01:13:27.000000Z
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       handler_name    : ISO Media file produced by Google Inc.
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:       vendor_id       : [0][0][0][0]
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]: Stream mapping:
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Stream #0:0 -> #0:0 (copy)
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]:   Stream #1:0 -> #0:1 (copy)
+Mar 08 04:11:26 ip-172-31-43-157 python[30324]: Press [q] to stop, [?] for help
+Mar 08 04:11:28 ip-172-31-43-157 python[30324]: [479B blob data]
+Mar 08 04:11:28 ip-172-31-43-157 python[30324]: video:183253kB audio:3108kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.166265%
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]: ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   libavutil      56. 70.100 / 56. 70.100
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   libavcodec     58.134.100 / 58.134.100
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   libavformat    58. 76.100 / 58. 76.100
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   libavdevice    58. 13.100 / 58. 13.100
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   libavfilter     7.110.100 /  7.110.100
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   libswscale      5.  9.100 /  5.  9.100
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   libswresample   3.  9.100 /  3.  9.100
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   libpostproc    55.  9.100 / 55.  9.100
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]: Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/home/ubuntu/breaktube/Videos/Dizayn jamoasi 2022-yilgi konsert dasturi.mp4':
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Metadata:
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     major_brand     : mp42
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     minor_version   : 0
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     compatible_brands: isommp42
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     creation_time   : 2024-01-10T02:10:14.000000Z
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Duration: 02:29:18.37, start: 0.000000, bitrate: 961 kb/s
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Stream #0:0(und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(tv, bt709), 1280x720 [SAR 1:1 DAR 16:9], 829 kb/s, 25 fps, 25 tbr, 12800 tbn, 50 tbc (default)
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     Metadata:
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       creation_time   : 2024-01-10T02:10:14.000000Z
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       handler_name    : ISO Media file produced by Google Inc. Created on: 01/09/2024.
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       vendor_id       : [0][0][0][0]
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Stream #0:1(eng): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 127 kb/s (default)
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     Metadata:
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       creation_time   : 2024-01-10T02:10:14.000000Z
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       handler_name    : ISO Media file produced by Google Inc. Created on: 01/09/2024.
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       vendor_id       : [0][0][0][0]
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]: Input #1, mov,mp4,m4a,3gp,3g2,mj2, from '/home/ubuntu/breaktube/Audios/Dizayn jamoasi 2022-yilgi konsert dasturi.mp3':
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Metadata:
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     major_brand     : dash
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     minor_version   : 0
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     compatible_brands: iso6mp41
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     creation_time   : 2024-01-10T02:10:14.000000Z
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Duration: 02:29:18.49, start: 0.000000, bitrate: 48 kb/s
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Stream #1:0(eng): Audio: aac (HE-AAC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 0 kb/s (default)
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     Metadata:
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       creation_time   : 2024-01-10T02:10:14.000000Z
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       handler_name    : ISO Media file produced by Google Inc.
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       vendor_id       : [0][0][0][0]
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]: Output #0, mp4, to 'Merged/Dizayn jamoasi 2022-yilgi konsert dasturi.mp4':
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Metadata:
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     major_brand     : mp42
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     minor_version   : 0
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     compatible_brands: isommp42
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     encoder         : Lavf58.76.100
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Stream #0:0(und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(tv, bt709), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 829 kb/s, 25 fps, 25 tbr, 12800 tbn, 12800 tbc (default)
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     Metadata:
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       creation_time   : 2024-01-10T02:10:14.000000Z
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       handler_name    : ISO Media file produced by Google Inc. Created on: 01/09/2024.
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       vendor_id       : [0][0][0][0]
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Stream #0:1(eng): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 127 kb/s (default)
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:     Metadata:
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       creation_time   : 2024-01-10T02:10:14.000000Z
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       handler_name    : ISO Media file produced by Google Inc. Created on: 01/09/2024.
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:       vendor_id       : [0][0][0][0]
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]: Stream mapping:
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Stream #0:0 -> #0:0 (copy)
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]:   Stream #0:1 -> #0:1 (copy)
+Mar 08 04:14:09 ip-172-31-43-157 python[30334]: Press [q] to stop, [?] for help
+Mar 08 04:14:24 ip-172-31-43-157 python[30334]: [3.0K blob data]
+Mar 08 04:14:24 ip-172-31-43-157 python[30334]: video:907444kB audio:139975kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.657199%
+Mar 08 04:18:36 ip-172-31-43-157 systemd[1]: Stopping Telegram Bot Service...
+Mar 08 04:18:40 ip-172-31-43-157 systemd[1]: telegram-bot.service: Deactivated successfully.
+Mar 08 04:18:40 ip-172-31-43-157 systemd[1]: Stopped Telegram Bot Service.
+Mar 08 04:18:40 ip-172-31-43-157 systemd[1]: telegram-bot.service: Consumed 52.609s CPU time.
+Mar 08 04:31:26 ip-172-31-43-157 systemd[1]: Started Telegram Bot Service.
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]: ffmpeg version 4.4.2-0ubuntu0.22.04.1 Copyright (c) 2000-2021 the FFmpeg developers
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   built with gcc 11 (Ubuntu 11.2.0-19ubuntu1)
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   configuration: --prefix=/usr --extra-version=0ubuntu0.22.04.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-pocketsphinx --enable-librsvg --enable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   libavutil      56. 70.100 / 56. 70.100
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   libavcodec     58.134.100 / 58.134.100
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   libavformat    58. 76.100 / 58. 76.100
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   libavdevice    58. 13.100 / 58. 13.100
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   libavfilter     7.110.100 /  7.110.100
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   libswscale      5.  9.100 /  5.  9.100
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   libswresample   3.  9.100 /  3.  9.100
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   libpostproc    55.  9.100 / 55.  9.100
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]: Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/home/ubuntu/breaktube/Videos/ᴴᴰ Pato Donald y Chip y Dale dibujos animados - Pluto Mickey Mouse Episodios Completos Nuevo 2018.mp4':
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Metadata:
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     major_brand     : mp42
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     minor_version   : 0
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     compatible_brands: isommp42
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     creation_time   : 2024-02-22T20:41:03.000000Z
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Duration: 00:28:42.87, start: 0.000000, bitrate: 1077 kb/s
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Stream #0:0(und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(tv, bt709), 1280x718 [SAR 1:1 DAR 640:359], 945 kb/s, 26.66 fps, 26.66 tbr, 13329 tbn, 53.32 tbc (default)
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     Metadata:
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       creation_time   : 2024-02-22T20:41:03.000000Z
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       handler_name    : ISO Media file produced by Google Inc. Created on: 02/22/2024.
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       vendor_id       : [0][0][0][0]
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Stream #0:1(eng): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 128 kb/s (default)
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     Metadata:
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       creation_time   : 2024-02-22T20:41:03.000000Z
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       handler_name    : ISO Media file produced by Google Inc. Created on: 02/22/2024.
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       vendor_id       : [0][0][0][0]
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]: Input #1, mov,mp4,m4a,3gp,3g2,mj2, from '/home/ubuntu/breaktube/Audios/ᴴᴰ Pato Donald y Chip y Dale dibujos animados - Pluto Mickey Mouse Episodios Completos Nuevo 2018.mp3':
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Metadata:
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     major_brand     : dash
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     minor_version   : 0
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     compatible_brands: iso6mp41
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     creation_time   : 2024-02-22T20:41:03.000000Z
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Duration: 00:28:43.06, start: 0.000000, bitrate: 48 kb/s
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Stream #1:0(eng): Audio: aac (HE-AAC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 0 kb/s (default)
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     Metadata:
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       creation_time   : 2024-02-22T20:41:03.000000Z
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       handler_name    : ISO Media file produced by Google Inc.
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       vendor_id       : [0][0][0][0]
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]: Output #0, mp4, to 'Merged/ᴴᴰ Pato Donald y Chip y Dale dibujos animados - Pluto Mickey Mouse Episodios Completos Nuevo 2018.mp4':
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Metadata:
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     major_brand     : mp42
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     minor_version   : 0
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     compatible_brands: isommp42
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     encoder         : Lavf58.76.100
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Stream #0:0(und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(tv, bt709), 1280x718 [SAR 1:1 DAR 640:359], q=2-31, 945 kb/s, 26.66 fps, 26.66 tbr, 13329 tbn, 13329 tbc (default)
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     Metadata:
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       creation_time   : 2024-02-22T20:41:03.000000Z
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       handler_name    : ISO Media file produced by Google Inc. Created on: 02/22/2024.
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       vendor_id       : [0][0][0][0]
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Stream #0:1(eng): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 128 kb/s (default)
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:     Metadata:
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       creation_time   : 2024-02-22T20:41:03.000000Z
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       handler_name    : ISO Media file produced by Google Inc. Created on: 02/22/2024.
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:       vendor_id       : [0][0][0][0]
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]: Stream mapping:
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Stream #0:0 -> #0:0 (copy)
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]:   Stream #0:1 -> #0:1 (copy)
+Mar 08 04:39:24 ip-172-31-43-157 python[31281]: Press [q] to stop, [?] for help
+Mar 08 04:39:25 ip-172-31-43-157 python[31281]: [394B blob data]
+Mar 08 04:39:25 ip-172-31-43-157 python[31281]: video:198903kB audio:26920kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.672299%
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]: Task exception was never retrieved
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]: future: <Task finished name='Task-312' coro=<YtUpdate() done, defined at /home/ubuntu/breaktube/serializer.py:177> exception=OperationalError('SSL connection has been closed unexpectedly\n')>
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]: Traceback (most recent call last):
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3291, in execute_sql
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     cursor.execute(sql, params or ())
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]: psycopg2.OperationalError: SSL connection has been closed unexpectedly
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]: During handling of the above exception, another exception occurred:
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]: Traceback (most recent call last):
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/serializer.py", line 179, in YtUpdate
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     user = User.select().where(User.id == id).first()
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2011, in inner
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     return method(self, database, *args, **kwargs)
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2270, in first
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     return self.peek(database, n=n)
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2011, in inner
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     return method(self, database, *args, **kwargs)
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2261, in peek
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     rows = self.execute(database)[:n]
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2011, in inner
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     return method(self, database, *args, **kwargs)
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2082, in execute
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     return self._execute(database)
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2255, in _execute
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     cursor = database.execute(self)
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3299, in execute
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     return self.execute_sql(sql, params)
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3289, in execute_sql
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     with __exception_wrapper__:
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3059, in __exit__
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     reraise(new_type, new_type(exc_value, *exc_args), traceback)
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 192, in reraise
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     raise value.with_traceback(tb)
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3291, in execute_sql
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]:     cursor.execute(sql, params or ())
+Mar 08 05:36:37 ip-172-31-43-157 python[31262]: peewee.OperationalError: SSL connection has been closed unexpectedly
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]: connection already closed
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]: Traceback (most recent call last):
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3290, in execute_sql
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     cursor = self.cursor()
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3283, in cursor
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     return self._state.conn.cursor()
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]: psycopg2.InterfaceError: connection already closed
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]: During handling of the above exception, another exception occurred:
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]: Traceback (most recent call last):
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     await handler.callback(self.client, *args)
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/main.py", line 125, in get_profile
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     user=User.get(id=message.from_user.id)
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 6805, in get
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     return sq.get()
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 7253, in get
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     return clone.execute(database)[0]
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2011, in inner
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     return method(self, database, *args, **kwargs)
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2082, in execute
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     return self._execute(database)
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2255, in _execute
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     cursor = database.execute(self)
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3299, in execute
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     return self.execute_sql(sql, params)
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3289, in execute_sql
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     with __exception_wrapper__:
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3059, in __exit__
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     reraise(new_type, new_type(exc_value, *exc_args), traceback)
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 192, in reraise
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     raise value.with_traceback(tb)
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3290, in execute_sql
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     cursor = self.cursor()
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3283, in cursor
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]:     return self._state.conn.cursor()
+Mar 08 05:40:13 ip-172-31-43-157 python[31262]: peewee.InterfaceError: connection already closed
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]: connection already closed
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]: Traceback (most recent call last):
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3290, in execute_sql
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     cursor = self.cursor()
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3283, in cursor
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     return self._state.conn.cursor()
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]: psycopg2.InterfaceError: connection already closed
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]: During handling of the above exception, another exception occurred:
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]: Traceback (most recent call last):
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     await handler.callback(self.client, *args)
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/main.py", line 118, in get_subs
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     user=User.get(id=message.from_user.id)
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 6805, in get
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     return sq.get()
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 7253, in get
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     return clone.execute(database)[0]
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2011, in inner
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     return method(self, database, *args, **kwargs)
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2082, in execute
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     return self._execute(database)
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2255, in _execute
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     cursor = database.execute(self)
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3299, in execute
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     return self.execute_sql(sql, params)
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3289, in execute_sql
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     with __exception_wrapper__:
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3059, in __exit__
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     reraise(new_type, new_type(exc_value, *exc_args), traceback)
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 192, in reraise
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     raise value.with_traceback(tb)
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3290, in execute_sql
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     cursor = self.cursor()
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3283, in cursor
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]:     return self._state.conn.cursor()
+Mar 08 05:40:28 ip-172-31-43-157 python[31262]: peewee.InterfaceError: connection already closed
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]: connection already closed
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]: Traceback (most recent call last):
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3290, in execute_sql
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     cursor = self.cursor()
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3283, in cursor
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     return self._state.conn.cursor()
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]: psycopg2.InterfaceError: connection already closed
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]: During handling of the above exception, another exception occurred:
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]: Traceback (most recent call last):
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     await handler.callback(self.client, *args)
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/main.py", line 32, in welcome
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     user = User.select().where(User.id == from_user.id).first()
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2011, in inner
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     return method(self, database, *args, **kwargs)
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2270, in first
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     return self.peek(database, n=n)
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2011, in inner
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     return method(self, database, *args, **kwargs)
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2261, in peek
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     rows = self.execute(database)[:n]
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2011, in inner
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     return method(self, database, *args, **kwargs)
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2082, in execute
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     return self._execute(database)
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 2255, in _execute
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     cursor = database.execute(self)
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3299, in execute
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     return self.execute_sql(sql, params)
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3289, in execute_sql
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     with __exception_wrapper__:
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3059, in __exit__
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     reraise(new_type, new_type(exc_value, *exc_args), traceback)
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 192, in reraise
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     raise value.with_traceback(tb)
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3290, in execute_sql
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     cursor = self.cursor()
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/peewee.py", line 3283, in cursor
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]:     return self._state.conn.cursor()
+Mar 08 05:40:35 ip-172-31-43-157 python[31262]: peewee.InterfaceError: connection already closed
