@@ -62,6 +62,24 @@ async def welcome(client, message):
         ])
         await client.send_message(chat_id=message.chat.id, text=languages['uz']['wel'], reply_markup=reply_markup)
 
+@app.on_message(filters.command('start'))
+async def menu(client, message):
+    try:
+        lang = from_user.language_code
+        reply_markup=InlineKeyboardMarkup([
+        [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
+        [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
+        InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
+        ])
+        await client.send_message(chat_id=message.chat.id, text='⚪️🔴⚪️\n🔴\n⚪️⚪️', reply_markup=reply_markup)
+    except KeyError:
+        reply_markup=InlineKeyboardMarkup([
+        [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
+        [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
+        InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
+        ])
+        await client.send_message(chat_id=message.chat.id, text='⚪️🔴⚪️\n🔴\n⚪️⚪️', reply_markup=reply_markup)
+
 
 @app.on_message(filters.command('lang'))
 async def set_lang(client, message):

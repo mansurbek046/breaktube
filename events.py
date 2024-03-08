@@ -199,7 +199,8 @@ async def event_controller(client, callback_query, app):
                 chat_id=callback_query.message.chat.id
                 stream_type=callback_data[2]
                 stream_resolution=callback_data[3]
-                if int(stream_resolution.split('p')[0])<1080:
+                user = User.get(id=callback_query.from_user.id)
+                if int(stream_resolution.split('p')[0])<1080 or user.premium:
                     matching_records = Video.select().where((Video.youtube_id == callback_data[1]) & (Video.resolution == stream_resolution))
                     chat_id=callback_query.message.chat.id
 
