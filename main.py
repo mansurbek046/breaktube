@@ -62,7 +62,7 @@ async def welcome(client, message):
         ])
         await client.send_message(chat_id=message.chat.id, text=languages['uz']['wel'], reply_markup=reply_markup)
 
-@app.on_message(filters.command('start'))
+@app.on_message(filters.command('menu'))
 async def menu(client, message):
     try:
         lang = from_user.language_code
