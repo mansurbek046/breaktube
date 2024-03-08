@@ -218,7 +218,7 @@ async def event_controller(client, callback_query, app):
                         error_video_url=video_url+callback_data[1]
                         downloading=await client.send_message(chat_id=chat_id, text=user_language['downloading'])
 
-                        asyncio.create_task(download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading))
+                        asyncio.create_task(download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, CHANNEL_ID, downloading))
 
                         # yt=YouTube(video_url+callback_data[1], on_complete_callback=on_complete)
                         # stream=yt.streams.filter(res=stream_resolution, file_extension=stream_type).first()

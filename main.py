@@ -31,7 +31,6 @@ async def welcome(client, message):
     from_user = message.from_user
     user = User.select().where(User.id == from_user.id).first()
     language_code = from_user.language_code if from_user.language_code in list(languages.keys()) else 'uz'
-
     if user is None:
         start_parameter = message.command[1] if len(message.command) > 1 else None
         if start_parameter:
