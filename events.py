@@ -23,9 +23,11 @@ languages = ''
 with open('languages.json') as lang:
     languages = json.load(lang)
 
+def on_complete(stream, file_path):
+    return file_path
+
 async def download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading):
-    def on_complete(stream, file_path):
-        return file_path
+
     yt=YouTube(video_url+callback_data[1], on_complete_callback=on_complete)
     stream=yt.streams.filter(res=stream_resolution, file_extension=stream_type).first()
     file_path=stream.download('Videos/')
