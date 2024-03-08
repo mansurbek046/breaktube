@@ -4,6 +4,7 @@ from credentials import CHANNEL_ID
 
 
 async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, resolution="", caption="", downloading_id=None):
+    await print(CHANNEL_ID)
     if file_type=='video':
         video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption)
         Video.create(id=video.id, youtube_id=youtube_id, resolution=resolution)
