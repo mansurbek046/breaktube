@@ -3,9 +3,9 @@ from models import User, Video, Audio, db
 from credentials import CHANNEL_ID
 
 
-async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, resolution="", caption="", downloading_id=None):
+async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, resolution="", caption="", downloading_id=None, thumbnail_file_path=''):
     if file_type=='video':
-        video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption)
+        video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb=thumbnail_file_path)
         Video.create(id=video.id, youtube_id=youtube_id, resolution=resolution)
         send=await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=video.id)
 

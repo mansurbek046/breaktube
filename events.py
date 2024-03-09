@@ -59,7 +59,8 @@ async def download_video(video_url, callback_data, stream_resolution, stream_typ
         chat_id, 
         stream_resolution, 
         caption,
-        downloading.id)
+        downloading.id,
+        thumbnail_file_path=yt.thumbnail_url)
     else:
         audio_stream=yt.streams.filter(only_audio=True).first()
         audio_file_path=audio_stream.download('Audios/')
@@ -93,10 +94,83 @@ async def download_video(video_url, callback_data, stream_resolution, stream_typ
         chat_id, 
         stream_resolution, 
         caption,
-        downloading.id)
+        downloading.id,
+        thumbnail_file_path=yt.thumbnail_url)
         if upload:
             os.remove(file_path)
             os.remove(new_audio_file_path)
+
+async def download_playlist(callback_data, app, user_language, downloading, chat_id, client):
+    try:
+        playlist_url='https://youtube.com/playlist?list='
+        playlist = Playlist(playlist_url+callback_data[2])
+        if callback_data[1]=="mp4":
+            for video in playlist.videos:
+                matching_records = Video.select().where((Video.youtube_id == video.video_id) & (Video.resolution == "720p"))
+                if matching_records.exists():
+                    await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)))
+                    continue
+                stream = video.streams.get_by_resolution('720p')
+                if stream:
+                    file_path = stream.download('Videos/')
+                    caption = user_language['caption_video'].format(
+                        video.title,
+                        video.watch_url,
+                        datetime.timedelta(seconds=video.length),
+                        f"{video.views:,}",
+                        str(video.publish_date).split(' ')[0].replace('-', '.'),
+                        video.channel_id,
+                        video.author
+                    )
+
+                    if video.description:
+                        try:
+                            page = telegraph.create_page(video.title, html_content=f'{video.description}')
+                            caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
+                        except Exception as e:
+                            caption=caption.replace('DESC', video.description)
+                            print(f"An error occurred while creating Telegraph page of playlist video description: {e}")
+                    else:
+                        caption=caption.replace('DESC','')
+
+                    chat_id=callback_query.message.chat.id
+
+                    upload=await uploader.upload_to_telegram(
+                        app,
+                        file_path,
+                        'video',
+                        video.video_id,
+                        chat_id,
+                        '720p',
+                        caption,
+                        thumbnail_file_path=yt.thumbnail_url
+                    )
+
+        elif callback_data[1]=="mp3":
+            for video in playlist.videos:
+                video_id = video.video_id
+                if video_id:
+                    audio_results = Audio.select().where(Audio.youtube_id == video_id)
+                    if audio_results.exists():
+                        audio = audio_results.first()
+                        await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=int(str(audio)))
+                    else:
+                        audio_download_url = f'https://www.youtube.com/watch?v={video_id}'
+                        yt = YouTube(audio_download_url, on_complete_callback=on_complete)
+                        stream = yt.streams.filter(only_audio=True, file_extension='mp4').first()
+                        file_path = stream.download('Audios/')
+                        await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id)
+                else:
+                    print("Skipping video without a valid video ID")
+
+        await app.delete_messages(chat_id, downloading.id)
+        await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['completed'])
+
+    except Exception as e:
+        print(f"An error occurred while downloading playlist: {e}")
+        await app.delete_messages(chat_id, downloading.id)
+        await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlist_download'])
+
 
 async def event_controller(client, callback_query, app):    
 
@@ -211,16 +285,12 @@ async def event_controller(client, callback_query, app):
 
                     if matching_records.exists():
                         await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)))
-                        with open(f'{chat_id}.pkl', 'rb') as file:
-                            data=pickle.load(file)
-                            await app.delete_messages(chat_id=chat_id, message_ids=[data['id']])
+                        await callback_query.message.delete()
                         os.remove(f'{chat_id}.pkl')
                         os.remove(f'{chat_id}_back_keyboard.pkl')
                         
                     else:
-                        with open(f'{chat_id}.pkl', 'rb') as file:
-                            data=pickle.load(file)
-                            await app.delete_messages(chat_id=chat_id, message_ids=[data['id']])
+                        await callback_query.message.delete()
                         os.remove(f'{chat_id}.pkl')
                         os.remove(f'{chat_id}_back_keyboard.pkl')
                         error_video_url=video_url+callback_data[1]
@@ -228,74 +298,6 @@ async def event_controller(client, callback_query, app):
 
                         await asyncio.create_task(download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading))
 
-                        # yt=YouTube(video_url+callback_data[1], on_complete_callback=on_complete)
-                        # stream=yt.streams.filter(res=stream_resolution, file_extension=stream_type).first()
-                        # file_path=stream.download('Videos/')
-# 
-                        # caption = user_language['caption_video'].format(
-                            # yt.title,
-                            # video_url+callback_data[1],
-                            # datetime.timedelta(seconds=yt.length),
-                            # f'{yt.views:,}',
-                            # str(yt.publish_date).split(' ')[0].replace('-', '.'),
-                            # yt.channel_id,
-                            # yt.author)
-                        # if yt.description:
-                            # try:
-                                # page = telegraph.create_page(yt.title, html_content=f'{yt.description}')
-                                # caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
-                            # except Exception as e:
-                                # caption=caption.replace('DESC', video.description)
-                                # print(f"An error occurred while creating to Telegraph page: {e}")
-                        # else:
-                            # caption=caption.replace('DESC','')
-# 
-                        # if stream.type == "progressive":
-                            # await uploader.upload_to_telegram(
-                            # app,
-                            # file_path,
-                            # 'video',
-                            # callback_data[1],
-                            # chat_id,
-                            # stream_resolution,
-                            # caption,
-                            # downloading.id)
-                        # else:
-                            # audio_stream=yt.streams.filter(only_audio=True).first()
-                            # audio_file_path=audio_stream.download('Audios/')
-                            # new_audio_file_path = os.path.splitext(audio_file_path)[0] + ".mp3"
-                            # os.rename(audio_file_path, new_audio_file_path)
-# 
-                            # splitted_file_name=file_path.split("/")[-1]
-                            # merged_file_path="Merged/"+splitted_file_name
-# 
-                            # if splitted_file_name.split('.')[-1]=="webm":
-                                # merged_file_path=merged_file_path.split('.')[0]+".mkv"
-                                # ffmpeg_cmd = ["ffmpeg",
-                                              # "-i", file_path,
-                                              # "-i", new_audio_file_path,
-                                              # "-c:v", "copy",
-                                              # "-c:a", "aac",
-                                              # merged_file_path]
-                                # # Run the ffmpeg command with suppressed output
-                                # subprocess.run(ffmpeg_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-# 
-                            # else:
-                                # ffmpeg_cmd = ["ffmpeg", "-i", file_path, "-i", new_audio_file_path, "-c", "copy", merged_file_path]
-                                # subprocess.run(ffmpeg_cmd)
-# 
-                            # upload=await uploader.upload_to_telegram(
-                            # app,
-                            # merged_file_path,
-                            # 'video',
-                            # callback_data[1],
-                            # chat_id,
-                            # stream_resolution,
-                            # caption,
-                            # downloading.id)
-                            # if upload:
-                                # os.remove(file_path)
-                                # os.remove(new_audio_file_path)
                 else:
                     await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['vd_buy_premium'].format(stream_resolution))
                     return None
@@ -303,7 +305,6 @@ async def event_controller(client, callback_query, app):
             except Exception as e:
                 print(f"An error occurred while downloading video: {e}")
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_video'].format(error_video_url))
-            
 
         case 'subscribe':
             subscibed=user.add_channel(callback_data[1])
@@ -314,6 +315,7 @@ async def event_controller(client, callback_query, app):
             if subscibed:
                 await client.answer_callback_query(callback_query.id, user_language['sub_added'])
                 await client.edit_message_reply_markup(chat_id=callback_query.message.chat.id, message_id=callback_query.message.id, reply_markup=reply_markup)
+
         case 'unsubscribe':
             unsubscribed=user.remove_channel(callback_data[1])
             reply_markup=InlineKeyboardMarkup([[
@@ -347,81 +349,17 @@ async def event_controller(client, callback_query, app):
             except Exception as e:
                 print(f"An error occurred while fetching playlists: {e}")
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlists'])
+
         case 'playlist':
             # Downloading playlist
             chat_id=callback_query.message.chat.id
             if user.premium is None:
                 await client.send_message(chat_id=chat_id, text=user_language['pl_buy_premium'])
                 return None
+            await callback_query.message.delete()
             downloading=await client.send_message(chat_id=chat_id, text=user_language['pl_downloading'])
-            try:
-                playlist_url='https://youtube.com/playlist?list='
-                playlist = Playlist(playlist_url+callback_data[2])
-                if callback_data[1]=="mp4":
-                    for video in playlist.videos:
-                        matching_records = Video.select().where((Video.youtube_id == video.video_id) & (Video.resolution == "720p"))
-                        if matching_records.exists():
-                            await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)))
-                            continue
-                        stream = video.streams.get_by_resolution('720p')
-                        if stream:
-                            file_path = stream.download('Videos/')
-                            caption = user_language['caption_video'].format(
-                                video.title,
-                                video.watch_url,
-                                datetime.timedelta(seconds=video.length),
-                                f"{video.views:,}",
-                                str(video.publish_date).split(' ')[0].replace('-', '.'),
-                                video.channel_id,
-                                video.author
-                            )
+            await asyncio.create_task(download_playlist(callback_data, app, user_language, downloading, chat_id, client))
 
-                            if video.description:
-                                try:
-                                    page = telegraph.create_page(video.title, html_content=f'{video.description}')
-                                    caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
-                                except Exception as e:
-                                    caption=caption.replace('DESC', video.description)
-                                    print(f"An error occurred while creating Telegraph page of playlist video description: {e}")
-                            else:
-                                caption=caption.replace('DESC','')
-
-                            chat_id=callback_query.message.chat.id
-
-                            upload=await uploader.upload_to_telegram(
-                                app,
-                                file_path,
-                                'video',
-                                video.video_id,
-                                chat_id,
-                                '720p',
-                                caption
-                            )
-
-                elif callback_data[1]=="mp3":
-                    for video in playlist.videos:
-                        video_id = video.video_id
-                        if video_id:
-                            audio_results = Audio.select().where(Audio.youtube_id == video_id)
-                            if audio_results.exists():
-                                audio = audio_results.first()
-                                await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=int(str(audio)))
-                            else:
-                                audio_download_url = f'https://www.youtube.com/watch?v={video_id}'
-                                yt = YouTube(audio_download_url, on_complete_callback=on_complete)
-                                stream = yt.streams.filter(only_audio=True, file_extension='mp4').first()
-                                file_path = stream.download('Audios/')
-                                await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id)
-                        else:
-                            print("Skipping video without a valid video ID")
-
-                await app.delete_messages(chat_id, downloading.id)
-                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['completed'])
-
-            except Exception as e:
-                print(f"An error occurred while downloading playlist: {e}")
-                await app.delete_messages(chat_id, downloading.id)
-                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlist_download'])
         case 'buy':
             try:
                 buy=callback_data[1]

@@ -108,11 +108,6 @@ async def send_video_info(client, chat_id, id, user):
                 caption=caption.replace('DESC','')
 
             msg=await client.send_photo(photo=yt.thumbnail_url, caption=caption, chat_id=chat_id, reply_markup=reply_markup)
-            with open(f'{chat_id}.pkl', 'wb') as file:
-                data={
-                    'id': msg.id
-                }
-                pickle.dump(data, file)
 
             
             

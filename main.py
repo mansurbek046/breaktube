@@ -64,8 +64,10 @@ async def welcome(client, message):
 
 @app.on_message(filters.command('menu'))
 async def menu(client, message):
+    user = User.select().where(User.id == from_user.id).first()
+    await message.delete()
+    lang = user.lang
     try:
-        lang = message.from_user.language_code
         reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
