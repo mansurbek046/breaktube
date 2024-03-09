@@ -64,7 +64,7 @@ async def welcome(client, message):
 
 @app.on_message(filters.command('menu'))
 async def menu(client, message):
-    user = User.select().where(User.id == from_user.id).first()
+    user = User.select().where(User.id == message.from_user.id).first()
     await message.delete()
     lang = user.lang
     try:
