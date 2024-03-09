@@ -1,12 +1,13 @@
 from peewee import *
 import psycopg2
 import json
-from credentials import dbname, dbuser, dbhost, dbpassword
+from credentials import dbname, dbuser, dbhost, dbport, dbpassword
 
 db=PostgresqlDatabase(
     dbname,
     user=dbuser,
     host=dbhost,
+    port=dbport,
     password=dbpassword
 )
 
