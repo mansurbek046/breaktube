@@ -77,12 +77,13 @@ async def download_video(video_url, callback_data, stream_resolution, stream_typ
                           "-c:v", "copy",
                           "-c:a", "aac",
                           merged_file_path]
-            # Run the ffmpeg command with suppressed output
-            subprocess.run(ffmpeg_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            # subprocess.run(ffmpeg_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            subprocess.run(ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
         else:
             ffmpeg_cmd = ["ffmpeg", "-i", file_path, "-i", new_audio_file_path, "-c", "copy", merged_file_path]
-            subprocess.run(ffmpeg_cmd)
+            # subprocess.run(ffmpeg_cmd)
+            subprocess.run(ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
         upload=await uploader.upload_to_telegram(
         app, 
@@ -199,6 +200,10 @@ async def event_controller(client, callback_query, app):
                 chat_id=callback_query.message.chat.id
                 stream_type=callback_data[2]
                 stream_resolution=callback_data[3]
+                huge=callback_data[4]
+                if huge:
+                    await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['huge']) 
+                    return None
                 user = User.get(id=callback_query.from_user.id)
                 if int(stream_resolution.split('p')[0])<1080 or user.premium:
                     matching_records = Video.select().where((Video.youtube_id == callback_data[1]) & (Video.resolution == stream_resolution))
@@ -221,7 +226,7 @@ async def event_controller(client, callback_query, app):
                         error_video_url=video_url+callback_data[1]
                         downloading=await client.send_message(chat_id=chat_id, text=user_language['downloading'])
 
-                        asyncio.create_task(download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading))
+                        await asyncio.create_task(download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading))
 
                         # yt=YouTube(video_url+callback_data[1], on_complete_callback=on_complete)
                         # stream=yt.streams.filter(res=stream_resolution, file_extension=stream_type).first()
@@ -490,10 +495,4 @@ async def event_controller(client, callback_query, app):
 
             except Exception as e:
                 print(f"An error occurred in day_premium command: {e}")
-
-
-
-
-
-
 

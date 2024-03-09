@@ -9,6 +9,7 @@ import pickle
 import datetime
 import json
 from credentials import telegraph_access_token
+import math
 
 telegraph=Telegraph(telegraph_access_token)
 
@@ -42,17 +43,25 @@ async def send_video_info(client, chat_id, id, user):
             unique_video_formats = set()
             
             for stream in video_streams:
+                filesize=convert_bytes(stream.filesize)
+                video_mark_mpf='📹'
+                video_mark_webm='🎞'
+                huge=False
+                
+                if 'GB' in filesize and math.ceil(float(filesize.split('G')[0]))>2:
+                    video_mark_webm=video_mark_mpf='💔'
+                    huge=True
                 if (stream.mime_type.startswith('video/mp4') or stream.mime_type.startswith('video/webm')) and (stream.mime_type + stream.resolution) in unique_video_formats:
                     continue
                 elif stream.mime_type.startswith('video/mp4'):
                     unique_video_formats.add(stream.mime_type + stream.resolution)
                     mpf_buttons.append(
-                        InlineKeyboardButton(f'📹 {stream.resolution} {convert_bytes(stream.filesize)}', callback_data=f'video:{id}:mp4:{stream.resolution}')
+                        InlineKeyboardButton(f'{video_mark_mpf} {stream.resolution} {filesize}', callback_data=f'video:{id}:mp4:{stream.resolution}:{huge}')
                     )
                 elif stream.mime_type.startswith('video/webm'):
                     unique_video_formats.add(stream.mime_type + stream.resolution)
                     webm_buttons.append(
-                        InlineKeyboardButton(f'🎞 {stream.resolution} {convert_bytes(stream.filesize)}', callback_data=f'video:{id}:webm:{stream.resolution}')
+                        InlineKeyboardButton(f'{video_mark_webm} {stream.resolution} {filesize}', callback_data=f'video:{id}:webm:{stream.resolution}:{huge}')
                     )
             chunk_size=2
             if len(mpf_buttons) and len(webm_buttons):

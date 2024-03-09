@@ -48,7 +48,8 @@
         "one_proposal": "🤗 Sizning taklif havolangiz orqali yangi foydalanuvchi qo'shildi!\n✅ Premium olinishi mumkin bo'lgan takliflar soni: {} ta",
         "channel": "🗣 Kanal",
         "playlist": "🎞 Pleylist",
-        "video": "📹 Video"
+        "video": "📹 Video",
+        "huge": "🫢Voy..! Ushbu sifat yuklab olishim mumkin emas. \n🐘Hajmi juda katta, chegarasi: 2GB"
     },
     "en": {
         "wel":"Hi, welcome!",
@@ -99,7 +100,8 @@
         "one_proposal": "🤗 Welcome new user by your invite link!\n✅ Your proposals to get Premium: {}",
         "channel": "🗣 Channel",
         "playlist": "🎞 Playlist",
-        "video": "📹 Video"
+        "video": "📹 Video",
+        "huge": "🫢 Oops..! I can't download in this quality. \n🐘 Size is very huge, limit: 2GB"
     },
     "ru": {
         "wel": "Привет, добро пожаловать!",
@@ -150,7 +152,8 @@
         "one_proposal": "🤗 Приветствуйте нового пользова теля по вашей ссылке для приглашения! \n✅ Ваши предложения для получения Премиума: {}",
         "channel": "🗣 Канал",
         "playlist": "🎞 Плейлист",
-        "video": "📹 Видео"
+        "video": "📹 Видео",
+        "huge": "🫢 Упс..! Я не могу загрузить этого качества. \n🐘 Размер слишком большой, мой лимит 2 ГБ"
     },
     "fr": {
         "wel": "Salut, bienvenue !",
@@ -201,7 +204,8 @@
         "one_proposal": "🤗 Accueillez un nouvel utilisateur avec votre lien d'invitation ! \n✅ Vos propositions pour obtenir Premium : {}",
         "channel": "🗣 Chaîne",
         "playlist": "🎞 Playlist",
-        "video": "📹 Vidéo"
+        "video": "📹 Vidéo",
+        "huge": "🫢 Oups..! Je ne peux pas télécharger dans cette qualité. \n🐘 La taille est trop grande, ma limite est de 2 Go"
     },
     "id": {
         "wel": "Hai, selamat datang!",
@@ -252,7 +256,8 @@
         "one_proposal": "🤗 Selamat datang pengguna baru dengan tautan undangan Anda!\n✅ Usulan Anda untuk mendapatkan Premium: {}",
         "channel": "🗣 Saluran",
         "playlist": "🎞 Playlist",
-        "video": "📹 Video"
+        "video": "📹 Video",
+        "huge": "🫢 Ups..! Saya tidak bisa mengunduh dalam kualitas ini. \n🐘 Ukurannya terlalu besar, batas saya 2GB"
     },
     "pt": {
         "wel": "Olá, bem-vindo!",
@@ -303,7 +308,8 @@
         "one_proposal": "🤗 Dê as boas-vindas a novos usuários com seu link de convite!\n✅ Suas propostas para obter Premium: {}",
         "channel": "🗣 Canal",
         "playlist": "🎞 Playlist",
-        "video": "📹 Vídeo"
+        "video": "📹 Vídeo",
+        "huge": "🫢 Ops..! Não consigo baixar nessa qualidade. \n🐘 O tamanho é muito grande, meu limite é de 2GB"
     },
     "ir": {
         "wel": "سلام، خوش آمدید!",
@@ -354,7 +360,8 @@
         "one_proposal": "🤗 به کاربر جدید خوش آمدید کنید از طریق لینک دعوت خود!\n✅ پیشنهادات شما برای گرفتن پرمیوم: {}",
         "channel": "🗣 کانال",
         "playlist": "🎞 پلی‌لیست",
-        "video": "📹 ویدیو"
+        "video": "📹 ویدیو",
+        "huge": "🫢 اوه..! نمی‌توانم با این کیفیت دانلود کنم. \n🐘 اندازه خیلی بزرگ است، محدودیت من 2 گیگابایت است"
     },
     "kz": {
         "wel": "Сәлеметсіз бе, қош келдіңіз!",
@@ -405,7 +412,8 @@
         "one_proposal": "🤗 Жаңа пайдаланушыны сайлау. Сіздің Премиум алу үшін ұсынысыңыз: {}",
         "channel": "🗣 Канал",
         "playlist": "🎞 Плейлист",
-        "video": "📹 Видео"
+        "video": "📹 Видео",
+        "huge": "🫢 Ой..! Мен осы сапта жүктей алмаймын. \n🐘 Өлшемі үлкен, шектеуім 2 ГБ"
     },
     "my": {
         "wel": "Hi, selamat datang!",
@@ -456,7 +464,8 @@
         "one_proposal": "🤗 Selamat datang pengguna baru dengan pautan jemputan anda!\n✅ Cadangan anda untuk mendapatkan Premium: {}",
         "channel": "🗣 Saluran",
         "playlist": "🎞 Senarai main",
-        "video": "📹 Video"
+        "video": "📹 Video",
+        "huge": "🫢 Ups..! Saya tidak boleh muat turun dalam kualiti ini. \n🐘 Saiz terlalu besar, had saya ialah 2GB"
     },
     "it": {
         "wel": "Ciao, benvenuto!",
@@ -507,7 +516,8 @@
         "one_proposal": "🤗 Benvenuto nuovo utente con il tuo link di invito!\n✅ Le tue proposte per ottenere Premium: {}",
         "channel": "🗣 Canale",
         "playlist": "🎞 Playlist",
-        "video": "📹 Video"
+        "video": "📹 Video",
+        "huge": "🫢 Ops..! Non posso scaricare in questa qualità. \n🐘 La dimensione è troppo grande, il mio limite è di 2GB"
     },
     "es": {
         "wel": "¡Hola, bienvenido!",
@@ -558,7 +568,8 @@
         "one_proposal": "🤗 ¡Bienvenido nuevo usuario con tu enlace de invitación!\n✅ Tus propuestas para obtener Premium: {}",
         "channel": "🗣 Canal",
         "playlist": "🎞 Lista de reproducción",
-        "video": "📹 Video"
+        "video": "📹 Video",
+        "huge": "🫢 ¡Ups..! No puedo descargar en esta calidad. \n🐘 El tamaño es demasiado grande, mi límite es de 2GB"
     },
     "sa": {
         "wel": "مرحبًا ، مرحباً!",
@@ -609,7 +620,8 @@
         "one_proposal": "🤗 مرحبًا بالمستخدم الجديد من خلال رابط الدعوة الخاص بك!\n✅ اقتراحاتك للحصول على VIP: {}",
         "channel": "🗣 قناة",
         "playlist": "🎞 قائمة التشغيل",
-        "video": "📹 فيديو"
+        "video": "📹 فيديو",
+        "huge": "🫢 أوه..! لا أستطيع تحميل بجودة عالية. \n🐘 الحجم كبير جدًا، حدودي 2 جيجابايت"
     },
     "ua": {
         "wel": "Привіт, ласкаво просимо!",
@@ -660,7 +672,8 @@
         "one_proposal": "🤗 Вітаємо нового користувача за вашим запрошеним посиланням!\n✅ Ваші пропозиції для отримання Преміуму: {}",
         "channel": "🗣 Канал",
         "playlist": "🎞 Плейлист",
-        "video": "📹 Відео"
+        "video": "📹 Відео",
+        "huge": "🫢 Ой..! Я не можу завантажити в цій якості. \n🐘 Розмір занадто великий, мій ліміт - 2 ГБ"
     },
     "de": {
         "wel": "Hallo, willkommen!",
@@ -711,6 +724,7 @@
         "one_proposal": "🤗 Begrüße neue Benutzer über deinen Einladungslink!\n✅ Deine Vorschläge für Premium: {}",
         "channel": "🗣 Kanal",
         "playlist": "🎞 Wiedergabeliste",
-        "video": "📹 Video"
+        "video": "📹 Video",
+        "huge": "🫢 Hoppla..! In dieser Qualität kann ich nicht herunterladen. \n🐘 Die Größe ist zu groß, mein Limit beträgt 2GB"
     }
 }
