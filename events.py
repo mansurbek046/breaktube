@@ -201,7 +201,7 @@ async def event_controller(client, callback_query, app):
                 stream_type=callback_data[2]
                 stream_resolution=callback_data[3]
                 huge=callback_data[4]
-                if huge:
+                if huge=="true":
                     await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['huge']) 
                     return None
                 user = User.get(id=callback_query.from_user.id)

@@ -46,11 +46,11 @@ async def send_video_info(client, chat_id, id, user):
                 filesize=convert_bytes(stream.filesize)
                 video_mark_mpf='📹'
                 video_mark_webm='🎞'
-                huge=False
+                huge='false'
                 
                 if 'GB' in filesize and math.ceil(float(filesize.split('G')[0]))>2:
                     video_mark_webm=video_mark_mpf='💔'
-                    huge=True
+                    huge='true'
                 if (stream.mime_type.startswith('video/mp4') or stream.mime_type.startswith('video/webm')) and (stream.mime_type + stream.resolution) in unique_video_formats:
                     continue
                 elif stream.mime_type.startswith('video/mp4'):
