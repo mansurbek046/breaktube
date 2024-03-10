@@ -130,7 +130,7 @@ async def download_playlist_video(video, user_language, callback_query, app, CHA
 
             chat_id=callback_query.message.chat.id
 
-            upload=await uploader.upload_to_telegram(
+            await uploader.upload_to_telegram(
                 app,
                 file_path,
                 'video',
@@ -354,21 +354,13 @@ async def event_controller(client, callback_query, app):
                     # for video in playlist.videos:
                         # await asyncio.create_task(download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader))
 
-
-                # List to store all asynchronous tasks
-                download_tasks = []
-
-                # Creating tasks for downloading playlist videos or audios concurrently
                 if callback_data[1] == "mp4":
-                    for video in playlist.videos:
-                        download_tasks.append(asyncio.create_task(download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader)))
+                    download_tasks=[download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader) for video in playlist.videos]
+                    await asyncio.gather(*download_tasks)
 
                 elif callback_data[1] == "mp3":
-                    for video in playlist.videos:
-                        download_tasks.append(asyncio.create_task(download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)))
-
-                # Running all tasks concurrently and waiting for them to complete
-                await asyncio.gather(*download_tasks)
+                    download_tasks=[download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader) for video in playlist.videos]
+                    await asyncio.gather(*download_tasks)
 
                 await app.delete_messages(chat_id, downloading.id)
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['completed'])
