@@ -1,4 +1,5 @@
 import asyncio
+import subprocess
 from googleapiclient.discovery import build
 from urllib.parse import urlparse, parse_qs
 from pyrogram import Client, filters
@@ -24,7 +25,6 @@ def channel_updates(client, user_id, chat_id):
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         loop.run_until_complete(YtUpdate(client, user_id, chat_id))
-
 
 @app.on_message(filters.command('start'))
 async def welcome(client, message):
@@ -114,6 +114,28 @@ async def set_lang(client, message):
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.delete()
     await client.send_message(text=languages[user.lang]['lang'], chat_id=message.chat.id, reply_markup=reply_markup)
+
+@app.on_message(filters.command('logs'))
+async def logs(client, message):
+    await message.delete()
+    text='No logs..'
+
+    command = ['sudo', 'journalctl', '-u', 'telegram-bot.service']
+
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output, error = process.communicate()
+
+    if output:
+        text = output.decode('utf-8')
+    if error:
+        text = error.decode('utf-8')
+    
+    sent=await client.send_message(chat_id='-1002092731391', text=text)
+    if sent:
+        command_rotate = ['sudo', 'journalctl', '--rotate']
+        command_vacuum = ['sudo', 'journalctl', '--vacuum-time=1s']
+        subprocess.Popen(command_rotate)
+        subprocess.Popen(command_vacuum)
 
 @app.on_message(filters.command('subs'))
 async def get_subs(client, message):
@@ -265,7 +287,6 @@ async def handle_inline_query(client, inline_query):
                 ))
     
     await inline_query.answer(results)
-
 
 
 if __name__ == '__main__':

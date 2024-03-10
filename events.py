@@ -271,12 +271,10 @@ async def event_controller(client, callback_query, app):
                     if matching_records.exists():
                         await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)))
                         await callback_query.message.delete()
-                        os.remove(f'{chat_id}.pkl')
                         os.remove(f'{chat_id}_back_keyboard.pkl')
                         
                     else:
                         await callback_query.message.delete()
-                        os.remove(f'{chat_id}.pkl')
                         os.remove(f'{chat_id}_back_keyboard.pkl')
                         error_video_url=video_url+callback_data[1]
                         downloading=await client.send_message(chat_id=chat_id, text=user_language['downloading'])
