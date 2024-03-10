@@ -1,0 +1,6 @@
+Mar 10 04:07:33 ip-172-31-43-157 systemd[1]: Started Telegram Bot Service.
+Mar 10 04:13:03 ip-172-31-43-157 systemd[1]: Stopping Telegram Bot Service...
+Mar 10 04:13:08 ip-172-31-43-157 python[52424]: An error occurred while downloading playlist: [Errno 2] No such file or directory: 'https://i.ytimg.com/vi/W0jA0RzCW4E/sddefault.jpg'
+Mar 10 04:13:08 ip-172-31-43-157 systemd[1]: telegram-bot.service: Deactivated successfully.
+Mar 10 04:13:08 ip-172-31-43-157 systemd[1]: Stopped Telegram Bot Service.
+Mar 10 04:13:08 ip-172-31-43-157 systemd[1]: telegram-bot.service: Consumed 12.369s CPU time.
