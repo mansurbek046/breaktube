@@ -1,0 +1,130 @@
+Mar 10 04:07:33 ip-172-31-43-157 systemd[1]: Started Telegram Bot Service.
+Mar 10 04:13:03 ip-172-31-43-157 systemd[1]: Stopping Telegram Bot Service...
+Mar 10 04:13:08 ip-172-31-43-157 python[52424]: An error occurred while downloading playlist: [Errno 2] No such file or directory: 'https://i.ytimg.com/vi/W0jA0RzCW4E/sddefault.jpg'
+Mar 10 04:13:08 ip-172-31-43-157 systemd[1]: telegram-bot.service: Deactivated successfully.
+Mar 10 04:13:08 ip-172-31-43-157 systemd[1]: Stopped Telegram Bot Service.
+Mar 10 04:13:08 ip-172-31-43-157 systemd[1]: telegram-bot.service: Consumed 12.369s CPU time.
+Mar 10 05:10:23 ip-172-31-43-157 systemd[1]: Started Telegram Bot Service.
+Mar 10 05:17:46 ip-172-31-43-157 systemd[1]: Stopping Telegram Bot Service...
+Mar 10 05:17:48 ip-172-31-43-157 python[53934]: An error occurred while downloading video: [Errno 2] No such file or directory: '6045995371.pkl'
+Mar 10 05:17:48 ip-172-31-43-157 python[53934]: An error occurred while downloading video: [Errno 2] No such file or directory: '6045995371.pkl'
+Mar 10 05:17:48 ip-172-31-43-157 python[53934]: An error occurred while downloading playlist: name 'thumbnail_url' is not defined
+Mar 10 05:17:48 ip-172-31-43-157 python[53934]: An error occurred while downloading playlist: name 'thumbnail_url' is not defined
+Mar 10 05:17:48 ip-172-31-43-157 systemd[1]: telegram-bot.service: Deactivated successfully.
+Mar 10 05:17:48 ip-172-31-43-157 systemd[1]: Stopped Telegram Bot Service.
+Mar 10 05:17:48 ip-172-31-43-157 systemd[1]: telegram-bot.service: Consumed 20.407s CPU time.
+Mar 10 06:43:32 ip-172-31-43-157 systemd[1]: Started Telegram Bot Service.
+Mar 10 06:43:43 ip-172-31-43-157 sudo[55835]:     root : PWD=/home/ubuntu/breaktube ; USER=root ; COMMAND=/usr/bin/journalctl -u telegram-bot.service
+Mar 10 06:43:43 ip-172-31-43-157 sudo[55835]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=0)
+Mar 10 06:43:43 ip-172-31-43-157 sudo[55835]: pam_unix(sudo:session): session closed for user root
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]: Telegram says: [400 PEER_ID_INVALID] - The peer id being used is invalid or not known yet. Make sure you meet the peer before interacting with it
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]: Traceback (most recent call last):
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 62, in resolve_peer
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:     return await self.storage.get_peer_by_id(peer_id)
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/storage/sqlite_storage.py", line 142, in get_peer_by_id
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:     raise KeyError(f"ID not found: {peer_id}")
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]: KeyError: 'ID not found: -1002092731391'
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]: During handling of the above exception, another exception occurred:
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]: Traceback (most recent call last):
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 85, in resolve_peer
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:     return await self.storage.get_peer_by_phone_number(peer_id)
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/storage/sqlite_storage.py", line 168, in get_peer_by_phone_number
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:     raise KeyError(f"Phone number not found: {phone_number}")
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]: KeyError: 'Phone number not found: -1002092731391'
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]: During handling of the above exception, another exception occurred:
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]: Traceback (most recent call last):
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:     await handler.callback(self.client, *args)
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/main.py", line 133, in logs
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:     sent=await client.send_message(chat_id='-1002092731391', text=text)
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/messages/send_message.py", line 128, in send_message
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:     peer=await self.resolve_peer(chat_id),
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 87, in resolve_peer
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]:     raise PeerIdInvalid
+Mar 10 06:43:43 ip-172-31-43-157 python[55830]: pyrogram.errors.exceptions.bad_request_400.PeerIdInvalid: Telegram says: [400 PEER_ID_INVALID] - The peer id being used is invalid or not known yet. Make sure you meet the peer before interacting with it
+Mar 10 06:43:56 ip-172-31-43-157 sudo[55839]:     root : PWD=/home/ubuntu/breaktube ; USER=root ; COMMAND=/usr/bin/journalctl -u telegram-bot.service
+Mar 10 06:43:56 ip-172-31-43-157 sudo[55839]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=0)
+Mar 10 06:43:56 ip-172-31-43-157 sudo[55839]: pam_unix(sudo:session): session closed for user root
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]: Telegram says: [400 PEER_ID_INVALID] - The peer id being used is invalid or not known yet. Make sure you meet the peer before interacting with it
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]: Traceback (most recent call last):
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 62, in resolve_peer
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:     return await self.storage.get_peer_by_id(peer_id)
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/storage/sqlite_storage.py", line 142, in get_peer_by_id
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:     raise KeyError(f"ID not found: {peer_id}")
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]: KeyError: 'ID not found: -1002092731391'
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]: During handling of the above exception, another exception occurred:
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]: Traceback (most recent call last):
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 85, in resolve_peer
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:     return await self.storage.get_peer_by_phone_number(peer_id)
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/storage/sqlite_storage.py", line 168, in get_peer_by_phone_number
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:     raise KeyError(f"Phone number not found: {phone_number}")
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]: KeyError: 'Phone number not found: -1002092731391'
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]: During handling of the above exception, another exception occurred:
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]: Traceback (most recent call last):
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:     await handler.callback(self.client, *args)
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/main.py", line 133, in logs
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:     sent=await client.send_message(chat_id='-1002092731391', text=text)
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/messages/send_message.py", line 128, in send_message
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:     peer=await self.resolve_peer(chat_id),
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 87, in resolve_peer
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]:     raise PeerIdInvalid
+Mar 10 06:43:56 ip-172-31-43-157 python[55830]: pyrogram.errors.exceptions.bad_request_400.PeerIdInvalid: Telegram says: [400 PEER_ID_INVALID] - The peer id being used is invalid or not known yet. Make sure you meet the peer before interacting with it
+Mar 10 06:49:09 ip-172-31-43-157 systemd[1]: Stopping Telegram Bot Service...
+Mar 10 06:49:10 ip-172-31-43-157 systemd[1]: telegram-bot.service: Deactivated successfully.
+Mar 10 06:49:10 ip-172-31-43-157 systemd[1]: Stopped Telegram Bot Service.
+Mar 10 06:49:10 ip-172-31-43-157 systemd[1]: telegram-bot.service: Consumed 1.985s CPU time.
+Mar 10 06:49:17 ip-172-31-43-157 systemd[1]: Started Telegram Bot Service.
+Mar 10 06:49:26 ip-172-31-43-157 sudo[55898]:     root : PWD=/home/ubuntu/breaktube ; USER=root ; COMMAND=/usr/bin/journalctl -u telegram-bot.service
+Mar 10 06:49:26 ip-172-31-43-157 sudo[55898]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=0)
+Mar 10 06:49:26 ip-172-31-43-157 sudo[55898]: pam_unix(sudo:session): session closed for user root
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]: Telegram says: [400 PEER_ID_INVALID] - The peer id being used is invalid or not known yet. Make sure you meet the peer before interacting with it
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]: Traceback (most recent call last):
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 62, in resolve_peer
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:     return await self.storage.get_peer_by_id(peer_id)
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/storage/sqlite_storage.py", line 142, in get_peer_by_id
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:     raise KeyError(f"ID not found: {peer_id}")
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]: KeyError: 'ID not found: -1002092731391'
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]: During handling of the above exception, another exception occurred:
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]: Traceback (most recent call last):
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 85, in resolve_peer
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:     return await self.storage.get_peer_by_phone_number(peer_id)
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/storage/sqlite_storage.py", line 168, in get_peer_by_phone_number
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:     raise KeyError(f"Phone number not found: {phone_number}")
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]: KeyError: 'Phone number not found: -1002092731391'
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]: During handling of the above exception, another exception occurred:
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]: Traceback (most recent call last):
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:     await handler.callback(self.client, *args)
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:   File "/home/ubuntu/breaktube/main.py", line 133, in logs
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:     sent=await app.send_message(chat_id='-1002092731391', text=text)
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/messages/send_message.py", line 128, in send_message
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:     peer=await self.resolve_peer(chat_id),
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 87, in resolve_peer
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]:     raise PeerIdInvalid
+Mar 10 06:49:26 ip-172-31-43-157 python[55893]: pyrogram.errors.exceptions.bad_request_400.PeerIdInvalid: Telegram says: [400 PEER_ID_INVALID] - The peer id being used is invalid or not known yet. Make sure you meet the peer before interacting with it
+Mar 10 06:53:02 ip-172-31-43-157 python[55893]: Unable to connect due to network issues: Connection timed out
+Mar 10 07:02:15 ip-172-31-43-157 systemd[1]: Stopping Telegram Bot Service...
+Mar 10 07:02:18 ip-172-31-43-157 systemd[1]: telegram-bot.service: Deactivated successfully.
+Mar 10 07:02:18 ip-172-31-43-157 systemd[1]: Stopped Telegram Bot Service.
+Mar 10 07:02:18 ip-172-31-43-157 systemd[1]: telegram-bot.service: Consumed 18.216s CPU time.
+Mar 10 07:02:38 ip-172-31-43-157 systemd[1]: Started Telegram Bot Service.
+Mar 10 07:02:56 ip-172-31-43-157 sudo[56385]:     root : PWD=/home/ubuntu/breaktube ; USER=root ; COMMAND=/usr/bin/journalctl -u telegram-bot.service
+Mar 10 07:02:56 ip-172-31-43-157 sudo[56385]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=0)
+Mar 10 07:02:56 ip-172-31-43-157 sudo[56385]: pam_unix(sudo:session): session closed for user root
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]: Error binding parameter 0 - probably unsupported type.
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]: Traceback (most recent call last):
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/dispatcher.py", line 240, in handler_worker
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:     await handler.callback(self.client, *args)
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:   File "/home/ubuntu/breaktube/main.py", line 133, in logs
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:     sent=await client.send_message(client.resolve_peer(2092731391), text=text)
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/messages/send_message.py", line 128, in send_message
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:     peer=await self.resolve_peer(chat_id),
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/methods/advanced/resolve_peer.py", line 62, in resolve_peer
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:     return await self.storage.get_peer_by_id(peer_id)
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:   File "/home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/storage/sqlite_storage.py", line 136, in get_peer_by_id
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:     r = self.conn.execute(
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]: sqlite3.InterfaceError: Error binding parameter 0 - probably unsupported type.
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]: /home/ubuntu/breaktube/venv/lib/python3.10/site-packages/pyrogram/dispatcher.py:253: RuntimeWarning: coroutine 'ResolvePeer.resolve_peer' was never awaited
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]:   log.exception(e)
+Mar 10 07:02:56 ip-172-31-43-157 python[56380]: RuntimeWarning: Enable tracemalloc to get the object allocation traceback
