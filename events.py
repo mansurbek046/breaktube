@@ -101,6 +101,7 @@ async def download_video(video_url, callback_data, stream_resolution, stream_typ
             os.remove(new_audio_file_path)
 
 async def download_video_async(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading):
+    loop = asyncio.get_event_loop()
     with ThreadPoolExecutor() as executor:
         await loop.run_in_executor(executor, download_video, video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading)
 
