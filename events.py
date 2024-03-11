@@ -58,7 +58,7 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
         new_audio_file_path = os.path.splitext(audio_file_path)[0] + ".mp3"
         os.rename(audio_file_path, new_audio_file_path)
 
-        splitted_file_name=file_path.split("/")[-1]
+        splitted_file_name=file_path.split("Videos/")[-1]
         merged_file_path="Merged/"+splitted_file_name
 
         if splitted_file_name.split('.')[-1]=="webm":
@@ -76,11 +76,8 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
             ffmpeg_cmd = ["ffmpeg", "-i", file_path, "-i", new_audio_file_path, "-c", "copy", merged_file_path]
             # subprocess.run(ffmpeg_cmd)
             subprocess.run(ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
-
         return [merged_file_path, yt.thumbnail_url, caption]
-        if upload:
-            os.remove(file_path)
-            os.remove(new_audio_file_path)
+
 
 async def download_video_async(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading):
     loop = asyncio.get_event_loop()
@@ -96,7 +93,10 @@ async def download_video_async(video_url, callback_data, stream_resolution, stre
             caption,
             downloading.id,
             thumbnail_file_path=thumbnail_url)
-
+        if upload:
+            os.remove(file_path)
+            os.remove(new_audio_file_path)
+        
 
 
 def download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader):
@@ -123,7 +123,6 @@ def download_playlist_video(video, user_language, callback_query, app, CHANNEL_I
         else:
             caption=caption.replace('DESC','')
 
-        chat_id=callback_query.message.chat.id
         return [file_path, video.thumbnail_url, caption]
 
             
@@ -148,7 +147,7 @@ async def download_playlist_video_async(video, user_language, callback_query, ap
 
 
 def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
-    audio_download_url = f'https://www.youtube.com/watch?v={video_id}'
+    audio_download_url = f'https://www.youtube.com/watch?v={video.video_id}'
     yt = YouTube(audio_download_url, on_complete_callback=on_complete)
     stream = yt.streams.filter(only_audio=True, file_extension='mp4').first()
     file_path = stream.download('Audios/')
@@ -165,7 +164,7 @@ async def download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_comp
             loop = asyncio.get_event_loop()
             with ThreadPoolExecutor() as executor:
                 file_path=await loop.run_in_executor(executor, download_playlist_audio, video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
-                await uploader.upload_to_telegram(app, file_path, 'audio', video.id, callback_query.message.chat.id)
+                await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id)
 
 
 
