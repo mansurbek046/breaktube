@@ -27,7 +27,7 @@ with open('languages.json') as lang:
 def on_complete(stream, file_path):
     return file_path
 
-async def download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading):
+def download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading):
     yt=YouTube(video_url+callback_data[1], on_complete_callback=on_complete)
     stream=yt.streams.filter(res=stream_resolution, file_extension=stream_type).first()
     file_path=stream.download('Videos/')
@@ -61,7 +61,7 @@ async def download_video(video_url, callback_data, stream_resolution, stream_typ
         # caption,
         # downloading.id,
         # thumbnail_file_path=yt.thumbnail_url)
-        return file_path, yt.thumbnail_url
+        return [file_path, yt.thumbnail_url]
     else:
         audio_stream=yt.streams.filter(only_audio=True).first()
         audio_file_path=audio_stream.download('Audios/')
@@ -97,7 +97,7 @@ async def download_video(video_url, callback_data, stream_resolution, stream_typ
         # caption,
         # downloading.id,
         # thumbnail_file_path=yt.thumbnail_url)
-        return merged_file_path, yt.thumbnail_url
+        return [merged_file_path, yt.thumbnail_url]
         if upload:
             os.remove(file_path)
             os.remove(new_audio_file_path)
