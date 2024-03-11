@@ -61,7 +61,7 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
         # caption,
         # downloading.id,
         # thumbnail_file_path=yt.thumbnail_url)
-        return [file_path, yt.thumbnail_url]
+        return [file_path, yt.thumbnail_url, caption]
     else:
         audio_stream=yt.streams.filter(only_audio=True).first()
         audio_file_path=audio_stream.download('Audios/')
@@ -97,7 +97,7 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
         # caption,
         # downloading.id,
         # thumbnail_file_path=yt.thumbnail_url)
-        return [merged_file_path, yt.thumbnail_url]
+        return [merged_file_path, yt.thumbnail_url, caption]
         if upload:
             os.remove(file_path)
             os.remove(new_audio_file_path)
@@ -105,7 +105,7 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
 async def download_video_async(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading):
     loop = asyncio.get_event_loop()
     with ThreadPoolExecutor() as executor:
-        file_path, thumbnail_url=await loop.run_in_executor(executor, download_video, video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading)
+        file_path, thumbnail_url, caption=await loop.run_in_executor(executor, download_video, video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading)
         upload=await uploader.upload_to_telegram(
             app, 
             file_path, 
@@ -321,7 +321,7 @@ async def event_controller(client, callback_query, app):
 
             except Exception as e:
                 print(f"An error occurred while downloading video: {e}")
-                await app.delete_messages(callback_query.message.chat.id, downloading_id)
+                await app.delete_messages(callback_query.message.chat.id, downloading.id)
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_video'].format(error_video_url))
 
         case 'subscribe':
