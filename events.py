@@ -155,7 +155,7 @@ async def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, 
             file_path = stream.download('Audios/')
             await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id)
 
-async def download_playlist(video, user_language, callback_query, app, CHANNEL_ID, uploader, playlist):
+async def download_playlist(user_language, callback_query, app, CHANNEL_ID, uploader, playlist):
     if callback_data[1] == "mp4":
         download_tasks=[download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader) for video in playlist.videos]
         await asyncio.gather(*download_tasks)
@@ -352,7 +352,7 @@ async def event_controller(client, callback_query, app):
                     return None
                 await callback_query.message.delete()
                 downloading=await client.send_message(chat_id=chat_id, text=user_language['pl_downloading'])
-                await download_playlist(video, user_language, callback_query, app, CHANNEL_ID, uploader, playlist)
+                await download_playlist(user_language, callback_query, app, CHANNEL_ID, uploader, playlist)
 
                 # if callback_data[1]=="mp4":
                     # for video in playlist.videos:
