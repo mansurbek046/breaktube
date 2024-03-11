@@ -343,16 +343,16 @@ async def event_controller(client, callback_query, app):
 
         case 'playlist':
             # Downloading playlist
-            try:
-                playlist_url='https://youtube.com/playlist?list='
-                playlist = Playlist(playlist_url+callback_data[2])
-                chat_id=callback_query.message.chat.id
-                if user.premium is None:
-                    await client.send_message(chat_id=chat_id, text=user_language['pl_buy_premium'])
-                    return None
-                await callback_query.message.delete()
-                downloading=await client.send_message(chat_id=chat_id, text=user_language['pl_downloading'])
-                await download_playlist(user_language, callback_query, app, CHANNEL_ID, uploader, playlist)
+            # try:
+            playlist_url='https://youtube.com/playlist?list='
+            playlist = Playlist(playlist_url+callback_data[2])
+            chat_id=callback_query.message.chat.id
+            if user.premium is None:
+                await client.send_message(chat_id=chat_id, text=user_language['pl_buy_premium'])
+                return None
+            await callback_query.message.delete()
+            downloading=await client.send_message(chat_id=chat_id, text=user_language['pl_downloading'])
+            await download_playlist(user_language, callback_query, app, CHANNEL_ID, uploader, playlist)
 
                 # if callback_data[1]=="mp4":
                     # for video in playlist.videos:
@@ -364,10 +364,10 @@ async def event_controller(client, callback_query, app):
                 await app.delete_messages(chat_id, downloading.id)
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['completed'])
 
-            except Exception as e:
-                print(f"An error occurred while downloading playlist: {e}")
-                await app.delete_messages(chat_id, downloading.id)
-                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlist_download'])
+            # except Exception as e:
+                # print(f"An error occurred while downloading playlist: {e}")
+                # await app.delete_messages(chat_id, downloading.id)
+                # await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlist_download'])
 
         case 'buy':
             try:
