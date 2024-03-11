@@ -124,7 +124,7 @@ def download_playlist_video(video, user_language, callback_query, app, CHANNEL_I
             caption=caption.replace('DESC','')
 
         chat_id=callback_query.message.chat.id
-        return [file_path, stream.thumbnail_url, caption]
+        return [file_path, video.thumbnail_url, caption]
 
             
 async def download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader):
