@@ -28,7 +28,6 @@ def channel_updates(client, user_id, chat_id):
 
 @app.on_message(filters.command('start'))
 async def welcome(client, message):
-    print(message)
     from_user = message.from_user
     user = User.select().where(User.id == from_user.id).first()
     language_code = from_user.language_code if from_user.language_code in list(languages.keys()) else 'uz'
@@ -131,7 +130,7 @@ async def logs(client, message):
     if error:
         text = error.decode('utf-8')
 
-    peer_id=await client.resolve_peer(2092731391)
+    peer_id=await client.resolve_peer('-1002092731391')
     sent=await client.send_message(peer_id, text=text)
 
     if sent:
