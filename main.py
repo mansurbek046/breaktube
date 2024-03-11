@@ -129,9 +129,15 @@ async def logs(client, message):
         text = output.decode('utf-8')
     if error:
         text = error.decode('utf-8')
+    if len(text)>4090:
+        for chunk in [text[i:i+4096] for i in range(0, len(text), 4096)]:
+            await client.send_message(-1002092731391, text=chunk)
+    else:
+        await client.send_message(-1002092731391, text=text)
 
-    sent=await client.send_message(-1002092731391, text=text)
-    clear_logs = ['sudo', 'journalctl', '--rotate', '&&', 'sudo', 'journalctl', '--vacuum-time=1s']
+    rotate_logs = ['sudo', 'journalctl', '--rotate']
+    clear_logs = ['sudo', 'journalctl', '--vacuum-time=1s']
+    subprocess.Popen(rotate_logs)
     subprocess.Popen(clear_logs)
 
 @app.on_message(filters.command('subs'))
