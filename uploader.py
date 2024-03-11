@@ -6,7 +6,7 @@ import requests
 
 async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, resolution="", caption="", downloading_id=None, thumbnail_file_path=''):
     if file_type=='video':
-        if thumbnail_file_path:
+        if thumbnail_file_path!='':
             thumbnail_response = requests.get(thumbnail_file_path).content
             video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb=BytesIO(thumbnail_response))
         else:
