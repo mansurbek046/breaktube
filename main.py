@@ -28,7 +28,7 @@ def channel_updates(client, user_id, chat_id):
 
 @app.on_message(filters.command('start'))
 async def welcome(client, message):
-    await print(message)
+    print(message)
     from_user = message.from_user
     user = User.select().where(User.id == from_user.id).first()
     language_code = from_user.language_code if from_user.language_code in list(languages.keys()) else 'uz'
