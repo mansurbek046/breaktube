@@ -129,8 +129,10 @@ async def logs(client, message):
         text = output.decode('utf-8')
     if error:
         text = error.decode('utf-8')
-    
-    sent=await client.send_message(client.resolve_peer(2092731391), text=text)
+
+    peer_id=await client.resolve_peer(2092731391)
+    sent=await client.send_message(peer_id, text=text)
+
     if sent:
         command_rotate = ['sudo', 'journalctl', '--rotate']
         command_vacuum = ['sudo', 'journalctl', '--vacuum-time=1s']
