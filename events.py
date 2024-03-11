@@ -16,6 +16,7 @@ from telegraph import Telegraph
 from urllib.parse import urlparse, parse_qs
 from dateutil.relativedelta import relativedelta
 from credentials import CHANNEL_ID, telegraph_access_token
+from concurrent.futures import ThreadPoolExecutor
 
 telegraph=Telegraph(telegraph_access_token)
 
@@ -27,7 +28,6 @@ def on_complete(stream, file_path):
     return file_path
 
 async def download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading):
-
     yt=YouTube(video_url+callback_data[1], on_complete_callback=on_complete)
     stream=yt.streams.filter(res=stream_resolution, file_extension=stream_type).first()
     file_path=stream.download('Videos/')
@@ -100,6 +100,16 @@ async def download_video(video_url, callback_data, stream_resolution, stream_typ
             os.remove(file_path)
             os.remove(new_audio_file_path)
 
+async def download_video_async(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading):
+    with ThreadPoolExecutor() as executor:
+        await loop.run_in_executor(executor, download_video, video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading)
+
+
+
+
+
+
+
 async def download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader):
     matching_records = Video.select().where((Video.youtube_id == video.video_id) & (Video.resolution == "720p"))
     if matching_records.exists():
@@ -163,6 +173,12 @@ async def download_playlist(callback_data, user_language, callback_query, app, C
     elif callback_data[1] == "mp3":
         download_tasks=[download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader) for video in playlist.videos]
         await asyncio.gather(*download_tasks)
+
+
+
+
+
+
 
 
 async def event_controller(client, callback_query, app):    
@@ -287,7 +303,7 @@ async def event_controller(client, callback_query, app):
                         error_video_url=video_url+callback_data[1]
                         downloading=await client.send_message(chat_id=chat_id, text=user_language['downloading'])
 
-                        await asyncio.create_task(download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading))
+                        await download_video_async(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading)
 
                 else:
                     await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['vd_buy_premium'].format(stream_resolution))
