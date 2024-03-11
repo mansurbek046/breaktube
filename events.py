@@ -127,7 +127,7 @@ def download_playlist_video(video, user_language, callback_query, app, CHANNEL_I
         return [file_path, video.thumbnail_url, caption]
 
             
-async def download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader):
+async def download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader, chat_id):
     matching_records = Video.select().where((Video.youtube_id == video.video_id) & (Video.resolution == "720p"))
     if matching_records.exists():
         await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)))
@@ -362,7 +362,7 @@ async def event_controller(client, callback_query, app):
 
                 if callback_data[1] == "mp4":
                     for video in playlist.videos:
-                        await download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader)
+                        await download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader, chat_id)
 
                 elif callback_data[1] == "mp3":
                     for video in playlist.videos:
