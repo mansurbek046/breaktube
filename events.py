@@ -99,55 +99,62 @@ async def download_video_async(video_url, callback_data, stream_resolution, stre
 
 
 
-async def download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader):
-    matching_records = Video.select().where((Video.youtube_id == video.video_id) & (Video.resolution == "720p"))
-    if matching_records.exists():
-        await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)))
-    else:
-        stream = video.streams.get_by_resolution('720p')
-        if stream:
-            file_path = stream.download('Videos/')
-            caption = user_language['caption_video'].format(
-                video.title,
-                video.watch_url,
-                datetime.timedelta(seconds=video.length),
-                f"{video.views:,}",
-                str(video.publish_date).split(' ')[0].replace('-', '.'),
-                video.channel_id,
-                video.author
-            )
+def download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader):
+    stream = video.streams.get_by_resolution('720p')
+    if stream:
+        file_path = stream.download('Videos/')
+        caption = user_language['caption_video'].format(
+            video.title,
+            video.watch_url,
+            datetime.timedelta(seconds=video.length),
+            f"{video.views:,}",
+            str(video.publish_date).split(' ')[0].replace('-', '.'),
+            video.channel_id,
+            video.author
+        )
 
-            if video.description:
-                try:
-                    page = telegraph.create_page(video.title, html_content=f'{video.description}')
-                    caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
-                except Exception as e:
-                    caption=caption.replace('DESC', video.description)
-                    print(f"An error occurred while creating Telegraph page of playlist video description: {e}")
-            else:
-                caption=caption.replace('DESC','')
+        if video.description:
+            try:
+                page = telegraph.create_page(video.title, html_content=f'{video.description}')
+                caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
+            except Exception as e:
+                caption=caption.replace('DESC', video.description)
+                print(f"An error occurred while creating Telegraph page of playlist video description: {e}")
+        else:
+            caption=caption.replace('DESC','')
 
-            chat_id=callback_query.message.chat.id
-            return [merged_file_path, yt.thumbnail_url, caption]
+        chat_id=callback_query.message.chat.id
+        return [file_path, yt.thumbnail_url, caption]
 
             
 async def download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader):
-    loop = asyncio.get_event_loop()
-    with ThreadPoolExecutor() as executor:
-        file_path, thumbnail_url, caption=await loop.run_in_executor(executor, download_playlist_video, video, user_language, callback_query, app, CHANNEL_ID, uploader)
-        await uploader.upload_to_telegram(
-            app,
-            file_path,
-            'video',
-            video.video_id,
-            chat_id,
-            '720p',
-            caption,
-            thumbnail_url
-        )
+    matching_records = Video.select().where((Video.youtube_id == video.video_id) & (Video.resolution == "720p"))
+        if matching_records.exists():
+            await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)))
+        else:
+            loop = asyncio.get_event_loop()
+            with ThreadPoolExecutor() as executor:
+                file_path, thumbnail_url, caption=await loop.run_in_executor(executor, download_playlist_video, video, user_language, callback_query, app, CHANNEL_ID, uploader)
+                await uploader.upload_to_telegram(
+                    app,
+                    file_path,
+                    'video',
+                    video.video_id,
+                    chat_id,
+                    '720p',
+                    caption,
+                    thumbnail_url
+                )
 
 
-async def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
+def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
+    audio_download_url = f'https://www.youtube.com/watch?v={video_id}'
+    yt = YouTube(audio_download_url, on_complete_callback=on_complete)
+    stream = yt.streams.filter(only_audio=True, file_extension='mp4').first()
+    file_path = stream.download('Audios/')
+    return file_path
+
+async def download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
     video_id = video.video_id
     if video_id:
         audio_results = Audio.select().where(Audio.youtube_id == video_id)
@@ -155,17 +162,10 @@ async def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, 
             audio = audio_results.first()
             await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=int(str(audio)))
         else:
-            audio_download_url = f'https://www.youtube.com/watch?v={video_id}'
-            yt = YouTube(audio_download_url, on_complete_callback=on_complete)
-            stream = yt.streams.filter(only_audio=True, file_extension='mp4').first()
-            file_path = stream.download('Audios/')
-            return file_path
-
-async def download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
-    loop = asyncio.get_event_loop()
-    with ThreadPoolExecutor() as executor:
-        file_path=await loop.run_in_executor(executor, download_playlist_audio, video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
-        await uploader.upload_to_telegram(app, file_path, 'audio', video.id, callback_query.message.chat.id)
+            loop = asyncio.get_event_loop()
+            with ThreadPoolExecutor() as executor:
+                file_path=await loop.run_in_executor(executor, download_playlist_audio, video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
+                await uploader.upload_to_telegram(app, file_path, 'audio', video.id, callback_query.message.chat.id)
 
 
 
