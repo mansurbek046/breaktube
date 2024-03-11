@@ -51,16 +51,6 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
         caption=caption.replace('DESC','')
 
     if stream.type == "progressive":
-        # await uploader.upload_to_telegram(
-        # app,
-        # file_path,
-        # 'video',
-        # callback_data[1],
-        # chat_id,
-        # stream_resolution,
-        # caption,
-        # downloading.id,
-        # thumbnail_file_path=yt.thumbnail_url)
         return [file_path, yt.thumbnail_url, caption]
     else:
         audio_stream=yt.streams.filter(only_audio=True).first()
@@ -87,16 +77,6 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
             # subprocess.run(ffmpeg_cmd)
             subprocess.run(ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
-        # upload=await uploader.upload_to_telegram(
-        # app,
-        # merged_file_path,
-        # 'video',
-        # callback_data[1],
-        # chat_id,
-        # stream_resolution,
-        # caption,
-        # downloading.id,
-        # thumbnail_file_path=yt.thumbnail_url)
         return [merged_file_path, yt.thumbnail_url, caption]
         if upload:
             os.remove(file_path)
@@ -116,8 +96,6 @@ async def download_video_async(video_url, callback_data, stream_resolution, stre
             caption,
             downloading.id,
             thumbnail_file_path=thumbnail_url)
-
-
 
 
 
@@ -150,22 +128,23 @@ async def download_playlist_video(video, user_language, callback_query, app, CHA
                 caption=caption.replace('DESC','')
 
             chat_id=callback_query.message.chat.id
+            return [merged_file_path, yt.thumbnail_url, caption]
 
-            await uploader.upload_to_telegram(
-                app,
-                file_path,
-                'video',
-                video.video_id,
-                chat_id,
-                '720p',
-                caption,
-                thumbnail_file_path=video.thumbnail_url
-            )
+            
 async def download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader):
     loop = asyncio.get_event_loop()
     with ThreadPoolExecutor() as executor:
-        await loop.run_in_executor(executor, download_playlist_video, video, user_language, callback_query, app, CHANNEL_ID, uploader)
-
+        file_path, thumbnail_url, caption=await loop.run_in_executor(executor, download_playlist_video, video, user_language, callback_query, app, CHANNEL_ID, uploader)
+        await uploader.upload_to_telegram(
+            app,
+            file_path,
+            'video',
+            video.video_id,
+            chat_id,
+            '720p',
+            caption,
+            thumbnail_url
+        )
 
 
 async def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
@@ -180,12 +159,13 @@ async def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, 
             yt = YouTube(audio_download_url, on_complete_callback=on_complete)
             stream = yt.streams.filter(only_audio=True, file_extension='mp4').first()
             file_path = stream.download('Audios/')
-            await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id)
+            return file_path
 
 async def download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
     loop = asyncio.get_event_loop()
     with ThreadPoolExecutor() as executor:
-        await loop.run_in_executor(executor, download_playlist_audio, video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
+        file_path=await loop.run_in_executor(executor, download_playlist_audio, video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
+        await uploader.upload_to_telegram(app, file_path, 'audio', video.id, callback_query.message.chat.id)
 
 
 
