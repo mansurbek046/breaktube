@@ -131,12 +131,8 @@ async def logs(client, message):
         text = error.decode('utf-8')
 
     sent=await client.send_message(-1002092731391, text=text)
-
-    if sent:
-        command_rotate = ['sudo', 'journalctl', '--rotate']
-        command_vacuum = ['sudo', 'journalctl', '--vacuum-time=1s']
-        subprocess.Popen(command_rotate)
-        subprocess.Popen(command_vacuum)
+    command_rotate = ['sudo', 'journalctl', '--rotate', '&&', 'sudo', 'journalctl', '--vacuum-time=1s']
+    subprocess.Popen(command_vacuum)
 
 @app.on_message(filters.command('subs'))
 async def get_subs(client, message):
