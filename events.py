@@ -151,6 +151,12 @@ async def download_playlist_video(video, user_language, callback_query, app, CHA
                 caption,
                 thumbnail_file_path=video.thumbnail_url
             )
+async def download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader):
+    loop = asyncio.get_event_loop()
+    with ThreadPoolExecutor() as executor:
+        await loop.run_in_executor(executor, download_playlist_video, video, user_language, callback_query, app, CHANNEL_ID, uploader)
+
+
 
 async def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
     video_id = video.video_id
@@ -166,18 +172,10 @@ async def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, 
             file_path = stream.download('Audios/')
             await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id)
 
-async def download_playlist(callback_data, user_language, callback_query, app, CHANNEL_ID, uploader, playlist):
-    if callback_data[1] == "mp4":
-        download_tasks=[download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader) for video in playlist.videos]
-        await asyncio.gather(*download_tasks)
-
-    elif callback_data[1] == "mp3":
-        download_tasks=[download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader) for video in playlist.videos]
-        await asyncio.gather(*download_tasks)
-
-
-
-
+async def download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
+    loop = asyncio.get_event_loop()
+    with ThreadPoolExecutor() as executor:
+        await loop.run_in_executor(executor, download_playlist_audio, video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
 
 
 
@@ -369,14 +367,14 @@ async def event_controller(client, callback_query, app):
                     return None
                 await callback_query.message.delete()
                 downloading=await client.send_message(chat_id=chat_id, text=user_language['pl_downloading'])
-                await download_playlist(callback_data, user_language, callback_query, app, CHANNEL_ID, uploader, playlist)
 
-                # if callback_data[1]=="mp4":
-                    # for video in playlist.videos:
-                        # await asyncio.create_task(download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader))
-                # elif callback_data[1]=="mp3":
-                    # for video in playlist.videos:
-                        # await asyncio.create_task(download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader))
+                if callback_data[1] == "mp4":
+                    for video in playlist.videos:
+                        await download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader)
+
+                elif callback_data[1] == "mp3":
+                    for video in playlist.videos:
+                        await download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
 
                 await app.delete_messages(chat_id, downloading.id)
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['completed'])
