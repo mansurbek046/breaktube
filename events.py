@@ -108,7 +108,7 @@ async def download_video_async(video_url, callback_data, stream_resolution, stre
         file_path, thumbnail_url=await loop.run_in_executor(executor, download_video, video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading)
         upload=await uploader.upload_to_telegram(
             app, 
-            merged_file_path, 
+            file_path, 
             'video', 
             callback_data[1], 
             chat_id, 
@@ -288,6 +288,7 @@ async def event_controller(client, callback_query, app):
 
         case 'video':
             error_video_url=''
+            downloading=''
             try:
                 chat_id=callback_query.message.chat.id
                 stream_type=callback_data[2]
@@ -320,6 +321,7 @@ async def event_controller(client, callback_query, app):
 
             except Exception as e:
                 print(f"An error occurred while downloading video: {e}")
+                await app.delete_messages(callback_query.message.chat.id, downloading_id)
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_video'].format(error_video_url))
 
         case 'subscribe':
