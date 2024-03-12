@@ -187,6 +187,7 @@ async def send_playlist_info(client, chat_id, playlist_info, user):
         InlineKeyboardButton('🎧 MP3', callback_data=f'playlist:mp3:{playlist_info["id"]}')], [InlineKeyboardButton('🔍', switch_inline_query_current_chat=f".p {playlist_info['name']}"), InlineKeyboardButton('❌', callback_data='x:')]])
         await client.send_photo(photo=playlist_info['photo'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
 
-    except Exception as e:
-        print(f"An error occurred in send_playlist_info: {e}")
+    # except Exception as e:
+    except:
+        # print(f"An error occurred in send_playlist_info: {e}")
         await client.send_message(chat_id, user_language['err_playlist_info'], reply_markup=x_markup)
