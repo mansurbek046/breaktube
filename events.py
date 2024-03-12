@@ -165,8 +165,7 @@ async def download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_comp
                 file_path=await loop.run_in_executor(executor, download_playlist_audio, video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
                 await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id)
 
-
-
+x_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌', callback_data='x:')]])
 
 async def event_controller(client, callback_query, app):    
 
@@ -214,11 +213,11 @@ async def event_controller(client, callback_query, app):
                         reply_markup=reply_markup
                     )
                 else:
-                    await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['empty_subtitle'])
+                    await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['empty_subtitle'], reply_markup=x_markup)
             
             except Exception as e:
                 print(f"An error occurred while fetching subtitles: {e}")
-                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_subtitles'])
+                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_subtitles'], reply_markup=x_markup)
 
         # subtitle
         case 'sbt':
@@ -230,11 +229,11 @@ async def event_controller(client, callback_query, app):
                 caption=user_language['subtitle_of'].format(video_url+callback_data[1])
                 now=datetime.datetime.now()
                 file_name=now.strftime("%Y%m%d%H%M%S")
-                await app.send_document(chat_id=callback_query.message.chat.id, document=file_stream, file_name=f"{file_name}.srt", caption=caption)
+                await app.send_document(chat_id=callback_query.message.chat.id, document=file_stream, file_name=f"{file_name}.srt", caption=caption, reply_markup=x_markup)
 
             except Exception as e:
                 print(f"An error occurred while fetching a subtitle: {e}")
-                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_subtitle'].format(video_url+callback_data[1]))
+                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_subtitle'].format(video_url+callback_data[1]), reply_markup=x_markup)
             
         case 'back_to_video_buttons':
             chat_id=callback_query.message.chat.id
@@ -250,7 +249,7 @@ async def event_controller(client, callback_query, app):
             try:
                 if Audio.select().where(Audio.youtube_id == callback_data[1]).exists():
                     audio = Audio.select().where(Audio.youtube_id == callback_data[1]).first()
-                    await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(audio)), disable_notification=True)
+                    await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(audio)), disable_notification=True, reply_markup=x_markup)
                 else:
                     yt=YouTube(video_url+callback_data[1], on_complete_callback=on_complete)
                     stream=yt.streams.filter(only_audio=True, file_extension='mp4').first()
@@ -258,7 +257,7 @@ async def event_controller(client, callback_query, app):
                     await uploader.upload_to_telegram(app, file_path, 'audio', callback_data[1], callback_query.message.chat.id)
             except Exception as e:
                 print(f"An error occurred while downloading MP3: {e}")
-                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_mp3'])
+                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_mp3'], reply_markup=x_markup)
                 
         case 'channel':
             channel_info=await YtChannel(callback_data[1], user.lang)
@@ -273,7 +272,7 @@ async def event_controller(client, callback_query, app):
                 stream_resolution=callback_data[3]
                 huge=callback_data[4]
                 if huge=="true":
-                    await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['huge']) 
+                    await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['huge'], reply_markup=x_markup)
                     return None
                 user = User.get(id=callback_query.from_user.id)
                 if int(stream_resolution.split('p')[0])<1080 or user.premium:
@@ -281,7 +280,7 @@ async def event_controller(client, callback_query, app):
                     chat_id=callback_query.message.chat.id
 
                     if matching_records.exists():
-                        await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)))
+                        await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)), reply_markup=x_markup)
                         await callback_query.message.delete()
                         os.remove(f'{chat_id}_back_keyboard.pkl')
                         
@@ -294,20 +293,20 @@ async def event_controller(client, callback_query, app):
                         await download_video_async(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading)
 
                 else:
-                    await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['vd_buy_premium'].format(stream_resolution))
+                    await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['vd_buy_premium'].format(stream_resolution), reply_markup=x_markup)
                     return None
 
             except Exception as e:
                 print(f"An error occurred while downloading video: {e}")
                 await app.delete_messages(callback_query.message.chat.id, downloading.id)
-                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_video'].format(error_video_url))
+                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_video'].format(error_video_url), reply_markup=x_markup)
 
         case 'subscribe':
             subscibed=user.add_channel(callback_data[1])
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(user_language["view_playlists"], callback_data=f'playlists:{callback_data[1]}'),
                 InlineKeyboardButton(user_language["unsubscribe"], callback_data=f'unsubscribe:{callback_data[1]}')
-            ]])
+            ], [InlineKeyboardButton('❌', callback_data='x:')]])
             if subscibed:
                 await client.answer_callback_query(callback_query.id, user_language['sub_added'])
                 await client.edit_message_reply_markup(chat_id=callback_query.message.chat.id, message_id=callback_query.message.id, reply_markup=reply_markup)
@@ -317,7 +316,7 @@ async def event_controller(client, callback_query, app):
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(user_language['view_playlists'], callback_data=f'playlists:{callback_data[1]}'),
                 InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{callback_data[1]}')
-            ]])
+            ], [InlineKeyboardButton('❌', callback_data='x:')]])
             if unsubscribed:
                 await client.answer_callback_query(callback_query.id, user_language['unsubscribed'])
                 await client.edit_message_reply_markup(chat_id=callback_query.message.chat.id, message_id=callback_query.message.id, reply_markup=reply_markup)
@@ -340,39 +339,39 @@ async def event_controller(client, callback_query, app):
                         text=text.replace('DESC', '')
                     message+=text
 
-                await client.send_message(chat_id=callback_query.message.chat.id, text=message)
+                await client.send_message(chat_id=callback_query.message.chat.id, text=message, reply_markup=x_markup)
 
             except Exception as e:
                 print(f"An error occurred while fetching playlists: {e}")
-                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlists'])
+                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlists'], reply_markup=x_markup)
 
         case 'playlist':
             # Downloading playlist
-            # try:
-            playlist_url='https://youtube.com/playlist?list='
-            playlist = Playlist(playlist_url+callback_data[2])
-            chat_id=callback_query.message.chat.id
-            if user.premium is None:
-                await client.send_message(chat_id=chat_id, text=user_language['pl_buy_premium'])
-                return None
-            await callback_query.message.delete()
-            downloading=await client.send_message(chat_id=chat_id, text=user_language['pl_downloading'])
+            try:
+                playlist_url='https://youtube.com/playlist?list='
+                playlist = Playlist(playlist_url+callback_data[2])
+                chat_id=callback_query.message.chat.id
+                if user.premium is None:
+                    await client.send_message(chat_id=chat_id, text=user_language['pl_buy_premium'], reply_markup=x_markup)
+                    return None
+                await callback_query.message.delete()
+                downloading=await client.send_message(chat_id=chat_id, text=user_language['pl_downloading'])
 
-            if callback_data[1] == "mp4":
-                for video in playlist.videos:
-                    await download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader, chat_id)
+                if callback_data[1] == "mp4":
+                    for video in playlist.videos:
+                        await download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader, chat_id)
 
-            elif callback_data[1] == "mp3":
-                for video in playlist.videos:
-                    await download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
+                elif callback_data[1] == "mp3":
+                    for video in playlist.videos:
+                        await download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
 
-            await app.delete_messages(chat_id, downloading.id)
-            await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['completed'])
-
-            # except Exception as e:
-                # print(f"An error occurred while downloading playlist: {e}")
-                # await app.delete_messages(chat_id, downloading.id)
-                # await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlist_download'])
+                await app.delete_messages(chat_id, downloading.id)
+                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['completed'], reply_markup=x_markup)
+    
+            except Exception as e:
+                print(f"An error occurred while downloading playlist: {e}")
+                await app.delete_messages(chat_id, downloading.id)
+                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlist_download'], reply_markup=x_markup)
 
         case 'buy':
             try:
@@ -384,7 +383,7 @@ async def event_controller(client, callback_query, app):
                 else:
                     proposals=user.deep_proposals
                     availabel_days=proposals//5
-                    buttons=[[],[]]
+                    buttons=[[],[], [InlineKeyboardButton('❌', callback_data='x:')]]
                     if availabel_days>=1:
                         buttons[0].append(InlineKeyboardButton(user_language['get_day_premium'].format(1), callback_data='day_premium:1'))
                     elif availabel_days>=3:
@@ -399,7 +398,7 @@ async def event_controller(client, callback_query, app):
                             proposals,
                             availabel_days,
                             ''
-                        ), disable_web_page_preview=True)
+                        ), disable_web_page_preview=True, reply_markup=x_markup)
                         return None
                     
                     reply_markup=InlineKeyboardMarkup(buttons)
@@ -425,26 +424,27 @@ async def event_controller(client, callback_query, app):
                         user.premium=premium.strftime('%Y-%m-%d')
                         user.deep_proposals=proposals-5
                         user.save()
-                        await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['premium_taken'].format(1))
+                        await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['premium_taken'].format(1), reply_markup=x_markup)
                     case 3:
                         premium=now + relativedelta(days=3)
                         user.premium=premium.strftime('%Y-%m-%d')
                         user.deep_proposals=proposals-15
                         user.save()
-                        await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['premium_taken'].format(3))
+                        await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['premium_taken'].format(3), reply_markup=x_markup)
                     case 7:
                         premium=now + relativedelta(days=7)
                         user.premium=premium.strftime('%Y-%m-%d')                        
                         user.deep_proposals=proposals-35
                         user.save()
-                        await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['premium_taken'].format(7))
+                        await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['premium_taken'].format(7), reply_markup=x_markup)
                     case 30:
                         premium=now + relativedelta(months=1)
                         user.premium=premium.strftime('%Y-%m-%d')                        
                         user.deep_proposals=proposals-150
                         user.save()
-                        await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['premium_taken'].format(30))
+                        await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['premium_taken'].format(30), reply_markup=x_markup)
 
             except Exception as e:
                 print(f"An error occurred in day_premium command: {e}")
-
+        case 'x':
+            await callback_query.message.delete()

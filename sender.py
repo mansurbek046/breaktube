@@ -27,6 +27,8 @@ languages = ''
 with open('languages.json') as lang:
     languages = json.load(lang)
 
+x_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌', callback_data='x:')]])
+
 async def send_video_info(client, chat_id, id, user):
     try:
         user_language=languages[user.lang]
@@ -80,6 +82,8 @@ async def send_video_info(client, chat_id, id, user):
             buttons.append([InlineKeyboardButton('🎧 MP3', callback_data=f'mp3:{id}'), 
                             InlineKeyboardButton('🗣', callback_data=f'channel:{yt.channel_id}'), 
                             InlineKeyboardButton('💬', callback_data=f'subtitles:{id}')])
+            buttons.append([InlineKeyboardButton('🔍', switch_inline_query_current_chat=yt.title), InlineKeyboardButton('❌', callback_data='x:')])
+            
 
             reply_markup = InlineKeyboardMarkup(buttons)
 
@@ -113,7 +117,7 @@ async def send_video_info(client, chat_id, id, user):
             
     except Exception as e:
         print(f"An error occurred in send_video_info: {e}")
-        await client.send_message(chat_id, user_language['err_video_info'])
+        await client.send_message(chat_id, user_language['err_video_info'], reply_markup=x_markup)
 
 
 async def send_channel_info(client, chat_id, channel_info, user):
@@ -141,19 +145,22 @@ async def send_channel_info(client, chat_id, channel_info, user):
             caption=caption.replace('DESC', channel_description)
             caption=caption.replace('DESC','')
 
-        buttons=[]
-        buttons.append(InlineKeyboardButton(user_language['view_playlists'], callback_data=f'playlists:{channel_info["id"]}'))
+        buttons=[[]]
+        buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], callback_data=f'playlists:{channel_info["id"]}'))
         if channel_info['id'] not in channels:
-            buttons.append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))
+            buttons[0].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))
         else:
-            buttons.append(InlineKeyboardButton(user_language['unsubscribe'], callback_data=f'unsubscribe:{channel_info["id"]}'))
-        reply_markup=InlineKeyboardMarkup([buttons])
+            buttons[0].append(InlineKeyboardButton(user_language['unsubscribe'], callback_data=f'unsubscribe:{channel_info["id"]}'))
+
+        buttons.append([InlineKeyboardButton('❌', callback_data='x:')])
+
+        reply_markup=InlineKeyboardMarkup(buttons)
         
         await client.send_photo(photo=channel_info['photo'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
 
     except Exception as e:
         print(f"An error occurred in send_channel_info: {e}")
-        await client.send_message(chat_id, user_language['err_channel_info'])
+        await client.send_message(chat_id, user_language['err_channel_info'], reply_markup=x_markup)
 
 async def send_playlist_info(client, chat_id, playlist_info, user):
     user_language=languages[user.lang]
@@ -177,9 +184,9 @@ async def send_playlist_info(client, chat_id, playlist_info, user):
             caption=caption.replace('DESC','')
 
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('📹 720p', callback_data=f'playlist:mp4:{playlist_info["id"]}'),
-        InlineKeyboardButton('🎧 MP3', callback_data=f'playlist:mp3:{playlist_info["id"]}')]])
+        InlineKeyboardButton('🎧 MP3', callback_data=f'playlist:mp3:{playlist_info["id"]}')], [InlineKeyboardButton('🔍', switch_inline_query_current_chat=f".p {playlist_info['name']}"), InlineKeyboardButton('❌', callback_data='x:')]])
         await client.send_photo(photo=playlist_info['photo'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
 
     except Exception as e:
         print(f"An error occurred in send_playlist_info: {e}")
-        await client.send_message(chat_id, user_language['err_playlist_info'])
+        await client.send_message(chat_id, user_language['err_playlist_info'], reply_markup=x_markup)
