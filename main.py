@@ -24,7 +24,7 @@ logging.basicConfig(filename='tmp/break_tube_error.log', level=logging.ERROR, fo
 def error_handler(client, message):
     logging.error("Error: %s", message)
 
-app.add_handler(error_handler)
+# app.add_handler(error_handler)
 
 languages = ''
 with open('languages.json') as lang:
