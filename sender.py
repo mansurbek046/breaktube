@@ -121,7 +121,7 @@ async def send_video_info(client, chat_id, id, user):
             
             
     except Exception as e:
-        print(f"An error occurred in send_video_info: {e}")
+        error_handler(client, f"An error occurred in send_video_info: {e}")
         await client.send_message(chat_id, user_language['err_video_info'], reply_markup=x_markup)
 
 
@@ -164,7 +164,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
         await client.send_photo(photo=channel_info['photo'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
 
     except Exception as e:
-        print(f"An error occurred in send_channel_info: {e}")
+        error_handler(client, f"An error occurred in send_channel_info: {e}")
         await client.send_message(chat_id, user_language['err_channel_info'], reply_markup=x_markup)
 
 async def send_playlist_info(client, chat_id, playlist_info, user):
@@ -193,6 +193,5 @@ async def send_playlist_info(client, chat_id, playlist_info, user):
         await client.send_photo(photo=playlist_info['photo'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
 
     except Exception as e:
-        # print(f"An error occurred in send_playlist_info: {e}")
-        error_handler(client, f"Handled exception: {e}")
+        error_handler(client, f"An error occurred in send_playlist_info: {e}")
         await client.send_message(chat_id, user_language['err_playlist_info'], reply_markup=x_markup)

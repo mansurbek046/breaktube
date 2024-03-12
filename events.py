@@ -27,6 +27,9 @@ with open('languages.json') as lang:
 def on_complete(stream, file_path):
     return file_path
 
+def error_handler(client, message):
+    logging.error("Error: %s", message)
+
 def download_video(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading):
     yt=YouTube(video_url+callback_data[1], on_complete_callback=on_complete)
     stream=yt.streams.filter(res=stream_resolution, file_extension=stream_type).first()
@@ -47,7 +50,7 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
             caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
         except Exception as e:
             caption=caption.replace('DESC', description)
-            print(f"An error occurred while creating to Telegraph page: {e}")
+            error_handler(client, f"An error occurred while creating to Telegraph page: {e}")
     else:
         caption=caption.replace('DESC','')
 
@@ -97,8 +100,6 @@ async def download_video_async(video_url, callback_data, stream_resolution, stre
         if upload:
             os.remove(file_path)
             os.remove(new_audio_file_path)
-        
-
 
 def download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader):
     stream = video.streams.get_by_resolution('720p')
@@ -121,7 +122,7 @@ def download_playlist_video(video, user_language, callback_query, app, CHANNEL_I
                 caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
             except Exception as e:
                 caption=caption.replace('DESC', description)
-                print(f"An error occurred while creating Telegraph page of playlist video description: {e}")
+                error_handler(client, f"An error occurred while creating Telegraph page of playlist video description: {e}")
         else:
             caption=caption.replace('DESC','')
 
@@ -145,7 +146,6 @@ async def download_playlist_video_async(video, user_language, callback_query, ap
                 '720p',
                 caption
             )
-
 
 def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
     audio_download_url = f'https://www.youtube.com/watch?v={video.video_id}'
@@ -218,7 +218,7 @@ async def event_controller(client, callback_query, app):
                     await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['empty_subtitle'], reply_markup=x_markup)
             
             except Exception as e:
-                print(f"An error occurred while fetching subtitles: {e}")
+                error_handler(client, f"An error occurred while fetching subtitles: {e}")
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_subtitles'], reply_markup=x_markup)
 
         # subtitle
@@ -234,7 +234,7 @@ async def event_controller(client, callback_query, app):
                 await app.send_document(chat_id=callback_query.message.chat.id, document=file_stream, file_name=f"{file_name}.srt", caption=caption, reply_markup=x_markup)
 
             except Exception as e:
-                print(f"An error occurred while fetching a subtitle: {e}")
+                error_handler(client, f"An error occurred while fetching a subtitle: {e}")
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_subtitle'].format(video_url+callback_data[1]), reply_markup=x_markup)
             
         case 'back_to_video_buttons':
@@ -258,7 +258,7 @@ async def event_controller(client, callback_query, app):
                     file_path=stream.download('Audios/')
                     await uploader.upload_to_telegram(app, file_path, 'audio', callback_data[1], callback_query.message.chat.id)
             except Exception as e:
-                print(f"An error occurred while downloading MP3: {e}")
+                error_handler(client, f"An error occurred while downloading MP3: {e}")
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_mp3'], reply_markup=x_markup)
                 
         case 'channel':
@@ -299,7 +299,7 @@ async def event_controller(client, callback_query, app):
                     return None
 
             except Exception as e:
-                print(f"An error occurred while downloading video: {e}")
+                error_handler(client, f"An error occurred while downloading video: {e}")
                 await app.delete_messages(callback_query.message.chat.id, downloading.id)
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_video'].format(error_video_url), reply_markup=x_markup)
 
@@ -344,7 +344,7 @@ async def event_controller(client, callback_query, app):
                 await client.send_message(chat_id=callback_query.message.chat.id, text=message, reply_markup=x_markup)
 
             except Exception as e:
-                print(f"An error occurred while fetching playlists: {e}")
+                error_handler(client, f"An error occurred while fetching playlists: {e}")
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlists'], reply_markup=x_markup)
 
         case 'playlist':
@@ -371,7 +371,7 @@ async def event_controller(client, callback_query, app):
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['completed'], reply_markup=x_markup)
     
             except Exception as e:
-                print(f"An error occurred while downloading playlist: {e}")
+                error_handler(client, f"An error occurred while downloading playlist: {e}")
                 await app.delete_messages(chat_id, downloading.id)
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlist_download'], reply_markup=x_markup)
 
@@ -412,7 +412,7 @@ async def event_controller(client, callback_query, app):
                     ), reply_markup=reply_markup, disable_web_page_preview=True)
 
             except Exception as e:
-                print(f"An error occurred in buy command: {e}")
+                error_handler(client, f"An error occurred in buy command: {e}")
 
         case 'day_premium':
             try:
@@ -447,6 +447,6 @@ async def event_controller(client, callback_query, app):
                         await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['premium_taken'].format(30), reply_markup=x_markup)
 
             except Exception as e:
-                print(f"An error occurred in day_premium command: {e}")
+                error_handler(client, f"An error occurred in day_premium command: {e}")
         case 'x':
             await callback_query.message.delete()

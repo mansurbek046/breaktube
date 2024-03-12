@@ -11,13 +11,16 @@ import time
 import pytz
 from models import User, db
 from credentials import API_KEY
-
+import logging
 
 youtube = build('youtube', 'v3', developerKey=API_KEY())
 
 languages = ''
 with open('languages.json') as lang:
     languages = json.load(lang)
+
+def error_handler(client, message):
+    logging.error("Error: %s", message)
 
 async def YtVideo(id, lang):
     try:
@@ -37,7 +40,7 @@ async def YtVideo(id, lang):
         }
         return msg_content
     except Exception as e:
-        print(f"An error occurred while fetching YouTube video details: {e}")
+        error_handler(client, f"An error occurred while fetching YouTube video details: {e}")
         return None
 
 async def YtVideoSubtitles(id, lang, download=False):
@@ -60,7 +63,7 @@ async def YtVideoSubtitles(id, lang, download=False):
             return formatter.format_transcript(subtitle)
             
     except Exception as e:
-        print(f"An error occurred while fetching YouTube video subtitles: {e}")
+        error_handler(client, f"An error occurred while fetching YouTube video subtitles: {e}")
         return None
 
 async def YtChannel(id, lang, is_name=False):
@@ -91,7 +94,7 @@ async def YtChannel(id, lang, is_name=False):
         else:
             return languages[lang]['invalid_channel']
     except Exception as e:
-        print(f"An error occurred while fetching YouTube channel details: {e}")
+        error_handler(client, f"An error occurred while fetching YouTube channel details: {e}")
         return None
 
 
@@ -131,7 +134,7 @@ async def YtPlaylist(id, lang):
         }
         return msg_content
     except Exception as e:
-        print(f"An error occurred while fetching YouTube playlist details: {e}")
+        error_handler(client, f"An error occurred while fetching YouTube playlist details: {e}")
         return None
 
 async def YtChannelPlaylists(channel_id, lang):
@@ -156,7 +159,7 @@ async def YtChannelPlaylists(channel_id, lang):
         return msg_content
 
     except Exception as e:
-        print(f"An error occurred while fetching playlists of Channel: {e}")
+        error_handler(client, f"An error occurred while fetching playlists of Channel: {e}")
         return None
 
 def compare_dates(last, video):
@@ -177,11 +180,11 @@ def compare_dates(last, video):
 async def YtUpdate(client, id, chat_id):
     while True:
         user = User.select().where(User.id == id).first()
-        print('While is working...')
+        # print('While is working...')
         if user.get_channels():
-            print('User has channels...')
+            # print('User has channels...')
             for channel_id in user.get_channels():
-                print('One channel taken...')
+                # print('One channel taken...')
                 req = youtube.search().list(
                     part="snippet",
                     channelId=channel_id,
