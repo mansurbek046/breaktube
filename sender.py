@@ -103,7 +103,7 @@ async def send_video_info(client, chat_id, id, user):
 
             if video_description:
                 try:
-                    page = telegraph.create_page(yt.title, html_content=f'{video_description}')
+                    page = telegraph.create_page(yt.title, html_content=f'{video_description} <img src="{yt.thumbnail_url}/>"')
                     caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
                 except Exception as e:
                     caption=caption.replace('DESC', video_description)

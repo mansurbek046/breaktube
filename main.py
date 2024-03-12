@@ -26,6 +26,8 @@ def channel_updates(client, user_id, chat_id):
         asyncio.set_event_loop(loop)
         loop.run_until_complete(YtUpdate(client, user_id, chat_id))
 
+x_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌', callback_data='x:')]])
+
 @app.on_message(filters.command('start'))
 async def welcome(client, message):
     from_user = message.from_user
@@ -110,6 +112,7 @@ async def set_lang(client, message):
         else:
             buttons[(index//2)].append(InlineKeyboardButton(f'{flags_emoji_dict[y]} {x}', callback_data=f'lang:{y}'))
         index+=1
+    buttons.append([InlineKeyboardButton('❌', callback_data='x:')])
     
     reply_markup = InlineKeyboardMarkup(buttons)
     await message.delete()
@@ -131,9 +134,9 @@ async def logs(client, message):
         text = error.decode('utf-8')
     if len(text)>4090:
         for chunk in [text[i:i+4096] for i in range(0, len(text), 4096)]:
-            await client.send_message(-1002092731391, text=chunk)
+            await client.send_message(-1002092731391, text=chunk, reply_markup=x_markup)
     else:
-        await client.send_message(-1002092731391, text=text)
+        await client.send_message(-1002092731391, text=text, reply_markup=x_markup)
 
     rotate_logs = ['sudo', 'journalctl', '--rotate']
     clear_logs = ['sudo', 'journalctl', '--vacuum-time=1s']
@@ -156,7 +159,7 @@ async def get_profile(client, message):
         user.proposals
     )
     await message.delete()
-    await client.send_message(text=text, chat_id=message.chat.id)
+    await client.send_message(text=text, chat_id=message.chat.id, reply_markup=x_markup)
 
 @app.on_message(filters.command('premium'))
 async def get_premium(client, message):
@@ -166,7 +169,7 @@ async def get_premium(client, message):
     reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton(languages[user.lang]['buy'], callback_data='buy:cash')],
         [InlineKeyboardButton(languages[user.lang]['by_ton'], callback_data='buy:ton')],
-        [InlineKeyboardButton(languages[user.lang]['by_proposal'], callback_data='buy:proposal')]
+        [InlineKeyboardButton(languages[user.lang]['by_proposal'], callback_data='buy:proposal'), InlineKeyboardButton('❌', callback_data='x:')]
     ])
     await message.delete()
     await client.send_message(text=text, chat_id=message.chat.id, reply_markup=reply_markup)
@@ -219,9 +222,9 @@ async def youlink(client, message):
                 process_count += 1
 
         if count == len(urls):
-            await client.send_message(chat_id=message.chat.id, text=languages[user.lang]['bad_req'])
+            await client.send_message(chat_id=message.chat.id, text=languages[user.lang]['bad_req'], reply_markup=x_markup)
     else:
-        await client.send_message(chat_id=message.chat.id, text=languages[user.lang]['bad_req'])
+        await client.send_message(chat_id=message.chat.id, text=languages[user.lang]['bad_req'], reply_markup=x_markup)
 
 @app.on_callback_query()
 async def handle_callback_query(client, callback_query):
@@ -246,8 +249,6 @@ async def handle_inline_query(client, inline_query):
     elif query.startswith('.c'):
         type_='channel'
         search_query=query.replace('.c', '')
-    #if not query.strip():
-    #    query='uzbekistan'
 
     youtube = build('youtube', 'v3', developerKey=API_KEY())
 
@@ -293,5 +294,4 @@ async def handle_inline_query(client, inline_query):
 
 
 if __name__ == '__main__':
-    # Run the app asynchronously
     app.run()
