@@ -134,15 +134,15 @@ async def logs(client, message):
     with open('tmp/log.txt', 'r') as file:
         print(text)
         text=str(file.read())
-    
+        print(text)
     if len(text)>4090:
         for chunk in [text[i:i+4096] for i in range(0, len(text), 4096)]:
             await client.send_message(-1002092731391, text=chunk, reply_markup=x_markup)
     else:
         await client.send_message(-1002092731391, text=text, reply_markup=x_markup)
     print(text)
-    with open('tmp/log.txt', 'w') as file:
-        file.write('No logs..')
+    # with open('tmp/log.txt', 'w') as file:
+        # file.write('No logs..')
     await message.delete()
 
 @app.on_message(filters.command('subs'))
