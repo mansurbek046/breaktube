@@ -129,9 +129,10 @@ async def set_lang(client, message):
 
 @app.on_message(filters.command('logs'))
 async def logs(client, message):
-    text='No logs..'
+    text=''
 
     with open('tmp/log.txt', 'r') as file:
+        print(text)
         text=str(file.read())
     
     if len(text)>4090:
@@ -139,7 +140,7 @@ async def logs(client, message):
             await client.send_message(-1002092731391, text=chunk, reply_markup=x_markup)
     else:
         await client.send_message(-1002092731391, text=text, reply_markup=x_markup)
-    
+    print(text)
     with open('tmp/log.txt', 'w') as file:
         file.write('No logs..')
     await message.delete()
