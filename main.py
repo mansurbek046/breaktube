@@ -19,7 +19,7 @@ from emoji_dict import flags_emoji_dict
 db.connect()
 app = Client('BreakTubebot', api_hash=api_hash, api_id=api_id, bot_token=bot_token)
 
-logging.basicConfig(filename='tmp/break_tube_error.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
+# logging.basicConfig(filename='tmp/break_tube_error.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def error_handler(client, message):
     logging.error("Error: %s", message)
