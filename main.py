@@ -4,7 +4,7 @@ import logging
 import os
 from googleapiclient.discovery import build
 from urllib.parse import urlparse, parse_qs
-from pyrogram import Client, filters, Filters
+from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from models import User, db
 from serializer import YtVideo, YtChannel, YtPlaylist, YtUpdate, YtChannels
@@ -24,7 +24,7 @@ logging.basicConfig(filename='tmp/break_tube_error.log', level=logging.ERROR, fo
 def error_handler(client, message):
     logging.error("Error: %s", message)
 
-app.add_handler(error_handler, Filters.error)
+app.add_handler(error_handler, filters.error)
 
 languages = ''
 with open('languages.json') as lang:
