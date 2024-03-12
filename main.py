@@ -129,12 +129,10 @@ async def set_lang(client, message):
 
 @app.on_message(filters.command('logs'))
 async def logs(client, message):
-    await message.delete()
     text='No logs..'
 
     with open('tmp/log.txt', 'r') as file:
         log=file.read()
-        print(log)
         if log:
             text=str(log)
     
@@ -143,8 +141,9 @@ async def logs(client, message):
             await client.send_message(-1002092731391, text=chunk, reply_markup=x_markup)
     else:
         await client.send_message(-1002092731391, text=text, reply_markup=x_markup)
-
+    
     os.remove('tmp/log.txt')
+    await message.delete()
 
 @app.on_message(filters.command('subs'))
 async def get_subs(client, message):
