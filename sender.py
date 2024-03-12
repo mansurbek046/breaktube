@@ -182,7 +182,7 @@ async def send_playlist_info(client, chat_id, playlist_info, user):
             playlist_info['channel_name']
         )
         if playlist_description:
-            page=telegraph.create_page(playlist_info['name'], html_content=f'<img src="{playlist_info["photo"]}">{playlist_description}')
+            page=telegraph.create_page(playlist_info['name'], html_content=f'{playlist_description}')
             caption=caption.replace('DESC', f'\n📖 {user_language["description"]}')
         else:
             caption=caption.replace('DESC', playlist_description)
