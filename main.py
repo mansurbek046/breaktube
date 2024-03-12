@@ -4,7 +4,7 @@ import logging
 import os
 from googleapiclient.discovery import build
 from urllib.parse import urlparse, parse_qs
-from pyrogram import Client, filters
+from pyrogram import Client, filters, Filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from models import User, db
 from serializer import YtVideo, YtChannel, YtPlaylist, YtUpdate, YtChannels
