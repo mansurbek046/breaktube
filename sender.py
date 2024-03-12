@@ -1,17 +1,22 @@
-from pytube import YouTube
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-import asyncio
-from urllib.error import URLError
 import time
+import json
+import math
+import pickle
+import logging
+import asyncio
+import datetime
+from pytube import YouTube
 from itertools import chain
 from telegraph import Telegraph
-import pickle
-import datetime
-import json
+from urllib.error import URLError
 from credentials import telegraph_access_token
-import math
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+
 
 telegraph=Telegraph(telegraph_access_token)
+
+def error_handler(client, message):
+    logging.error("Error: %s", message)
 
 def convert_bytes(byte_num):
     gigabytes = byte_num / (1024 * 1024 * 1024)
