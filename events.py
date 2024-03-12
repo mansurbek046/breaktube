@@ -239,7 +239,7 @@ async def event_controller(client, callback_query, app):
             
         case 'back_to_video_buttons':
             chat_id=callback_query.message.chat.id
-            with open(f'{chat_id}_back_keyboard.pkl', 'rb') as file:
+            with open(f'Keyboards/{chat_id}_back_keyboard.pkl', 'rb') as file:
                 reply_markup=pickle.load(file)
             await client.edit_message_reply_markup(
                 chat_id=callback_query.message.chat.id,
@@ -284,11 +284,11 @@ async def event_controller(client, callback_query, app):
                     if matching_records.exists():
                         await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)), reply_markup=x_markup)
                         await callback_query.message.delete()
-                        os.remove(f'{chat_id}_back_keyboard.pkl')
+                        os.remove(f'Keyboards/{chat_id}_back_keyboard.pkl')
                         
                     else:
                         await callback_query.message.delete()
-                        os.remove(f'{chat_id}_back_keyboard.pkl')
+                        os.remove(f'Keyboards/{chat_id}_back_keyboard.pkl')
                         error_video_url=video_url+callback_data[1]
                         downloading=await client.send_message(chat_id=chat_id, text=user_language['downloading'])
 
