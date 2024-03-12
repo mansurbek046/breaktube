@@ -134,8 +134,9 @@ async def logs(client, message):
 
     with open('tmp/log.txt', 'r') as file:
         log=file.read()
+        print(log)
         if log:
-            text=log
+            text=str(log)
     
     if len(text)>4090:
         for chunk in [text[i:i+4096] for i in range(0, len(text), 4096)]:
