@@ -41,7 +41,7 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
         yt.channel_id,
         yt.author)
     if yt.description:
-        description=yt.description.replace('\n', '<br>')
+        description=str(yt.description).replace('\n', '<br>')
         try:
             page = telegraph.create_page(yt.title, html_content=f'{description}')
             caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
@@ -115,7 +115,7 @@ def download_playlist_video(video, user_language, callback_query, app, CHANNEL_I
         )
 
         if video.description:
-            description=video.description.replace('\n', '<br>')
+            description=str(video.description).replace('\n', '<br>')
             try:
                 page = telegraph.create_page(video.title, html_content=f'{description}')
                 caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')

@@ -1,5 +1,7 @@
 import asyncio
 import subprocess
+import logging
+import os
 from googleapiclient.discovery import build
 from urllib.parse import urlparse, parse_qs
 from pyrogram import Client, filters
@@ -16,6 +18,13 @@ from emoji_dict import flags_emoji_dict
 
 db.connect()
 app = Client('BreakTubebot', api_hash=api_hash, api_id=api_id, bot_token=bot_token)
+
+logging.basicConfig(filename='error.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
+
+def error_handler(client, message):
+    logging.error("Error: %s", message)
+
+app.add_handler(error_handler, Filters.error)
 
 languages = ''
 with open('languages.json') as lang:
@@ -123,25 +132,18 @@ async def logs(client, message):
     await message.delete()
     text='No logs..'
 
-    command = ['sudo', 'journalctl', '-u', 'telegram-bot.service']
-
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    output, error = process.communicate()
-
-    if output:
-        text = output.decode('utf-8')
-    if error:
-        text = error.decode('utf-8')
+    with open('error.log', 'r') as file:
+        log=file.read()
+        if log:
+            text=log
+    
     if len(text)>4090:
         for chunk in [text[i:i+4096] for i in range(0, len(text), 4096)]:
             await client.send_message(-1002092731391, text=chunk, reply_markup=x_markup)
     else:
         await client.send_message(-1002092731391, text=text, reply_markup=x_markup)
 
-    rotate_logs = ['sudo', 'journalctl', '--rotate']
-    clear_logs = ['sudo', 'journalctl', '--vacuum-time=1s']
-    subprocess.Popen(rotate_logs)
-    subprocess.Popen(clear_logs)
+    os.remove('error.log')
 
 @app.on_message(filters.command('subs'))
 async def get_subs(client, message):
