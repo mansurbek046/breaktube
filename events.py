@@ -41,11 +41,12 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
         yt.channel_id,
         yt.author)
     if yt.description:
+        description=yt.description.replace('\n', '<br>')
         try:
-            page = telegraph.create_page(yt.title, html_content=f'{yt.description}')
+            page = telegraph.create_page(yt.title, html_content=f'{description}')
             caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
         except Exception as e:
-            caption=caption.replace('DESC', video.description)
+            caption=caption.replace('DESC', description)
             print(f"An error occurred while creating to Telegraph page: {e}")
     else:
         caption=caption.replace('DESC','')
@@ -114,11 +115,12 @@ def download_playlist_video(video, user_language, callback_query, app, CHANNEL_I
         )
 
         if video.description:
+            description=video.description.replace('\n', '<br>')
             try:
-                page = telegraph.create_page(video.title, html_content=f'{video.description}')
+                page = telegraph.create_page(video.title, html_content=f'{description}')
                 caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
             except Exception as e:
-                caption=caption.replace('DESC', video.description)
+                caption=caption.replace('DESC', description)
                 print(f"An error occurred while creating Telegraph page of playlist video description: {e}")
         else:
             caption=caption.replace('DESC','')

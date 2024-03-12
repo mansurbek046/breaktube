@@ -103,7 +103,7 @@ async def send_video_info(client, chat_id, id, user):
 
             if video_description:
                 try:
-                    page = telegraph.create_page(yt.title, html_content=f'{video_description} <img src="{yt.thumbnail_url}/>"')
+                    page = telegraph.create_page(yt.title, html_content=f'{video_description}')
                     caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
                 except Exception as e:
                     caption=caption.replace('DESC', video_description)
@@ -177,7 +177,7 @@ async def send_playlist_info(client, chat_id, playlist_info, user):
             playlist_info['channel_name']
         )
         if playlist_description:
-            page=telegraph.create_page(playlist_info['name'], html_content=f'{playlist_description}')
+            page=telegraph.create_page(playlist_info['name'], html_content=f'<img src="{playlist_info["photo"]}">{playlist_description}')
             caption=caption.replace('DESC', f'\n📖 <a href="{page["url"]}">{user_language["description"]}</a>')
         else:
             caption=caption.replace('DESC', playlist_description)
