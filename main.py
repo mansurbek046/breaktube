@@ -132,7 +132,7 @@ async def logs(client, message):
     await message.delete()
     text='No logs..'
 
-    with open('tmp/break_tube_error.log', 'r') as file:
+    with open('tmp/log.txt', 'r') as file:
         log=file.read()
         if log:
             text=log
@@ -143,7 +143,7 @@ async def logs(client, message):
     else:
         await client.send_message(-1002092731391, text=text, reply_markup=x_markup)
 
-    os.remove('tmp/break_tube_error.log')
+    os.remove('tmp/log.txt')
 
 @app.on_message(filters.command('subs'))
 async def get_subs(client, message):
