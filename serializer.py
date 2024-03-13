@@ -149,6 +149,7 @@ async def YtChannelPlaylists(client, channel_id, lang):
             video_count = playlist['contentDetails']['itemCount']
             playlist=playlist['snippet']
             playlist_info={
+                'photo': playlist['thumbnails']['maxres']['url'],
                 'name': playlist['title'],
                 'description': playlist['description'],
                 'created_at': playlist['publishedAt'].split('T')[0],
