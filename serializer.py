@@ -174,8 +174,8 @@ async def YtChannelVideos(client, id, lang):
         while True:
             request = youtube.search().list(
                 part='snippet',
-                channelId=channel_id,
-                maxResults=50,  # Maximum number of results per request is 50
+                channelId=id,
+                maxResults=100,
                 pageToken=next_page_token
             )
             response = request.execute()
@@ -188,9 +188,6 @@ async def YtChannelVideos(client, id, lang):
                 break
 
         print(json.dumps(videos, indent=2))
-        req = youtube.videos().list(part='snippet,statistics')
-        res = req.execute()
-        print(json.dumps(res, indent=2))
         # req = youtube.videos().list(part='snippet,statistics', id=id)
         # res = req.execute()
         # video_info = res['items'][0]['snippet']
