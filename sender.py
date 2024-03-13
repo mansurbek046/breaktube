@@ -151,7 +151,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
             caption=caption.replace('DESC','')
 
         buttons=[[]]
-        buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], callback_data=f'playlists:{channel_info["id"]}'))
+        buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url='kun.uz'))
         if channel_info['id'] not in channels:
             buttons[0].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))
         else:

@@ -212,10 +212,10 @@ async def youlink(client, message):
                     channel_path = parsed_url.path.split('/')
 
                     if len(channel_path) > 1 and channel_path[1] in ['user', 'channel']:
-                        channel_info = await YtChannel(channel_path[2], user.lang)
+                        channel_info = await YtChannel(client, channel_path[2], user.lang)
                         await sender.send_channel_info(client, message.chat.id, channel_info, user)
                     else:
-                        channel_info = await YtChannel(url, user.lang, True)
+                        channel_info = await YtChannel(client, url, user.lang, True)
                         await sender.send_channel_info(client, message.chat.id, channel_info, user)
                 
                 process_count += 1
