@@ -126,6 +126,7 @@ async def send_video_info(client, chat_id, id, user):
 
 
 async def send_channel_info(client, chat_id, channel_info, user):
+    user_language=languages[user.lang]
 
     # Fetching playlists
     playlists=await YtChannelPlaylists(client, channel_info['id'], user.lang)
@@ -144,9 +145,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
         message+=text
     playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
 
-    
     channels=user.get_channels()
-    user_language=languages[user.lang]
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
 
     try:
