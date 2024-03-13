@@ -137,10 +137,10 @@ async def send_channel_info(client, chat_id, channel_info, user):
     for playlist in playlists:
 
         response = requests.get(playlist['photo'])
-        image_bytes = BytesIO(response.content)
+        image = response.content
         telegraph_res = requests.post(
             'https://telegra.ph/upload',
-            data=image_bytes
+            files={'file': ('file', image)}
         ).json()
         print(telegraph_res)
     
