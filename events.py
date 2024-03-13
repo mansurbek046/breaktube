@@ -323,30 +323,6 @@ async def event_controller(client, callback_query, app):
                 await client.answer_callback_query(callback_query.id, user_language['unsubscribed'])
                 await client.edit_message_reply_markup(chat_id=callback_query.message.chat.id, message_id=callback_query.message.id, reply_markup=reply_markup)
 
-        case 'playlists':
-            # Fetching playlist
-            try:
-                playlists=await YtChannelPlaylists(client, callback_data[1], user.lang)
-                playlist_url='https://youtube.com/playlist?list='
-                message=f''
-                for playlist in playlists:
-                    text=user_language['caption_playlists'].format(
-                        playlist['name'],
-                        playlist_url+playlist['id'],
-                        playlist['created_at'].replace('-','.'),
-                        playlist['video_count'])
-                    if playlist['description']:
-                        text=text.replace('DESC', f'\n📖 {playlist["description"]}')
-                    else:
-                        text=text.replace('DESC', '')
-                    message+=text
-
-                await client.send_message(chat_id=callback_query.message.chat.id, text=message, reply_markup=x_markup)
-
-            except Exception as e:
-                error_handler(client, f"An error occurred while fetching playlists: {e}")
-                await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_playlists'], reply_markup=x_markup)
-
         case 'playlist':
             # Downloading playlist
             try:

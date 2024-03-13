@@ -11,7 +11,7 @@ from telegraph import Telegraph
 from urllib.error import URLError
 from credentials import telegraph_access_token
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-
+from serializers import YtChannelPlaylists
 
 telegraph=Telegraph(telegraph_access_token)
 
@@ -126,6 +126,25 @@ async def send_video_info(client, chat_id, id, user):
 
 
 async def send_channel_info(client, chat_id, channel_info, user):
+
+    # Fetching playlists
+    playlists=await YtChannelPlaylists(client, channel_info['channel_id'], user.lang)
+    playlist_url='https://youtube.com/playlist?list='
+    message=f''
+    for playlist in playlists:
+        text=user_language['caption_playlists'].format(
+            playlist['name'],
+            playlist_url+playlist['id'],
+            playlist['created_at'].replace('-','.'),
+            playlist['video_count'])
+        if playlist['description']:
+            text=text.replace('DESC', f'\n📖 {playlist["description"]}')
+        else:
+            text=text.replace('DESC', '')
+        message+=text
+    playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
+
+    
     channels=user.get_channels()
     user_language=languages[user.lang]
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
@@ -151,7 +170,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
             caption=caption.replace('DESC','')
 
         buttons=[[]]
-        buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url='kun.uz'))
+        buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url=playlists_page["url"]))
         if channel_info['id'] not in channels:
             buttons[0].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))
         else:
