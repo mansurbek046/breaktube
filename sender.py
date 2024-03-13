@@ -140,7 +140,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
         image_bytes = BytesIO(response.content)
         telegraph_res = requests.post(
             'https://telegra.ph/upload',
-            file=image_bytes
+            data=image_bytes
         ).json()
         print(telegraph_res)
     
