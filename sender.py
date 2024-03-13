@@ -141,9 +141,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
         telegraph_res = requests.post(
             'https://telegra.ph/upload',
             files={'file': ('file', image)}
-        ).json()
-        print(telegraph_res)
-    
+        ).json()    
             
         text=user_language['caption_playlists'].format(
             playlist_url+playlist['id'],
@@ -154,7 +152,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
             text=text.replace('DESC', f'\n📖 {playlist["description"]}')
         else:
             text=text.replace('DESC', '')
-        message+=(f'<img src="http://www.photo-paysage.com/albums/userpics/10001/Cascade_-15.JPG" alt="My Image">'+text)
+        message+=(f'<img src="{telegraph_res[0]["src"]}" alt="My Image">'+text)
         message=message.replace("\n", "<br>")
     playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
 
