@@ -176,6 +176,7 @@ async def YtChannelVideos(client, id, lang):
                 part='snippet',
                 channelId=id,
                 maxResults=100,
+                fields='items(id/videoId,snippet(title,publishedAt))',
                 pageToken=next_page_token
             )
             response = request.execute()
@@ -187,22 +188,7 @@ async def YtChannelVideos(client, id, lang):
             if not next_page_token:
                 break
 
-        print(json.dumps(videos, indent=2))
-        # req = youtube.videos().list(part='snippet,statistics', id=id)
-        # res = req.execute()
-        # video_info = res['items'][0]['snippet']
-        # like_count = res['items'][0]['statistics']['likeCount']
-        # msg_content = {
-            # 'photo': video_info['thumbnails']['maxres']['url'],
-            # 'name': video_info['title'],
-            # 'description': video_info['description'],
-            # 'created_at': video_info['publishedAt'].split('T')[0].replace('-','.'),
-            # 'channel_id': video_info['channelId'],
-            # 'channel_name': video_info['channelTitle'],
-            # 'like_count': like_count,
-            # 'id': id
-        # }
-        # return msg_content
+        return videos
     except Exception as e:
         error_handler(client, f"An error occurred while fetching YouTube channel videos: {e}")
         return None
