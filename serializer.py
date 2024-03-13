@@ -191,9 +191,9 @@ async def YtChannelVideos(client, id, lang):
             # 'id': id
         # }
         # return msg_content
-    # except Exception as e:
-        # error_handler(client, f"An error occurred while fetching YouTube video details: {e}")
-        # return None
+    except Exception as e:
+        error_handler(client, f"An error occurred while fetching YouTube channel videos: {e}")
+        return None
 
 
 
