@@ -22,7 +22,7 @@ with open('languages.json') as lang:
 def error_handler(client, message):
     logging.error("Error: %s", message)
 
-async def YtVideo(id, lang):
+async def YtVideo(client, id, lang):
     try:
         req = youtube.videos().list(part='snippet,statistics', id=id)
         res = req.execute()
@@ -43,7 +43,7 @@ async def YtVideo(id, lang):
         error_handler(client, f"An error occurred while fetching YouTube video details: {e}")
         return None
 
-async def YtVideoSubtitles(id, lang, download=False):
+async def YtVideoSubtitles(client, id, lang, download=False):
     try:
         if not download:
             transcript_list = YouTubeTranscriptApi.list_transcripts(id)
@@ -66,7 +66,7 @@ async def YtVideoSubtitles(id, lang, download=False):
         error_handler(client, f"An error occurred while fetching YouTube video subtitles: {e}")
         return None
 
-async def YtChannel(id, lang, is_name=False):
+async def YtChannel(client, id, lang, is_name=False):
     try:
         if is_name:
             id = get_id(id)
@@ -116,14 +116,14 @@ async def YtChannels(ids, client, chat_id, user):
     else:
         await client.send_message(chat_id=chat_id, text=user_language['empty_subscription'])
 
-async def YtPlaylist(id, lang):
+async def YtPlaylist(client, id, lang):
     try:
         req = youtube.playlists().list(part='snippet,contentDetails', id=id)
         res = req.execute()
         playlist_info = res['items'][0]['snippet']
         video_count = res['items'][0]['contentDetails']['itemCount']
         msg_content = {
-            'photo': playlist_info['thumbnails']['high']['url'],
+            'photo': playlist_info['thumbnails']['maxres']['url'],
             'name': playlist_info['title'],
             'description': playlist_info['description'],
             'created_at': playlist_info['publishedAt'].split('T')[0],
@@ -132,12 +132,14 @@ async def YtPlaylist(id, lang):
             'video_count': video_count,
             'id': id
         }
+        if not msg_content['photo'].endswith('.jpg'):
+            msg_content['photo']='splash.jpg'
         return msg_content
     except Exception as e:
         error_handler(client, f"An error occurred while fetching YouTube playlist details: {e}")
         return None
 
-async def YtChannelPlaylists(channel_id, lang):
+async def YtChannelPlaylists(client, channel_id, lang):
     try:
         req=youtube.playlists().list(part='snippet,contentDetails', channelId=channel_id)
         res=req.execute()

@@ -224,7 +224,7 @@ async def event_controller(client, callback_query, app):
         # subtitle
         case 'sbt':
             try:
-                subtitle = await YtVideoSubtitles(callback_data[1], user.lang, download=callback_data[2])
+                subtitle = await YtVideoSubtitles(client, callback_data[1], user.lang, download=callback_data[2])
                 file_stream = BytesIO()
                 file_stream.write(str(subtitle).encode())
                 file_stream.seek(0)
@@ -262,7 +262,7 @@ async def event_controller(client, callback_query, app):
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_mp3'], reply_markup=x_markup)
                 
         case 'channel':
-            channel_info=await YtChannel(callback_data[1], user.lang)
+            channel_info=await YtChannel(client, callback_data[1], user.lang)
             await sender.send_channel_info(client, callback_query.message.chat.id, channel_info, user)
 
         case 'video':
@@ -326,7 +326,7 @@ async def event_controller(client, callback_query, app):
         case 'playlists':
             # Fetching playlist
             try:
-                playlists=await YtChannelPlaylists(callback_data[1], user.lang)
+                playlists=await YtChannelPlaylists(client, callback_data[1], user.lang)
                 playlist_url='https://youtube.com/playlist?list='
                 message=f''
                 for playlist in playlists:

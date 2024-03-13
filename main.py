@@ -204,7 +204,7 @@ async def youlink(client, message):
 
                 if 'list' in query_params:
                     playlist_id = query_params['list'][0]
-                    playlist_info = await YtPlaylist(playlist_id, user.lang)
+                    playlist_info = await YtPlaylist(client, playlist_id, user.lang)
                     await sender.send_playlist_info(client, message.chat.id, playlist_info, user)
                 elif video_id:
                     await sender.send_video_info(client, message.chat.id, video_id, user)
