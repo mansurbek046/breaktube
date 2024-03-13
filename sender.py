@@ -136,13 +136,13 @@ async def send_channel_info(client, chat_id, channel_info, user):
     message=f''
     for playlist in playlists:
 
-    response = requests.get(playlist['photo'])
-    image_bytes = BytesIO(response.content)
-    telegraph_res = requests.post(
-        'https://telegra.ph/upload',
-        file=image_bytes
-    ).json()
-    print(telegraph_res)
+        response = requests.get(playlist['photo'])
+        image_bytes = BytesIO(response.content)
+        telegraph_res = requests.post(
+            'https://telegra.ph/upload',
+            file=image_bytes
+        ).json()
+        print(telegraph_res)
     
             
         text=user_language['caption_playlists'].format(
