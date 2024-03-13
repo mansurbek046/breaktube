@@ -12,7 +12,7 @@ from urllib.error import URLError
 import urllib.parse
 from credentials import telegraph_access_token
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from serializer import YtChannelPlaylists
+from serializer import YtChannelPlaylists, YtChannelVideos
 from io import BytesIO
 import requests
 
@@ -162,6 +162,10 @@ async def send_channel_info(client, chat_id, channel_info, user):
     channels=user.get_channels()
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
 
+    # Fetching videos
+    playlists=await YtChannelVideos(client, channel_info['id'], user.lang)
+    videos_page={'url':'kun.uz'}
+    
     try:
         video_count = int(channel_info['video_count'])
         view_count = int(channel_info['view_count'])
@@ -182,14 +186,15 @@ async def send_channel_info(client, chat_id, channel_info, user):
             caption=caption.replace('DESC', channel_description)
             caption=caption.replace('DESC','')
 
-        buttons=[[]]
+        buttons=[[][]]
         buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url=playlists_page["url"]))
+        buttons[0].append(InlineKeyboardButton(user_language['view_videos'], url=videos_page["url"]))
         if channel_info['id'] not in channels:
-            buttons[0].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))
+            buttons[1].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))
         else:
-            buttons[0].append(InlineKeyboardButton(user_language['unsubscribe'], callback_data=f'unsubscribe:{channel_info["id"]}'))
+            buttons[1].append(InlineKeyboardButton(user_language['unsubscribe'], callback_data=f'unsubscribe:{channel_info["id"]}'))
 
-        buttons.append([InlineKeyboardButton('❌', callback_data='x:')])
+        buttons[1].append([InlineKeyboardButton('❌', callback_data='x:')])
 
         reply_markup=InlineKeyboardMarkup(buttons)
         

@@ -165,6 +165,38 @@ async def YtChannelPlaylists(client, channel_id, lang):
         error_handler(client, f"An error occurred while fetching playlists of Channel: {e}")
         return None
 
+
+async def YtChannelVideos(client, id, lang):
+    try:
+        request = youtube.search().list(
+                part='snippet',
+                channelId=channel_id,
+                maxResults=50,  # Maximum number of results per request is 50
+                pageToken=next_page_token
+            )
+        response = request.execute()
+        return "hi"
+        # req = youtube.videos().list(part='snippet,statistics', id=id)
+        # res = req.execute()
+        # video_info = res['items'][0]['snippet']
+        # like_count = res['items'][0]['statistics']['likeCount']
+        # msg_content = {
+            # 'photo': video_info['thumbnails']['maxres']['url'],
+            # 'name': video_info['title'],
+            # 'description': video_info['description'],
+            # 'created_at': video_info['publishedAt'].split('T')[0].replace('-','.'),
+            # 'channel_id': video_info['channelId'],
+            # 'channel_name': video_info['channelTitle'],
+            # 'like_count': like_count,
+            # 'id': id
+        # }
+        # return msg_content
+    # except Exception as e:
+        # error_handler(client, f"An error occurred while fetching YouTube video details: {e}")
+        # return None
+
+
+
 def compare_dates(last, video):
     if isinstance(last, datetime):
         last_date = last.replace(tzinfo=pytz.utc)
