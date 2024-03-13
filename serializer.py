@@ -123,7 +123,7 @@ async def YtPlaylist(id, lang):
         playlist_info = res['items'][0]['snippet']
         video_count = res['items'][0]['contentDetails']['itemCount']
         msg_content = {
-            'photo': playlist_info['thumbnails']['maxres']['url'],
+            'photo': playlist_info['thumbnails']['high']['url'],
             'name': playlist_info['title'],
             'description': playlist_info['description'],
             'created_at': playlist_info['publishedAt'].split('T')[0],
