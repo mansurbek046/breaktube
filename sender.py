@@ -142,9 +142,11 @@ async def send_channel_info(client, chat_id, channel_info, user):
             'https://telegra.ph/upload',
             files={'file': ('file', image)}
         ).json()    
-            
+
+        fetch_url = 'https://t.me/share/url?url=' + urllib.parse.quote('https://t.me/breaktubebot') + '&text=' + urllib.parse.quote(playlist_url+playlist['id'])
+                
         text=user_language['caption_playlists'].format(
-            playlist_url+playlist['id'],
+            fetch_url,
             playlist['name'],
             playlist['created_at'].replace('-','.'),
             playlist['video_count'])
