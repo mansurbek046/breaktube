@@ -155,7 +155,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
         else:
             text=text.replace('DESC', '')
         message+=(f'<img src="splash.jpg" alt="My Image">'+text)
-    playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
+    playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message.replace("\n", "<br>")}')
 
     channels=user.get_channels()
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
