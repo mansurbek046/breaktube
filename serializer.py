@@ -173,6 +173,7 @@ async def YtChannelVideos(client, id, lang):
                 channelId=id,
             )
         response = request.execute()
+        print(response)
         return "hi"
         # req = youtube.videos().list(part='snippet,statistics', id=id)
         # res = req.execute()

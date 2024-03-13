@@ -163,8 +163,8 @@ async def send_channel_info(client, chat_id, channel_info, user):
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
 
     # Fetching videos
-    playlists=await YtChannelVideos(client, channel_info['id'], user.lang)
-    videos_page={'url':'kun.uz'}
+    channel_videos=await YtChannelVideos(client, channel_info['id'], user.lang)
+    videos_page={'url':'https://kun.uz'}
     
     try:
         video_count = int(channel_info['video_count'])
