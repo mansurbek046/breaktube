@@ -186,7 +186,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
             caption=caption.replace('DESC', channel_description)
             caption=caption.replace('DESC','')
 
-        buttons=[[][]]
+        buttons=[[],[]]
         buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url=playlists_page["url"]))
         buttons[0].append(InlineKeyboardButton(user_language['view_videos'], url=videos_page["url"]))
         if channel_info['id'] not in channels:
