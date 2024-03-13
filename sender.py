@@ -11,7 +11,7 @@ from telegraph import Telegraph
 from urllib.error import URLError
 from credentials import telegraph_access_token
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from serializers import YtChannelPlaylists
+from serializer import YtChannelPlaylists
 
 telegraph=Telegraph(telegraph_access_token)
 
