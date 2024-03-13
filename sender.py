@@ -12,7 +12,7 @@ from urllib.error import URLError
 from credentials import telegraph_access_token
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from serializer import YtChannelPlaylists
-import base64
+from io import BytesIO
 import requests
 
 telegraph=Telegraph(telegraph_access_token)
@@ -136,9 +136,15 @@ async def send_channel_info(client, chat_id, channel_info, user):
     message=f''
     for playlist in playlists:
 
-        response = requests.get(playlist['photo'])
-        image_data = base64.b64encode(response.content).decode('utf-8')
+    response = requests.get(playlist['photo'])
+    image_bytes = BytesIO(response.content)
+    telegraph_res = requests.post(
+        'https://telegra.ph/upload',
+        file=image_bytes
+    ).json()
+    print(telegraph_res)
     
+            
         text=user_language['caption_playlists'].format(
             playlist_url+playlist['id'],
             playlist['name'],
@@ -148,7 +154,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
             text=text.replace('DESC', f'\n📖 {playlist["description"]}')
         else:
             text=text.replace('DESC', '')
-        message+=(f'<img src="data:image/jpeg;base64,{image_data}" alt="My Image">'+text)
+        message+=(f'<img src="splash.jpg" alt="My Image">'+text)
     playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
 
     channels=user.get_channels()
