@@ -171,8 +171,6 @@ async def YtChannelVideos(client, id, lang):
         request = youtube.search().list(
                 part='snippet',
                 channelId=id,
-                maxResults=5000,  # Maximum number of results per request is 50
-                pageToken=next_page_token
             )
         response = request.execute()
         return "hi"
