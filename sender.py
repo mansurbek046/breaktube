@@ -194,7 +194,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
         else:
             buttons[1].append(InlineKeyboardButton(user_language['unsubscribe'], callback_data=f'unsubscribe:{channel_info["id"]}'))
 
-        buttons[1].append([InlineKeyboardButton('❌', callback_data='x:')])
+        buttons[1].append(InlineKeyboardButton('❌', callback_data='x:'))
 
         reply_markup=InlineKeyboardMarkup(buttons)
         

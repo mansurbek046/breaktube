@@ -168,13 +168,29 @@ async def YtChannelPlaylists(client, channel_id, lang):
 
 async def YtChannelVideos(client, id, lang):
     try:
-        request = youtube.search().list(
+        videos = []
+        next_page_token = None
+        
+        while True:
+            request = youtube.search().list(
                 part='snippet',
-                channelId=id,
+                channelId=channel_id,
+                maxResults=50,  # Maximum number of results per request is 50
+                pageToken=next_page_token
             )
-        response = request.execute()
-        print(response)
-        return "hi"
+            response = request.execute()
+        
+            videos.extend(response['items'])
+        
+            next_page_token = response.get('nextPageToken')
+        
+            if not next_page_token:
+                break
+
+        print(json.dumps(videos, indent=2))
+        req = youtube.videos().list(part='snippet,statistics')
+        res = req.execute()
+        print(json.dumps(res, indent=2))
         # req = youtube.videos().list(part='snippet,statistics', id=id)
         # res = req.execute()
         # video_info = res['items'][0]['snippet']
