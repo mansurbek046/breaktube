@@ -164,6 +164,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
 
     # Fetching videos
     channel_videos=await YtChannelVideos(client, channel_info['id'], user.lang)
+    print(json.dumps(channel_videos, indent=2))
     videos_page={'url':'https://kun.uz'}
     
     try:

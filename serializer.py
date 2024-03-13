@@ -187,8 +187,8 @@ async def YtChannelVideos(client, id, lang):
         
             if not next_page_token:
                 break
-
         return videos
+
     except Exception as e:
         error_handler(client, f"An error occurred while fetching YouTube channel videos: {e}")
         return None
