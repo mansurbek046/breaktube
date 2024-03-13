@@ -190,6 +190,7 @@ async def send_playlist_info(client, chat_id, playlist_info, user):
 
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('📹 720p', callback_data=f'playlist:mp4:{playlist_info["id"]}'),
         InlineKeyboardButton('🎧 MP3', callback_data=f'playlist:mp3:{playlist_info["id"]}')], [InlineKeyboardButton('🔍', switch_inline_query_current_chat=f".p {playlist_info['name']}"), InlineKeyboardButton('❌', callback_data='x:')]])
+        print(playlist_info['photo'])
         await client.send_photo(photo=playlist_info['photo'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
 
     except Exception as e:

@@ -19,7 +19,7 @@ from emoji_dict import flags_emoji_dict
 db.connect()
 app = Client('BreakTubebot', api_hash=api_hash, api_id=api_id, bot_token=bot_token)
 
-logging.basicConfig(filename='tmp/log.txt', level=logging.ERROR, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename='tmp/log.txt', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def error_handler(client, message):
     logging.error("Error: %s", message)
@@ -139,7 +139,7 @@ async def logs(client, message):
     else:
         await client.send_message(-1002092731391, text=text, reply_markup=x_markup)
     with open('tmp/log.txt', 'w') as file:
-        file.write('No logs..')
+        file.write('Logs...: ')
     await message.delete()
 
 @app.on_message(filters.command('subs'))
