@@ -17,6 +17,7 @@ from urllib.parse import urlparse, parse_qs
 from dateutil.relativedelta import relativedelta
 from credentials import CHANNEL_ID, telegraph_access_token
 from concurrent.futures import ThreadPoolExecutor
+import logging
 
 telegraph=Telegraph(telegraph_access_token)
 
@@ -54,7 +55,8 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
     else:
         caption=caption.replace('DESC','')
 
-    if stream.type == "progressive":
+    if stream.is_progressive:
+        print('Progressive')
         return [file_path, yt.thumbnail_url, caption]
     else:
         audio_stream=yt.streams.filter(only_audio=True).first()
@@ -67,18 +69,21 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
 
         if splitted_file_name.split('.')[-1]=="webm":
             merged_file_path=merged_file_path.split('.')[0]+".mkv"
-            ffmpeg_cmd = ["ffmpeg",
-                          "-i", file_path,
-                          "-i", new_audio_file_path,
-                          "-c:v", "copy",
-                          "-c:a", "aac",
-                          merged_file_path]
-            # subprocess.run(ffmpeg_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+            ffmpeg_cmd = [
+                "ffmpeg",
+                "-i", file_path,
+                "-i", new_audio_file_path,
+                "-loop", "1",
+                "-i", "splash.jpg",
+                "-filter_complex", "[0:v][1:a]concat=n=2:v=1:a=1[v],[v][2:v]concat=n=2:v=1:a=1",
+                "-c:a", "aac",
+                merged_file_path
+            ]
             subprocess.run(ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
         else:
             ffmpeg_cmd = ["ffmpeg", "-i", file_path, "-i", new_audio_file_path, "-c", "copy", merged_file_path]
-            # subprocess.run(ffmpeg_cmd)
             subprocess.run(ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
         return [merged_file_path, yt.thumbnail_url, caption]
 
@@ -251,7 +256,7 @@ async def event_controller(client, callback_query, app):
             try:
                 if Audio.select().where(Audio.youtube_id == callback_data[1]).exists():
                     audio = Audio.select().where(Audio.youtube_id == callback_data[1]).first()
-                    await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(audio)), disable_notification=True, reply_markup=x_markup)
+                    await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(audio)), disable_notification=True)
                 else:
                     yt=YouTube(video_url+callback_data[1], on_complete_callback=on_complete)
                     stream=yt.streams.filter(only_audio=True, file_extension='mp4').first()
@@ -282,7 +287,7 @@ async def event_controller(client, callback_query, app):
                     chat_id=callback_query.message.chat.id
 
                     if matching_records.exists():
-                        await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)), reply_markup=x_markup)
+                        await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)))
                         await callback_query.message.delete()
                         os.remove(f'Keyboards/{chat_id}_back_keyboard.pkl')
                         
