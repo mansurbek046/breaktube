@@ -180,7 +180,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
             <img src="{vd_telegraph_res[0]["src"]}">
             <p>{video["snippet"]["publishedAt"].split("T")[0]}</p>
             <br>
-            <a href="{video_url+video["id"].get("videoId", None)}">{video["snippet"]["title"]}</a>
+            <a href="{video_url+video["id"].get("videoId", video["id"])}">{video["snippet"]["title"]}</a>
             '''     
         vd_message+=content
     videos_page=telegraph.create_page(channel_info['name'], html_content=f'{vd_message}')
