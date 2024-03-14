@@ -167,7 +167,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
     channel_videos=await YtChannelVideos(client, channel_info['id'], user.lang)
     print(json.dumps(channel_videos, indent=2))
     for video in channel_videos:
-        if len(video['id']):
+        if video['id']:
             print(video['id'])
             response = requests.get(video["snippet"]["thumbnails"]["default"]["url"])
             image = response.content
@@ -180,7 +180,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
             <img src="{vd_telegraph_res[0]["src"]}">
             <p>{video["snippet"]["publishedAt"].split("T")[0]}</p>
             <br>
-            <a href="{video_url+video["id"].get("videoId", "id")}">{video["snippet"]["title"]}</a>
+            <a href="{video_url+video["id"].get("videoId", "W46x31JC74w")}">{video["snippet"]["title"]}</a>
             '''     
         vd_message+=content
     videos_page=telegraph.create_page(channel_info['name'], html_content=f'{vd_message}')
