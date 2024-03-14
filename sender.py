@@ -154,7 +154,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
             text=text.replace('DESC', f'\n📖 {playlist["description"]}')
         else:
             text=text.replace('DESC', '')
-        message+=(f'<img src="{telegraph_res[0]["src"]}">'+text)
+        message+=(f'<img src="{telegraph_res[0]["src"]}">'+text+"<p>ㅤㅤㅤㅤㅤㅤ</p>")
         message=message.replace("\n", "<br>")
     playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
 
@@ -165,6 +165,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
     vd_message=''
     video_url = f'https://www.youtube.com/watch?v='
     channel_videos=await YtChannelVideos(client, channel_info['id'], user.lang)
+    print(len(channel_videos))
     for video in channel_videos:
         if video['id']:
             response = requests.get(video["snippet"]["thumbnails"]["default"]["url"])
@@ -176,10 +177,11 @@ async def send_channel_info(client, chat_id, channel_info, user):
 
             content=f'''
                 <img src="{vd_telegraph_res[0]["src"]}">
-                <p>{str(video["snippet"]["publishedAt"].split("T")[0]).replace("-",".")}</p>
-                <br>
+                {str(video["snippet"]["publishedAt"].split("T")[0]).replace("-",".")}
+                <br>                    
                 <a href="{video_url+video["id"].get("videoId", "W46x31JC74w")}">{video["snippet"]["title"]}</a>
-                <p>*</p>
+                <p>ㅤㅤㅤㅤㅤㅤ</p>
+                <p>ㅤㅤㅤㅤㅤㅤ</p>
                 '''     
             vd_message+=content
     videos_page=telegraph.create_page(channel_info['name'], html_content=f'{vd_message}')
