@@ -103,7 +103,8 @@ async def YtChannels(ids, client, chat_id, user):
     if ids:
         req = youtube.channels().list(
             part="snippet",
-            id=",".join(ids)
+            id=",".join(ids),
+            fields='items(id,snippet(title))'
         )
         res = req.execute()
         buttons=[]
@@ -176,7 +177,7 @@ async def YtChannelVideos(client, id, lang):
                 part='snippet',
                 channelId=id,
                 maxResults=100,
-                fields='items(id/videoId,snippet(title,publishedAt))',
+                fields='items(id/videoId,snippet(title,publishedAt,thumbnails(default(url))))',
                 pageToken=next_page_token
             )
             response = request.execute()

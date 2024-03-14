@@ -144,10 +144,9 @@ async def send_channel_info(client, chat_id, channel_info, user):
             files={'file': ('file', image)}
         ).json()    
 
-        fetch_url = 'https://t.me/share/url?url=' + urllib.parse.quote('https://t.me/breaktubebot') + '&text=' + urllib.parse.quote(playlist_url+playlist['id'])
                 
         text=user_language['caption_playlists'].format(
-            fetch_url,
+            playlist_url+playlist['id'],
             playlist['name'],
             playlist['created_at'].replace('-','.'),
             playlist['video_count'])
@@ -155,7 +154,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
             text=text.replace('DESC', f'\n📖 {playlist["description"]}')
         else:
             text=text.replace('DESC', '')
-        message+=(f'<img src="{telegraph_res[0]["src"]}" alt="My Image">'+text)
+        message+=(f'<img src="{telegraph_res[0]["src"]}">'+text)
         message=message.replace("\n", "<br>")
     playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
 
@@ -163,10 +162,28 @@ async def send_channel_info(client, chat_id, channel_info, user):
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
 
     # Fetching videos
+    vd_message=''
+    video_url = f'https://www.youtube.com/watch?v='
     channel_videos=await YtChannelVideos(client, channel_info['id'], user.lang)
     print(json.dumps(channel_videos, indent=2))
-    videos_page={'url':'https://kun.uz'}
-    
+    for video in channel_videos:
+        if video['id']['videoId']:
+            response = requests.get(video['snippet']['photo'])
+            image = response.content
+            vd_telegraph_res = requests.post(
+                'https://telegra.ph/upload',
+                files={'file': ('file', image)}
+            ).json()
+
+        content=f'''
+            <img src="{vd_telegraph_res[0]["src"]}">
+            <p>{video["snippet"]["publishedAt"].split("T")[0]}</p>
+            <br>
+            <a href="{video_url+video["id"]["videoId"]}">{video["snippet"]["title"]}</a>
+            '''     
+        vd_message+=content
+    videos_page=telegraph.create_page(channel_info['name'], html_content=f'{vd_message}')
+ 
     try:
         video_count = int(channel_info['video_count'])
         view_count = int(channel_info['view_count'])
