@@ -98,7 +98,7 @@ async def send_video_info(client, chat_id, id, user):
             # saving keyboards for back functionality
             with open(f'Keyboards/{chat_id}_back_keyboard.pkl', 'wb') as file:
                 pickle.dump(reply_markup, file)
-            video_description=yt.description.replace("\n","<br>")
+            video_description=yt.description
 
             caption = user_language['caption_video'].format(
                 yt.title,
@@ -111,6 +111,7 @@ async def send_video_info(client, chat_id, id, user):
 
             if video_description:
                 try:
+                    video_description=video_description.replace("\n","<br>")
                     page = telegraph.create_page(yt.title, html_content=f'{video_description}')
                     caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
                 except Exception as e:
