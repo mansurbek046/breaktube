@@ -168,7 +168,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
     print(json.dumps(channel_videos, indent=2))
     for video in channel_videos:
         if video['id']['videoId']:
-            response = requests.get(video["snippet"]["thumbnails"]["maxres"]["url"])
+            response = requests.get(video["snippet"]["thumbnails"]["default"]["url"])
             image = response.content
             vd_telegraph_res = requests.post(
                 'https://telegra.ph/upload',
