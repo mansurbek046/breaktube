@@ -176,13 +176,13 @@ async def send_channel_info(client, chat_id, channel_info, user):
                 files={'file': ('file', image)}
             ).json()
 
-        content=f'''
-            <img src="{vd_telegraph_res[0]["src"]}">
-            <p>{video["snippet"]["publishedAt"].split("T")[0]}</p>
-            <br>
-            <a href="{video_url+video["id"].get("videoId", "W46x31JC74w")}">{video["snippet"]["title"]}</a>
-            '''     
-        vd_message+=content
+            content=f'''
+                <img src="{vd_telegraph_res[0]["src"]}">
+                <p>{video["snippet"]["publishedAt"].split("T")[0]}</p>
+                <br>
+                <a href="{video_url+video["id"].get("videoId", "W46x31JC74w")}">{video["snippet"]["title"]}</a>
+                '''     
+            vd_message+=content
     videos_page=telegraph.create_page(channel_info['name'], html_content=f'{vd_message}')
  
     try:
