@@ -177,7 +177,7 @@ async def YtChannelVideos(client, id, lang):
                 part='snippet',
                 channelId=id,
                 maxResults=100,
-                fields='items(id/videoId,snippet(title,publishedAt,thumbnails(default(url))))',
+                fields='items(id/videoId,snippet(title,publishedAt,thumbnails(maxres(url))))',
                 pageToken=next_page_token
             )
             response = request.execute()
