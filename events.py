@@ -70,16 +70,13 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
         if splitted_file_name.split('.')[-1]=="webm":
             merged_file_path=merged_file_path.split('.')[0]+".mkv"
 
-            ffmpeg_cmd = [
-                "ffmpeg",
-                "-i", file_path,
-                "-i", new_audio_file_path,
-                "-loop", "1",
-                "-i", "splash.jpg",
-                "-filter_complex", "[0:v][1:a]concat=n=2:v=1:a=1[v],[v][2:v]concat=n=2:v=1:a=1",
-                "-c:a", "aac",
-                merged_file_path
-            ]
+            ffmpeg_cmd = ["ffmpeg",
+                          "-i", file_path,
+                          "-i", new_audio_file_path,
+                          "-c:v", "copy",
+                          "-c:a", "aac",
+                          merged_file_path]
+            
             subprocess.run(ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
 
         else:

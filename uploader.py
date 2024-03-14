@@ -6,13 +6,12 @@ import requests
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, resolution="", caption="", downloading_id=None, thumbnail_file_path=None):
-    x_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌', callback_data='x:')]])
     if file_type=='video':
         if thumbnail_file_path:
             thumbnail_response = requests.get(thumbnail_file_path).content
-            video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb=BytesIO(thumbnail_response), reply_markup=x_markup)
+            video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb=BytesIO(thumbnail_response))
         else:
-            video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, reply_markup=x_markup, thumb='splash.jpg')
+            video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb='splash.jpg')
 
         Video.create(id=video.id, youtube_id=youtube_id, resolution=resolution)
         send=await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=video.id)
@@ -26,7 +25,7 @@ async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, res
         new_file_path = os.path.splitext(file_path)[0] + ".mp3"
         os.rename(file_path, new_file_path)
            
-        audio=await app.send_audio(chat_id=CHANNEL_ID, audio=new_file_path, caption=caption, reply_markup=x_markup)
+        audio=await app.send_audio(chat_id=CHANNEL_ID, audio=new_file_path, caption=caption)
 
         Audio.create(id=audio.id, youtube_id=youtube_id)
         send=await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=audio.id, disable_notification=True)
