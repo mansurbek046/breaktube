@@ -167,7 +167,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
     channel_videos=await YtChannelVideos(client, channel_info['id'], user.lang)
     print(json.dumps(channel_videos, indent=2))
     for video in channel_videos:
-        if video['id']['videoId']:
+        if video['id'].get("videoId", False):
             response = requests.get(video["snippet"]["thumbnails"]["default"]["url"])
             image = response.content
             vd_telegraph_res = requests.post(
