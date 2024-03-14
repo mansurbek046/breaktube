@@ -12,7 +12,7 @@ async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, res
             thumbnail_response = requests.get(thumbnail_file_path).content
             video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb=BytesIO(thumbnail_response), reply_markup=x_markup)
         else:
-            video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, reply_markup=x_markup)
+            video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, reply_markup=x_markup, thumb='splash.jpg')
 
         Video.create(id=video.id, youtube_id=youtube_id, resolution=resolution)
         send=await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=video.id)

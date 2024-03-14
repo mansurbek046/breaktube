@@ -85,6 +85,8 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
         else:
             ffmpeg_cmd = ["ffmpeg", "-i", file_path, "-i", new_audio_file_path, "-c", "copy", merged_file_path]
             subprocess.run(ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+        os.remove(file_path)
+        os.remove(new_audio_file_path)
         return [merged_file_path, yt.thumbnail_url, caption]
 
 
@@ -102,9 +104,7 @@ async def download_video_async(video_url, callback_data, stream_resolution, stre
             caption,
             downloading.id,
             thumbnail_file_path=thumbnail_url)
-        if upload:
-            os.remove(file_path)
-            os.remove(new_audio_file_path)
+            
 
 def download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader):
     stream = video.streams.get_by_resolution('720p')
