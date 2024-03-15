@@ -101,7 +101,7 @@ async def download_video_async(video_url, callback_data, stream_resolution, stre
             caption,
             downloading.id,
             thumbnail_file_path=thumbnail_url,
-            duration)
+            duration=duration)
             
 
 def download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader):
@@ -148,7 +148,7 @@ async def download_playlist_video_async(video, user_language, callback_query, ap
                 chat_id,
                 '720p',
                 caption,
-                duration
+                duration=duration
             )
 
 def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
@@ -169,7 +169,7 @@ async def download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_comp
             loop = asyncio.get_event_loop()
             with ThreadPoolExecutor() as executor:
                 file_path, duration=await loop.run_in_executor(executor, download_playlist_audio, video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
-                await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id, duration)
+                await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id, duration=duration)
 
 x_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌', callback_data='x:')]])
 
