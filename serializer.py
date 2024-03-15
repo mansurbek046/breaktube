@@ -244,8 +244,6 @@ async def YtUpdate(client, id, chat_id):
         if user.premium:
             end_date=str(user.premium).split(' ')[0]
             now=str(datetime.now().strftime('%Y-%m-%d'))
-            print(end_date, now)
-            print(end_date==now)
             if end_date==now:
                 user.premium=None
                 user.save()
