@@ -57,7 +57,7 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
         caption=caption.replace('DESC','')
 
     if stream.is_progressive:
-        return [file_path, yt.thumbnail_url, caption]
+        return [file_path, yt.thumbnail_url, caption, yt.length]
     else:
         audio_stream=yt.streams.filter(only_audio=True).first()
         audio_file_path=audio_stream.download('Audios/')
@@ -84,13 +84,13 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
             subprocess.run(ffmpeg_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
         os.remove(file_path)
         os.remove(new_audio_file_path)
-        return [merged_file_path, yt.thumbnail_url, caption]
+        return [merged_file_path, yt.thumbnail_url, caption, yt.length]
 
 
 async def download_video_async(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading):
     loop = asyncio.get_event_loop()
     with ThreadPoolExecutor() as executor:
-        file_path, thumbnail_url, caption=await loop.run_in_executor(executor, download_video, video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading)
+        file_path, thumbnail_url, caption, duration=await loop.run_in_executor(executor, download_video, video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading)
         upload=await uploader.upload_to_telegram(
             app, 
             file_path, 
@@ -100,7 +100,8 @@ async def download_video_async(video_url, callback_data, stream_resolution, stre
             stream_resolution, 
             caption,
             downloading.id,
-            thumbnail_file_path=thumbnail_url)
+            thumbnail_file_path=thumbnail_url,
+            duration)
             
 
 def download_playlist_video(video, user_language, callback_query, app, CHANNEL_ID, uploader):
@@ -128,7 +129,7 @@ def download_playlist_video(video, user_language, callback_query, app, CHANNEL_I
         else:
             caption=caption.replace('DESC','')
 
-        return [file_path, caption]
+        return [file_path, caption, video.length]
 
             
 async def download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader, chat_id):
@@ -138,7 +139,7 @@ async def download_playlist_video_async(video, user_language, callback_query, ap
     else:
         loop = asyncio.get_event_loop()
         with ThreadPoolExecutor() as executor:
-            file_path, caption=await loop.run_in_executor(executor, download_playlist_video, video, user_language, callback_query, app, CHANNEL_ID, uploader)
+            file_path, caption, duration=await loop.run_in_executor(executor, download_playlist_video, video, user_language, callback_query, app, CHANNEL_ID, uploader)
             await uploader.upload_to_telegram(
                 app,
                 file_path,
@@ -146,7 +147,8 @@ async def download_playlist_video_async(video, user_language, callback_query, ap
                 video.video_id,
                 chat_id,
                 '720p',
-                caption
+                caption,
+                duration
             )
 
 def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
@@ -154,7 +156,7 @@ def download_playlist_audio(video, app, chat_id, CHANNEL_ID, on_complete, callba
     yt = YouTube(audio_download_url, on_complete_callback=on_complete)
     stream = yt.streams.filter(only_audio=True, file_extension='mp4').first()
     file_path = stream.download('Audios/')
-    return file_path
+    return [file_path, yt.length]
 
 async def download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader):
     video_id = video.video_id
@@ -166,8 +168,8 @@ async def download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_comp
         else:
             loop = asyncio.get_event_loop()
             with ThreadPoolExecutor() as executor:
-                file_path=await loop.run_in_executor(executor, download_playlist_audio, video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
-                await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id)
+                file_path, duration=await loop.run_in_executor(executor, download_playlist_audio, video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
+                await uploader.upload_to_telegram(app, file_path, 'audio', video_id, callback_query.message.chat.id, duration)
 
 x_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌', callback_data='x:')]])
 
@@ -269,7 +271,7 @@ async def event_controller(client, callback_query, app):
 
         case 'video':
             error_video_url=''
-            downloading=''
+            downloading=None
             try:
                 chat_id=callback_query.message.chat.id
                 stream_type=callback_data[2]
@@ -290,9 +292,9 @@ async def event_controller(client, callback_query, app):
                         
                     else:
                         await callback_query.message.delete()
+                        downloading=await client.send_message(chat_id=chat_id, text=user_language['downloading'])
                         os.remove(f'Keyboards/{chat_id}_back_keyboard.pkl')
                         error_video_url=video_url+callback_data[1]
-                        downloading=await client.send_message(chat_id=chat_id, text=user_language['downloading'])
 
                         await download_video_async(video_url, callback_data, stream_resolution, stream_type, user_language, telegraph, app, chat_id, downloading)
 
@@ -302,7 +304,8 @@ async def event_controller(client, callback_query, app):
 
             except Exception as e:
                 error_handler(client, f"An error occurred while downloading video: {e}")
-                await app.delete_messages(callback_query.message.chat.id, downloading.id)
+                if downloading:
+                    await app.delete_messages(callback_query.message.chat.id, downloading.id)
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_video'].format(error_video_url), reply_markup=x_markup)
 
         case 'subscribe':
