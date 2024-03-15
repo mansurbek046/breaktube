@@ -257,7 +257,7 @@ async def handle_inline_query(client, inline_query):
     youtube = build('youtube', 'v3', developerKey=API_KEY())
 
     req=youtube.search().list(
-        part='snippet,
+        part='snippet',
         q=search_query,
         type=type_,
         maxResults=30
