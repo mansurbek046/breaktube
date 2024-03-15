@@ -152,7 +152,7 @@ async def get_subs(client, message):
 @app.on_message(filters.command('stats'))
 async def get_stats(client, message):
     user_count=User.select().count()
-    await client.send_message(message.chat.id, f'{user_count:,} users')
+    await client.send_message(message.chat.id, f'🪖 {user_count:,}')
 
 @app.on_message(filters.command('profile'))
 async def get_profile(client, message):
@@ -291,7 +291,7 @@ async def handle_inline_query(client, inline_query):
                 results.append(InlineQueryResultArticle(
                     title=item['title'],
                     input_message_content=InputTextMessageContent(playlist_url+video_id),
-                    description=f"📅 {item['publishedAt'].split('T')[0].replace('-','.')} | 📹 {video_count} | 🗣 {item['channelTitle']}",
+                    description=f"📅 {item['publishedAt'].split('T')[0].replace('-','.')} | 🗣 {item['channelTitle']}",
                     thumb_url=item['thumbnails']['medium']['url']
                 ))
     
