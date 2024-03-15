@@ -237,7 +237,7 @@ async def handle_inline_query(client, inline_query):
     
     query=inline_query.query
     if not query.strip():
-        query='uzbekistan'
+        query='the little prince'
 
     results=[]
     type_='video'
@@ -252,7 +252,7 @@ async def handle_inline_query(client, inline_query):
     youtube = build('youtube', 'v3', developerKey=API_KEY())
 
     req=youtube.search().list(
-        part='snippet',
+        part='snippet, contentDetails',
         q=search_query,
         type=type_,
         maxResults=30
@@ -282,10 +282,11 @@ async def handle_inline_query(client, inline_query):
             case 'playlist':
                 video_id=item['id']['playlistId']
                 item=item['snippet']
+                video_count = item['contentDetails']['itemCount']
                 results.append(InlineQueryResultArticle(
                     title=item['title'],
                     input_message_content=InputTextMessageContent(playlist_url+video_id),
-                    description=f"📅 {item['publishedAt'].split('T')[0].replace('-','.')} | 🗣 {item['channelTitle']}",
+                    description=f"📅 {item['publishedAt'].split('T')[0].replace('-','.')} | 📹 {video_count} | 🗣 {item['channelTitle']}",
                     thumb_url=item['thumbnails']['medium']['url']
                 ))
     

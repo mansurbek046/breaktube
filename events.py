@@ -337,13 +337,20 @@ async def event_controller(client, callback_query, app):
                 await callback_query.message.delete()
                 downloading=await client.send_message(chat_id=chat_id, text=user_language['pl_downloading'])
 
+                count=0
+                
                 if callback_data[1] == "mp4":
                     for video in playlist.videos:
                         await download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader, chat_id)
-
+                        count+=1
+                        if count==100:
+                            break
                 elif callback_data[1] == "mp3":
                     for video in playlist.videos:
                         await download_playlist_audio_async(video, app, chat_id, CHANNEL_ID, on_complete, callback_query, uploader)
+                        count+=1
+                        if count==100:
+                            break
 
                 await app.delete_messages(chat_id, downloading.id)
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['completed'], reply_markup=x_markup)
@@ -362,7 +369,7 @@ async def event_controller(client, callback_query, app):
                     pass
                 else:
                     proposals=user.deep_proposals
-                    availabel_days=proposals//5
+                    availabel_days=proposals//1
                     buttons=[[],[], [InlineKeyboardButton('❌', callback_data='x:')]]
                     if availabel_days>=1:
                         buttons[0].append(InlineKeyboardButton(user_language['get_day_premium'].format(1), callback_data='day_premium:1'))
