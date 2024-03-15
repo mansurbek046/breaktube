@@ -182,7 +182,7 @@ async def get_premium(client, message):
 async def youlink(client, message):
     user = User.get(id=message.from_user.id)
     current=int(datetime.now().strftime('%H'))
-    last_time=int(str(user.updated_at).split(':')[0].split(' '))
+    last_time=int(str(user.updated_at).split(':')[0].split(' ')[1])
     if now-last_time>=2:
         await client.send_message(message.chat.id, f'{current} {last_time}')
         asyncio.create_task(YtUpdate(client, message.from_user.id, message.chat.id))

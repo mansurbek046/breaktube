@@ -74,7 +74,7 @@
         "caption_playlists": "🎬 <a href='{}'>{}</a> DESC\n📅 {}\n📹 {} videos\n\n",
         "caption_playlist": "🎬 <a href='{}'>{}</a> DESC\n📅 <b>{}\n📹 {}</b> videos\n🗣 <a href='{}'>{}</a>",
         "description": "Description",
-        "completed": "Downloading finished!",
+        "completed": "Downloading has finished!",
         "pl_downloading": "Downloading playlist...",
         "err_playlist_info": "An error occured while fetching playlist information!",
         "err_video_info": "An error occured while fetching video information!",
