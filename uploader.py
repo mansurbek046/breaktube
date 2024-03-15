@@ -11,7 +11,7 @@ async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, res
         if thumbnail_file_path:
             thumbnail_response = requests.get(thumbnail_file_path).content
             if str(file_path.split('.')[-1]).lower()=="mkv":
-                video=await app.send_document(chat_id=CHANNEL_ID, document=file_path, caption=caption)
+                video=await app.send_document(chat_id=CHANNEL_ID, document=file_path, caption=caption, thumb=BytesIO(thumbnail_response))
             else:
                 video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb=BytesIO(thumbnail_response), duration=duration)
         else:
@@ -21,7 +21,7 @@ async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, res
                 video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb='splash.jpg', duration=duration)
 
         Video.create(id=video.id, youtube_id=youtube_id, resolution=resolution)
-        send=await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=video.id, thumb=BytesIO(thumbnail_response))
+        send=await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=video.id)
 
         if send:
             os.remove(file_path)
