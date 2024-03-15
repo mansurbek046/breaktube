@@ -18,6 +18,7 @@ from dateutil.relativedelta import relativedelta
 from credentials import CHANNEL_ID, telegraph_access_token
 from concurrent.futures import ThreadPoolExecutor
 import logging
+import pytube.extract
 
 telegraph=Telegraph(telegraph_access_token)
 
@@ -326,9 +327,10 @@ async def event_controller(client, callback_query, app):
 
         case 'playlist':
             # Downloading playlist
+            pytube.extract.DEFAULT_TIMEOUT = 600
             try:
                 playlist_url='https://youtube.com/playlist?list='
-                playlist = Playlist(playlist_url+callback_data[2], request_timeout=600)
+                playlist = Playlist(playlist_url+callback_data[2])
                 chat_id=callback_query.message.chat.id
                 if user.premium is None:
                     await client.send_message(chat_id=chat_id, text=user_language['pl_buy_premium'], reply_markup=x_markup)
