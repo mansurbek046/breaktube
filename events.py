@@ -56,7 +56,6 @@ def download_video(video_url, callback_data, stream_resolution, stream_type, use
         caption=caption.replace('DESC','')
 
     if stream.is_progressive:
-        print('Progressive')
         return [file_path, yt.thumbnail_url, caption]
     else:
         audio_stream=yt.streams.filter(only_audio=True).first()
@@ -329,7 +328,7 @@ async def event_controller(client, callback_query, app):
             # Downloading playlist
             try:
                 playlist_url='https://youtube.com/playlist?list='
-                playlist = Playlist(playlist_url+callback_data[2])
+                playlist = Playlist(playlist_url+callback_data[2], request_timeout=600)
                 chat_id=callback_query.message.chat.id
                 if user.premium is None:
                     await client.send_message(chat_id=chat_id, text=user_language['pl_buy_premium'], reply_markup=x_markup)
@@ -369,7 +368,7 @@ async def event_controller(client, callback_query, app):
                     pass
                 else:
                     proposals=user.deep_proposals
-                    availabel_days=proposals//1
+                    availabel_days=proposals//5
                     buttons=[[],[], [InlineKeyboardButton('❌', callback_data='x:')]]
                     if availabel_days>=1:
                         buttons[0].append(InlineKeyboardButton(user_language['get_day_premium'].format(1), callback_data='day_premium:1'))

@@ -149,6 +149,11 @@ async def get_subs(client, message):
     ids=user.get_channels()
     await YtChannels(ids, client, message.chat.id, user)
 
+@app.on_message(filters.command('stats'))
+async def get_stats(client, message):
+    user_count=User.select().count()
+    await client.send_message(message.chat.id, f'{user_count:,} users')
+
 @app.on_message(filters.command('profile'))
 async def get_profile(client, message):
     user=User.get(id=message.from_user.id)
@@ -252,7 +257,7 @@ async def handle_inline_query(client, inline_query):
     youtube = build('youtube', 'v3', developerKey=API_KEY())
 
     req=youtube.search().list(
-        part='snippet, contentDetails',
+        part='snippet,
         q=search_query,
         type=type_,
         maxResults=30
@@ -282,7 +287,7 @@ async def handle_inline_query(client, inline_query):
             case 'playlist':
                 video_id=item['id']['playlistId']
                 item=item['snippet']
-                video_count = item['contentDetails']['itemCount']
+                # video_count = item['contentDetails']['itemCount']
                 results.append(InlineQueryResultArticle(
                     title=item['title'],
                     input_message_content=InputTextMessageContent(playlist_url+video_id),
