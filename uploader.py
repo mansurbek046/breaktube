@@ -35,7 +35,7 @@ async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, res
         audio=await app.send_audio(chat_id=CHANNEL_ID, audio=new_file_path, caption=caption, duration=duration)
 
         Audio.create(id=audio.id, youtube_id=youtube_id)
-        send=await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=audio.id, disable_notification=True)
+        send=await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=audio.id)
         if send:
             os.remove(new_file_path)
             if downloading_id:

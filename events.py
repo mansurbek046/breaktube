@@ -303,7 +303,8 @@ async def event_controller(client, callback_query, app):
                     return None
 
             except Exception as e:
-                error_handler(client, f"An error occurred while downloading video: {e}")
+                # error_handler(client, f"An error occurred while downloading video: {e}")
+                print(e)
                 if downloading:
                     await app.delete_messages(callback_query.message.chat.id, downloading.id)
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_video'].format(error_video_url), reply_markup=x_markup)
