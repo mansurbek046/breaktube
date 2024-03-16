@@ -317,26 +317,30 @@ async def event_controller(client, callback_query, app):
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_video'].format(error_video_url), reply_markup=x_markup)
 
         case 'subscribe':
+            from sender import playlists_page_url
+            chat_id=callback_query.message.chat.id
             subscibed=user.add_channel(callback_data[1])
-            playlists_page_url=callback_data[2]
+            open_playlists=playlists_page_url[chat_id]
             reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton(user_language['view_playlists'], url=playlists_page_url),
+                InlineKeyboardButton(user_language['view_playlists'], url=open_playlists),
                 InlineKeyboardButton(user_language["unsubscribe"], callback_data=f'unsubscribe:{callback_data[1]}:{playlists_page_url}')
             ], [InlineKeyboardButton('❌', callback_data='x:')]])
             if subscibed:
                 await client.answer_callback_query(callback_query.id, user_language['sub_added'])
-                await client.edit_message_reply_markup(chat_id=callback_query.message.chat.id, message_id=callback_query.message.id, reply_markup=reply_markup)
+                await client.edit_message_reply_markup(chat_id=chat_id, message_id=callback_query.message.id, reply_markup=reply_markup)
 
         case 'unsubscribe':
+            from sender import playlists_page_url
+            chat_id=callback_query.message.chat.id
             unsubscribed=user.remove_channel(callback_data[1])
-            playlists_page_url=callback_data[2]
+            open_playlists=playlists_page_url[chat_id]
             reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton(user_language['view_playlists'], url=playlists_page_url),
+                InlineKeyboardButton(user_language['view_playlists'], url=open_playlists),
                 InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{callback_data[1]}')
             ], [InlineKeyboardButton('❌', callback_data='x:')]])
             if unsubscribed:
                 await client.answer_callback_query(callback_query.id, user_language['unsubscribed'])
-                await client.edit_message_reply_markup(chat_id=callback_query.message.chat.id, message_id=callback_query.message.id, reply_markup=reply_markup)
+                await client.edit_message_reply_markup(chat_id=chat_id, message_id=callback_query.message.id, reply_markup=reply_markup)
 
         case 'playlist':
             # Downloading playlist

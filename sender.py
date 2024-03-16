@@ -18,6 +18,8 @@ import requests
 
 telegraph=Telegraph(telegraph_access_token)
 
+playlists_page_url={}
+
 def error_handler(client, message):
     logging.error("Error: %s", message)
 
@@ -158,7 +160,8 @@ async def send_channel_info(client, chat_id, channel_info, user):
         message+=(f'<img src="{telegraph_res[0]["src"]}">'+text+"<p>ㅤㅤㅤㅤㅤㅤ</p>")
         message=message.replace("\n", "<br>")
     playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
-
+    playlists_page_url[chat_id]=playlist_page["url"]
+    
     channels=user.get_channels()
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
 
@@ -210,9 +213,9 @@ async def send_channel_info(client, chat_id, channel_info, user):
         buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url=playlists_page["url"]))
         # buttons[0].append(InlineKeyboardButton(user_language['view_videos'], url=videos_page["url"]))
         if channel_info['id'] not in channels:
-            buttons[1].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}:{playlists_page["url"]}'))
+            buttons[1].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))
         else:
-            buttons[1].append(InlineKeyboardButton(user_language['unsubscribe'], callback_data=f'unsubscribe:{channel_info["id"]}:{playlists_page["url"]}'))
+            buttons[1].append(InlineKeyboardButton(user_language['unsubscribe'], callback_data=f'unsubscribe:{channel_info["id"]}'))
 
         buttons[1].append(InlineKeyboardButton('❌', callback_data='x:'))
 
