@@ -210,9 +210,9 @@ async def send_channel_info(client, chat_id, channel_info, user):
         buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url=playlists_page["url"]))
         # buttons[0].append(InlineKeyboardButton(user_language['view_videos'], url=videos_page["url"]))
         if channel_info['id'] not in channels:
-            buttons[1].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))
+            buttons[1].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}:{playlists_page["url"]}'))
         else:
-            buttons[1].append(InlineKeyboardButton(user_language['unsubscribe'], callback_data=f'unsubscribe:{channel_info["id"]}'))
+            buttons[1].append(InlineKeyboardButton(user_language['unsubscribe'], callback_data=f'unsubscribe:{channel_info["id"]}:{playlists_page["url"]}'))
 
         buttons[1].append(InlineKeyboardButton('❌', callback_data='x:'))
 
