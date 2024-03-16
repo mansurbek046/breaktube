@@ -323,7 +323,7 @@ async def event_controller(client, callback_query, app):
             open_playlists=playlists_page_url[chat_id]
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(user_language['view_playlists'], url=open_playlists),
-                InlineKeyboardButton(user_language["unsubscribe"], callback_data=f'unsubscribe:{callback_data[1]}:{playlists_page_url}')
+                InlineKeyboardButton(user_language["unsubscribe"], callback_data=f'unsubscribe:{callback_data[1]}')
             ], [InlineKeyboardButton('❌', callback_data='x:')]])
             if subscibed:
                 await client.answer_callback_query(callback_query.id, user_language['sub_added'])
