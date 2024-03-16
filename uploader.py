@@ -26,7 +26,7 @@ async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, res
         if send:
             os.remove(file_path)
             if downloading_id:
-                app.unpin_message(chat_id=chat_id)
+                await app.unpin_all_chat_messages(chat_id)
                 await app.delete_messages(chat_id, downloading_id)
         return True
     else:
