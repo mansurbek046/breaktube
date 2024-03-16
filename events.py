@@ -320,7 +320,7 @@ async def event_controller(client, callback_query, app):
             subscibed=user.add_channel(callback_data[1])
             playlists_page_url=callback_data[2]
             reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton(user_language['view_playlists'], url=playlists_page_url)
+                InlineKeyboardButton(user_language['view_playlists'], url=playlists_page_url),
                 InlineKeyboardButton(user_language["unsubscribe"], callback_data=f'unsubscribe:{callback_data[1]}:{playlists_page_url}')
             ], [InlineKeyboardButton('❌', callback_data='x:')]])
             if subscibed:
@@ -331,7 +331,7 @@ async def event_controller(client, callback_query, app):
             unsubscribed=user.remove_channel(callback_data[1])
             playlists_page_url=callback_data[2]
             reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton(user_language['view_playlists'], url=playlists_page_url)
+                InlineKeyboardButton(user_language['view_playlists'], url=playlists_page_url),
                 InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{callback_data[1]}')
             ], [InlineKeyboardButton('❌', callback_data='x:')]])
             if unsubscribed:
