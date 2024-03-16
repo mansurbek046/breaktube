@@ -18,8 +18,6 @@ import requests
 
 telegraph=Telegraph(telegraph_access_token)
 
-playlists_page_url={}
-
 def error_handler(client, message):
     logging.error("Error: %s", message)
 
@@ -160,7 +158,11 @@ async def send_channel_info(client, chat_id, channel_info, user):
         message+=(f'<img src="{telegraph_res[0]["src"]}">'+text+"<p>ㅤㅤㅤㅤㅤㅤ</p>")
         message=message.replace("\n", "<br>")
     playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
-    playlists_page_url[chat_id]=playlists_page["url"]
+
+    with open('tmp/playlists.json', 'r+') as file:
+        data=json.load(file)
+        data[chat_id]=playlists_page["url"]
+        json.dump(data, file)
     
     channels=user.get_channels()
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
