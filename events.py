@@ -318,7 +318,7 @@ async def event_controller(client, callback_query, app):
 
         case 'subscribe':
             chat_id=callback_query.message.chat.id
-            with open("tmp/playlists.json", "r+") as file:
+            with open("tmp/playlists.json", "r") as file:
                 data=json.load(file)
                 open_playlists=data[chat_id]
 
@@ -333,7 +333,7 @@ async def event_controller(client, callback_query, app):
 
         case 'unsubscribe':
             chat_id=callback_query.message.chat.id
-            with open("tmp/playlists.json", "r+") as file:
+            with open("tmp/playlists.json", "r") as file:
                 data=json.load(file)
                 open_playlists=data[chat_id]
 

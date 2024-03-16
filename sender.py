@@ -159,8 +159,9 @@ async def send_channel_info(client, chat_id, channel_info, user):
         message=message.replace("\n", "<br>")
     playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
 
-    with open('tmp/playlists.json', 'r+') as file:
-        data=dict(json.load(file))
+    with open('tmp/playlists.json', 'r') as file:
+        data=json.load(file)
+    with open('tmp/playlists.json', 'w') as file:
         data[chat_id]=playlists_page["url"]
         json.dump(data, file)
     
