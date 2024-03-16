@@ -317,11 +317,11 @@ async def event_controller(client, callback_query, app):
                 await client.send_message(chat_id=callback_query.message.chat.id, text=user_language['err_video'].format(error_video_url), reply_markup=x_markup)
 
         case 'subscribe':
+            chat_id=callback_query.message.chat.id
             with open("tmp/playlists.json", "r+") as file:
                 data=json.load(file)
                 open_playlists=data[chat_id]
 
-            chat_id=callback_query.message.chat.id
             subscibed=user.add_channel(callback_data[1])
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(user_language['view_playlists'], url=open_playlists),
@@ -332,11 +332,11 @@ async def event_controller(client, callback_query, app):
                 await client.edit_message_reply_markup(chat_id=chat_id, message_id=callback_query.message.id, reply_markup=reply_markup)
 
         case 'unsubscribe':
+            chat_id=callback_query.message.chat.id
             with open("tmp/playlists.json", "r+") as file:
                 data=json.load(file)
                 open_playlists=data[chat_id]
 
-            chat_id=callback_query.message.chat.id
             unsubscribed=user.remove_channel(callback_data[1])
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(user_language['view_playlists'], url=open_playlists),
