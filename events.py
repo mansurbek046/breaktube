@@ -293,14 +293,13 @@ async def event_controller(client, callback_query, app):
                     else:
                         await callback_query.message.delete()
                         downloading=await client.send_message(chat_id=chat_id, text=user_language['downloading'])
-                        # app.pin_message(chat_id=chat_id, message_id=downloading.id)
 
                         await client.pin_chat_message(
-                             chat_id=message.chat.id,
+                             chat_id=chat_id,
                              message_id=downloading.id,
                              disable_notification=True,
                              both_sides=True
-                         ) 
+                         )
                         os.remove(f'Keyboards/{chat_id}_back_keyboard.pkl')
                         error_video_url=video_url+callback_data[1]
 
