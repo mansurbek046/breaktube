@@ -320,7 +320,7 @@ async def event_controller(client, callback_query, app):
             chat_id=callback_query.message.chat.id
             with open("tmp/playlists.json", "r") as file:
                 data=json.load(file)
-                open_playlists=data[chat_id]
+                open_playlists=data[str(chat_id)]
 
             subscibed=user.add_channel(callback_data[1])
             reply_markup=InlineKeyboardMarkup([[
@@ -335,7 +335,7 @@ async def event_controller(client, callback_query, app):
             chat_id=callback_query.message.chat.id
             with open("tmp/playlists.json", "r") as file:
                 data=json.load(file)
-                open_playlists=data[chat_id]
+                open_playlists=data[str(chat_id)]
 
             unsubscribed=user.remove_channel(callback_data[1])
             reply_markup=InlineKeyboardMarkup([[
