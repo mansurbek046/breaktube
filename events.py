@@ -456,7 +456,7 @@ async def event_controller(client, callback_query, app):
             except Exception as e:
                 error_handler(client, f"An error occurred in day_premium command: {e}")
         case 'x':
-            chat_id=callback_query.message.chat_id.id
+            chat_id=callback_query.message.chat.id
             with open('tmp/playlists.json', 'r+') as file:
                 data=json.load(file)
                 if chat_id in list(data.keys()):
