@@ -58,7 +58,7 @@ async def send_video_info(client, chat_id, id, user):
             
             for stream in video_streams:
                 filesize=convert_bytes(stream.filesize)
-                if stream.mime_type.startswith('video/webm')):
+                if stream.mime_type.startswith('video/webm'):
                     filesize=convert_bytes(stream.filesize+audio_filesize)
                 video_mark_mpf='📹'
                 video_mark_webm='🎞'
