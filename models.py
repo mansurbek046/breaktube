@@ -53,7 +53,8 @@ class Video(Model):
     id=TgField()
     youtube_id=CharField()
     resolution=CharField()
-
+    video_type=CharField()
+    
     class Meta:
         database = db
 

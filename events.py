@@ -282,7 +282,10 @@ async def event_controller(client, callback_query, app):
                     return None
                 user = User.get(id=callback_query.from_user.id)
                 if int(stream_resolution.split('p')[0])<1080 or user.premium:
-                    matching_records = Video.select().where((Video.youtube_id == callback_data[1]) & (Video.resolution == stream_resolution))
+                    if stream_type=="webm":
+                        matching_records = Video.select().where((Video.youtube_id == callback_data[1]) & (Video.resolution == stream_resolution) & (Video.video_type=="mkv"))
+                    else:
+                        matching_records = Video.select().where((Video.youtube_id == callback_data[1]) & (Video.resolution == stream_resolution) & (Video.video_type=="mp4"))
                     chat_id=callback_query.message.chat.id
 
                     if matching_records.exists():
