@@ -460,7 +460,7 @@ async def event_controller(client, callback_query, app):
             with open('tmp/playlists.json', 'r') as file:
                 data=json.load(file)
             with open('tmp/playlists.json', 'w') as file:
-                if chat_id in list(data.keys()):
+                if str(chat_id) in list(data.keys()):
                     del data[str(chat_id)]
                     json.dump(data, file)
             await callback_query.message.delete()
