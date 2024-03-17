@@ -106,7 +106,7 @@ async def send_video_info(client, chat_id, id, user):
                 pickle.dump(reply_markup, file)
             video_description=yt.description
 
-            caption = user_language['caption_video'].format(
+            caption = languages['en']['caption_video'].format(
                 yt.title,
                 video_url,
                 datetime.timedelta(seconds=yt.length),
@@ -119,7 +119,7 @@ async def send_video_info(client, chat_id, id, user):
                 try:
                     video_description=video_description.replace("\n","<br>")
                     page = telegraph.create_page(yt.title, html_content=f'{video_description}')
-                    caption = caption.replace('DESC', f'\n📖 [{user_language["description"]}]({page["url"]})')
+                    caption = caption.replace('DESC', f'\n📖 [Description]({page["url"]})')
                 except Exception as e:
                     caption=caption.replace('DESC', video_description)
                     print(f"An error occurred while creating to Telegraph page: {e}")
@@ -162,12 +162,6 @@ async def send_channel_info(client, chat_id, channel_info, user):
         message+=(f'<img src="{telegraph_res[0]["src"]}">'+text+"<p>ㅤㅤㅤㅤㅤㅤ</p>")
         message=message.replace("\n", "<br>")
     playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
-
-    with open('tmp/playlists.json', 'r') as file:
-        data=json.load(file)
-    with open('tmp/playlists.json', 'w') as file:
-        data[chat_id]=playlists_page["url"]
-        json.dump(data, file)
     
     channels=user.get_channels()
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
@@ -228,7 +222,12 @@ async def send_channel_info(client, chat_id, channel_info, user):
 
         reply_markup=InlineKeyboardMarkup(buttons)
         
-        await client.send_photo(photo=channel_info['photo'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
+        sent=await client.send_photo(photo=channel_info['photo'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
+        with open('tmp/playlists.json', 'r') as file:
+            data=json.load(file)
+        with open('tmp/playlists.json', 'w') as file:
+            data[chat_id+sent.id]=playlists_page["url"]
+            json.dump(data, file)
 
     except Exception as e:
         error_handler(client, f"An error occurred in send_channel_info: {e}")

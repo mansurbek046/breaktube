@@ -70,7 +70,7 @@
         "empty_subscription": "You haven't got any subscription!",
         "err_playlists": "An error occured while fetching informations of the channel playlists!\nPlease, try again",
         "err_playlist_download": "An error occured while downloading playlist!\nPlease, try again later",
-        "caption_video": "🎬 <b>[{}]({})</b>\nDESC\n\n⏱ {}  |  👁‍🗨 {} views\n\n📅 <b>{}  |  🗣 <a href='https://youtube.com/channel/{}'>{}</a></b>",
+        "caption_video": "🎬 <b>[{}]({})</b>\nDESC\n\n⏱ {}  |  👁‍🗨 {} watches\n\n📅 <b>{}  |  🗣 <a href='https://youtube.com/channel/{}'>{}</a></b>",
         "caption_playlists": "🎬 <a href='{}'>{}</a> DESC\n📅 {}\n📹 {} videos\n\n",
         "caption_playlist": "🎬 <a href='{}'>{}</a> DESC\n📅 <b>{}\n📹 {}</b> videos\n🗣 <a href='{}'>{}</a>",
         "description": "Description",
