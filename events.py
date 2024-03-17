@@ -463,4 +463,5 @@ async def event_controller(client, callback_query, app):
                 if str(chat_id) in list(data.keys()):
                     del data[str(chat_id)]
                     json.dump(data, file)
+                json.dump(data, file)
             await callback_query.message.delete()
