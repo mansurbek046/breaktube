@@ -47,6 +47,10 @@ async def send_video_info(client, chat_id, id, user):
 
         if yt:
             video_streams = yt.streams.filter(adaptive=True)
+            audio_streams = yt.streams.filter(only_audio=True)
+            audio_streams = audio_streams.order_by('abr').desc()
+            best_audio_stream = audio_streams.first()
+            audio_filesize=best_audio_stream.filesize
             buttons = []
             mpf_buttons = []
             webm_buttons = []
@@ -54,6 +58,8 @@ async def send_video_info(client, chat_id, id, user):
             
             for stream in video_streams:
                 filesize=convert_bytes(stream.filesize)
+                if stream.mime_type.startswith('video/webm')):
+                    filesize=convert_bytes(stream.filesize+audio_filesize)
                 video_mark_mpf='📹'
                 video_mark_webm='🎞'
                 huge='false'
