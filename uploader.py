@@ -8,17 +8,18 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, resolution="", caption="", downloading_id=None, thumbnail_file_path=None, duration=0):
     if file_type=='video':
         caption+='\n\n🤡 @BreakTubebot\n…………………………………………'
+        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🔍', switch_inline_query_current_chat=yt.title)]])
         if thumbnail_file_path:
             thumbnail_response = requests.get(thumbnail_file_path).content
             if str(file_path.split('.')[-1]).lower()=="mkv":
-                video=await app.send_document(chat_id=CHANNEL_ID, document=file_path, caption=caption, thumb=BytesIO(thumbnail_response))
+                video=await app.send_document(chat_id=CHANNEL_ID, document=file_path, caption=caption, thumb=BytesIO(thumbnail_response), reply_markup=reply_markup)
             else:
-                video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb=BytesIO(thumbnail_response), duration=duration)
+                video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb=BytesIO(thumbnail_response), duration=duration, reply_markup=reply_markup)
         else:
             if str(file_path.split('.')[-1]).lower()=="mkv":
-                video=await app.send_document(chat_id=CHANNEL_ID, document=file_path, caption=caption, thumb=BytesIO(thumbnail_response))
+                video=await app.send_document(chat_id=CHANNEL_ID, document=file_path, caption=caption, thumb=BytesIO(thumbnail_response), reply_markup=reply_markup)
             else:
-                video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb='splash.jpg', duration=duration)
+                video=await app.send_video(chat_id=CHANNEL_ID, video=file_path, caption=caption, thumb='splash.jpg', duration=duration, reply_markup=reply_markup)
 
         if str(file_path.split('.')[-1]).lower()=="mkv":
             Video.create(id=video.id, youtube_id=youtube_id, resolution=resolution, video_type="mkv")

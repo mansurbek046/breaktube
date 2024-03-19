@@ -14,6 +14,7 @@ from credentials import API_KEY
 import logging
 
 youtube = build('youtube', 'v3', developerKey=API_KEY())
+x_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌', callback_data='x:')]])
 
 languages = ''
 with open('languages.json') as lang:
@@ -112,15 +113,20 @@ async def YtChannels(ids, client, chat_id, user):
         for data in res["items"]:
             channel=data['snippet']
             buttons.append([InlineKeyboardButton(channel['title'], callback_data=f'channel:{data["id"]}')])
+
+        buttons.append([InlineKeyboardButton('❌', callback_data='x:')])
+
         reply_markup=InlineKeyboardMarkup(buttons)
         await client.send_message(chat_id=chat_id, text=user_language['subscribed_channels'], reply_markup=reply_markup)
     else:
-        await client.send_message(chat_id=chat_id, text=user_language['empty_subscription'])
+        await client.send_message(chat_id=chat_id, text=user_language['empty_subscription'], reply_markup=x_markup)
 
 async def YtPlaylist(client, id, lang):
     try:
         req = youtube.playlists().list(part='snippet,contentDetails', id=id)
         res = req.execute()
+        playlist_items = youtube.playlistItems().list(part="snippet", playlistId=playlist_id, maxResults=1000).execute()
+
         playlist_info = res['items'][0]['snippet']
         video_count = res['items'][0]['contentDetails']['itemCount']
         msg_content = {

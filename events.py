@@ -192,7 +192,7 @@ async def event_controller(client, callback_query, app):
 
         case 'subtitles':
             try:
-                subtitles=await YtVideoSubtitles(callback_data[1], user.lang)
+                subtitles=await YtVideoSubtitles(client, callback_data[1], user.lang)
                 if subtitles:
                     buttons=[]
                     row=[]
