@@ -97,7 +97,6 @@ async def send_video_info(client, chat_id, id, user):
                             InlineKeyboardButton('🗣', callback_data=f'channel:{yt.channel_id}'), 
                             InlineKeyboardButton('💬', callback_data=f'subtitles:{id}')])
             buttons.append([InlineKeyboardButton('🔍', switch_inline_query_current_chat=yt.title), InlineKeyboardButton('❌', callback_data='x:')])
-            
 
             reply_markup = InlineKeyboardMarkup(buttons)
 
