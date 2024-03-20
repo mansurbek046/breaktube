@@ -135,7 +135,7 @@ def download_playlist_video(video, user_language, callback_query, app, CHANNEL_I
 async def download_playlist_video_async(video, user_language, callback_query, app, CHANNEL_ID, uploader, chat_id):
     matching_records = Video.select().where((Video.youtube_id == video.video_id) & (Video.resolution == "720p"))
     if matching_records.exists():
-        await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id))).edit_reply_markup(reply_markup=x_markup)
+        await app.forward_messages(chat_id=callback_query.message.chat.id, from_chat_id=CHANNEL_ID, message_ids=int(str(matching_records.first().id)))
     else:
         loop = asyncio.get_event_loop()
         with ThreadPoolExecutor() as executor:
