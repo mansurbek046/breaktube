@@ -26,7 +26,7 @@ async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, res
             Video.create(id=video.id, youtube_id=youtube_id, resolution=resolution, video_type="mkv")
         else:
             Video.create(id=video.id, youtube_id=youtube_id, resolution=resolution, video_type="mp4")
-        send=await video.forward(chat_id=chat_id,  message_idss=video.id, reply_markup=reply_markup)
+        send=await video.forward(chat_id=chat_id,  message_ids=video.id, reply_markup=reply_markup)
 
         if send:
             os.remove(file_path)
