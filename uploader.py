@@ -8,7 +8,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, resolution="", caption="", downloading_id=None, thumbnail_file_path=None, duration=0):
     video_name=str(file_path.split('.')[0]).replace('_',' ')
-    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("82", callback_data="765")],[InlineKeyboardButton('🔍', switch_inline_query_current_chat=video_name)]])
+    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🔍', switch_inline_query_current_chat=video_name)]])
     if file_type=='video':
         caption+='\n\n🤡 @BreakTubebot\n…………………………………………'
         if thumbnail_file_path:

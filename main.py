@@ -6,7 +6,7 @@ from googleapiclient.discovery import build
 from urllib.parse import urlparse, parse_qs
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from models import User, db
+from models import User, db, Video, Audio
 from serializer import YtVideo, YtChannel, YtPlaylist, YtUpdate, YtChannels
 import sender
 import json
@@ -152,7 +152,9 @@ async def get_subs(client, message):
 @app.on_message(filters.command('stats'))
 async def get_stats(client, message):
     user_count=User.select().count()
-    await client.send_message(message.chat.id, f'🪖 {user_count:,}')
+    video_count=Video.select().count()
+    audio_count=Audio.select().count()
+    await client.send_message(message.chat.id, f'🪖 {user_count:,}\n📹 {video_count:,}\n🎧 {audio_count:,}')
 
 @app.on_message(filters.command('profile'))
 async def get_profile(client, message):
