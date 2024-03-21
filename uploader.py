@@ -8,7 +8,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, resolution="", caption="", downloading_id=None, thumbnail_file_path=None, duration=0):
     video_name=str(file_path.split('.')[0]).replace('_',' ')
-    reply_markup=InlineKeyboardMarkup([[[InlineKeyboardButton('🔍', switch_inline_query_current_chat=video_name)]]])
+    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🔍', switch_inline_query_current_chat=video_name)]])
     if file_type=='video':
         caption+='\n\n🤡 @BreakTubebot\n…………………………………………'
         if thumbnail_file_path:
@@ -37,10 +37,11 @@ async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, res
         new_file_path = os.path.splitext(file_path)[0] + ".mp3"
         os.rename(file_path, new_file_path)
            
-        audio=await app.send_audio(chat_id=CHANNEL_ID, audio=new_file_path, caption=caption, duration=duration, reply_markup=reply_markup)
+        audio=await app.send_audio(chat_id=CHANNEL_ID, audio=new_file_path, caption=caption, duration=duration)
 
         Audio.create(id=audio.id, youtube_id=youtube_id)
-        send=await app.forward_messages(chat_id=chat_id, from_chat_id=CHANNEL_ID, message_ids=audio.id)
+        send=await app.copy_message(chat_id, CHANNEL_ID, audio.id, reply_markup=reply_markup)
+
         if send:
             os.remove(new_file_path)
             if downloading_id:
