@@ -154,7 +154,7 @@ async def get_stats(client, message):
     user_count=User.select().count()
     video_count=Video.select().count()
     audio_count=Audio.select().count()
-    await client.send_message(message.chat.id, f'🪖 {user_count:,}\n📹 {video_count:,}\n🎧 {audio_count:,}')
+    await client.send_message(message.chat.id, f'🪖 {user_count:,}\n\n📹 {video_count:,}\n\n🎧 {audio_count:,}')
 
 @app.on_message(filters.command('profile'))
 async def get_profile(client, message):
