@@ -11,7 +11,7 @@ from telegraph import Telegraph
 from urllib.error import URLError
 import urllib.parse
 from credentials import telegraph_access_token
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from serializer import YtChannelPlaylists, YtChannelVideos
 from io import BytesIO
 import requests
@@ -212,6 +212,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
         buttons=[[],[]]
         buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url=playlists_page["url"]))
         # buttons[0].append(InlineKeyboardButton(user_language['view_videos'], url=videos_page["url"]))
+        buttons[0].append(InlineKeyboardButton(user_language['view_videos'], web_app=WebAppInfo(url="https://youtube.com/channel/{channel_info['id']}/videos")))
         if channel_info['id'] not in channels:
             buttons[1].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))
         else:
