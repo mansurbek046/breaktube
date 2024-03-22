@@ -6,7 +6,7 @@ from googleapiclient.discovery import build
 from urllib.parse import urlparse, parse_qs
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from pyrogram.types import KeyboardButtonSimpleWebView
+from pyrogram.raw.types import KeyboardButtonSimpleWebView
 from models import User, db, Video, Audio
 from serializer import YtVideo, YtChannel, YtPlaylist, YtUpdate, YtChannels
 import sender
