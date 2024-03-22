@@ -6,6 +6,7 @@ from googleapiclient.discovery import build
 from urllib.parse import urlparse, parse_qs
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.raw.types import KeyboardButtonSimpleWebView
 from models import User, db, Video, Audio
 from serializer import YtVideo, YtChannel, YtPlaylist, YtUpdate, YtChannels
 import sender
@@ -60,6 +61,7 @@ async def welcome(client, message):
     try:
         lang = from_user.language_code
         reply_markup=InlineKeyboardMarkup([
+        [KeyboardButtonSimpleWebView("🔴 YouTube", "https://www.youtube.com")],
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
