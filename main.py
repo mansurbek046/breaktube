@@ -62,17 +62,17 @@ async def welcome(client, message):
         lang = from_user.language_code
         reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
-        [InlineKeyboardButton("YouTube", web_app=WebAppInfo(url="https://www.youtube.com/"))],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
+        [InlineKeyboardButton("🔴 YouTube", web_app=WebAppInfo(url="https://www.youtube.com/"))],
         ])
         await client.send_message(chat_id=message.chat.id, text=languages[lang]['wel'], reply_markup=reply_markup)
     except KeyError:
         reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
-        [InlineKeyboardButton("YouTube", web_app=WebAppInfo(url="https://www.youtube.com/"))],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
+        [InlineKeyboardButton("🔴 YouTube", web_app=WebAppInfo(url="https://www.youtube.com/"))],
         ])
         await client.send_message(chat_id=message.chat.id, text=languages['uz']['wel'], reply_markup=reply_markup)
 
@@ -84,17 +84,17 @@ async def menu(client, message):
     try:
         reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
-        [InlineKeyboardButton("YouTube", url="https://www.youtube.com/?web_app_mode=true")],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')],
-        [KeyboardButtonSimpleWebView(text="YouTube", url="https://www.youtube.com")]])
+        [InlineKeyboardButton("🔴 YouTube", web_app=WebAppInfo(url="https://www.youtube.com/"))],
+        ])
         await client.send_message(chat_id=message.chat.id, text='⚪️🔴⚪️\n🔴              @BreakTubebot\n⚪️⚪️', reply_markup=reply_markup)
     except KeyError:
         reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
-        [InlineKeyboardButton("YouTube", url="https://www.youtube.com/?web_app_mode=true")],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
+        [InlineKeyboardButton("🔴 YouTube", web_app=WebAppInfo(url="https://www.youtube.com/"))],
         ])
         await client.send_message(chat_id=message.chat.id, text='⚪️🔴⚪️\n🔴              @BreakTubebot\n⚪️⚪️', reply_markup=reply_markup)
 
