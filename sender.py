@@ -211,7 +211,6 @@ async def send_channel_info(client, chat_id, channel_info, user):
 
         buttons=[[],[]]
         buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url=playlists_page["url"]))
-        # buttons[0].append(InlineKeyboardButton(user_language['view_videos'], url=videos_page["url"]))
         buttons[0].append(InlineKeyboardButton(user_language['view_videos'], web_app=WebAppInfo(url=f"https://youtube.com/channel/{channel_info['id']}/videos")))
         if channel_info['id'] not in channels:
             buttons[1].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))
@@ -255,8 +254,11 @@ async def send_playlist_info(client, chat_id, playlist_info, user):
             caption=caption.replace('DESC','')
 
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('📹 720p', callback_data=f'playlist:mp4:{playlist_info["id"]}'),
-        InlineKeyboardButton('🎧 MP3', callback_data=f'playlist:mp3:{playlist_info["id"]}')], [InlineKeyboardButton('🔍', switch_inline_query_current_chat=f".p {playlist_info['name']}"), InlineKeyboardButton('❌', callback_data='x:')]])
-        print(playlist_info['photo'])
+        InlineKeyboardButton('🎧 MP3', callback_data=f'playlist:mp3:{playlist_info["id"]}')],
+        [InlineKeyboardButton('🔍', switch_inline_query_current_chat=f".p {playlist_info['name']}"),
+        InlineKeyboardButton(user_language['view_videos'], web_app=WebAppInfo(url=playlist_url))],
+        InlineKeyboardButton('❌', callback_data='x:')])
+
         await client.send_photo(photo=playlist_info['photo'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
 
     except Exception as e:
