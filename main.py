@@ -61,7 +61,7 @@ async def welcome(client, message):
     try:
         lang = from_user.language_code
         reply_markup=InlineKeyboardMarkup([
-        [KeyboardButtonSimpleWebView("🔴 YouTube", "https://www.youtube.com")],
+        [KeyboardButtonSimpleWebView(text="🔴 YouTube", url="https://www.youtube.com")],
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
@@ -82,6 +82,7 @@ async def menu(client, message):
     lang = user.lang
     try:
         reply_markup=InlineKeyboardMarkup([
+        [KeyboardButtonSimpleWebView(text="🔴 YouTube", url="https://www.youtube.com")],
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
