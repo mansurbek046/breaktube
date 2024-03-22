@@ -62,7 +62,7 @@ async def welcome(client, message):
         lang = from_user.language_code
         reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
-        [InlineKeyboardButton("YouTube", url="https://www.youtube.com/?web_app_mode=true")],
+        [InlineKeyboardButton("YouTube", web_app="https://www.youtube.com/")],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
         ])
@@ -70,7 +70,7 @@ async def welcome(client, message):
     except KeyError:
         reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
-        [InlineKeyboardButton("YouTube", url="https://www.youtube.com/?web_app_mode=true")],
+        [InlineKeyboardButton("YouTube", web_app="https://www.youtube.com/")],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
         ])
