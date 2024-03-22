@@ -125,7 +125,6 @@ async def YtPlaylist(client, id, lang):
     try:
         req = youtube.playlists().list(part='snippet,contentDetails', id=id)
         res = req.execute()
-        playlist_items = youtube.playlistItems().list(part="snippet", playlistId=playlist_id, maxResults=1000).execute()
 
         playlist_info = res['items'][0]['snippet']
         video_count = res['items'][0]['contentDetails']['itemCount']
