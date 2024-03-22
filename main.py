@@ -5,7 +5,7 @@ import os
 from googleapiclient.discovery import build
 from urllib.parse import urlparse, parse_qs
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from pyrogram.raw.types import KeyboardButtonSimpleWebView
 from models import User, db, Video, Audio
 from serializer import YtVideo, YtChannel, YtPlaylist, YtUpdate, YtChannels
@@ -62,7 +62,7 @@ async def welcome(client, message):
         lang = from_user.language_code
         reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
-        [InlineKeyboardButton("YouTube", web_app="https://www.youtube.com/")],
+        [InlineKeyboardButton("YouTube", web_app=WebAppInfo("https://www.youtube.com/"))],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
         ])
@@ -70,7 +70,7 @@ async def welcome(client, message):
     except KeyError:
         reply_markup=InlineKeyboardMarkup([
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
-        [InlineKeyboardButton("YouTube", web_app="https://www.youtube.com/")],
+        [InlineKeyboardButton("YouTube", web_app=WebAppInfo("https://www.youtube.com/"))],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
         ])
