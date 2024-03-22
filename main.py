@@ -84,7 +84,7 @@ async def menu(client, message):
         [InlineKeyboardButton(languages[lang]['video'], switch_inline_query_current_chat='')],
         [InlineKeyboardButton(languages[lang]['channel'], switch_inline_query_current_chat='.c '),
         InlineKeyboardButton(languages[lang]['playlist'], switch_inline_query_current_chat='.p ')]
-        [KeyboardButtonSimpleWebView("YouTube", url="https://www.youtube.com")]])
+        [KeyboardButtonSimpleWebView(text="YouTube", url="https://www.youtube.com")]])
         await client.send_message(chat_id=message.chat.id, text='⚪️🔴⚪️\n🔴              @BreakTubebot\n⚪️⚪️', reply_markup=reply_markup)
     except KeyError:
         reply_markup=InlineKeyboardMarkup([
