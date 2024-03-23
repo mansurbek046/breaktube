@@ -138,7 +138,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
     # Fetching playlists
     playlists=await YtChannelPlaylists(client, channel_info['id'], user.lang)
     playlist_url='https://youtube.com/playlist?list='
-    message=None
+    message=""
     playlists_page=None
     for playlist in playlists:
 
