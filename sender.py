@@ -159,7 +159,7 @@ async def send_channel_info(client, chat_id, channel_info, user):
             text=text.replace('DESC', f'\n📖 {playlist["description"]}')
         else:
             text=text.replace('DESC', '')
-        message+=(f'<img src="{telegraph_res[0]["src"]}">'+text+"<p>ㅤㅤㅤㅤㅤㅤ</p>")
+        message+=(f'<img src="{telegraph_res[0]["src"]}">{text}<p>ㅤㅤㅤㅤㅤㅤ</p>")
         message=message.replace("\n", "<br>")
     if message:
         playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
