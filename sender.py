@@ -201,11 +201,12 @@ async def send_channel_info(client, chat_id, channel_info, user):
         reply_markup=InlineKeyboardMarkup(buttons)
         
         sent=await client.send_photo(photo=channel_info['photo'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
-        with open('tmp/playlists.json', 'r') as file:
-            data=json.load(file)
-        with open('tmp/playlists.json', 'w') as file:
-            data[chat_id+sent.id]=playlists_page["url"]
-            json.dump(data, file)
+        if playlists_page:
+            with open('tmp/playlists.json', 'r') as file:
+                data=json.load(file)
+            with open('tmp/playlists.json', 'w') as file:
+                data[chat_id+sent.id]=playlists_page["url"]
+                json.dump(data, file)
 
     except Exception as e:
         error_handler(client, f"An error occurred in send_channel_info: {e}")
