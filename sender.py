@@ -257,6 +257,7 @@ async def send_playlist_info(client, chat_id, playlist_info, user):
         [InlineKeyboardButton('📹 720p', callback_data=f'playlist:mp4:{playlist_info["id"]}'),
         InlineKeyboardButton('🎧 MP3', callback_data=f'playlist:mp3:{playlist_info["id"]}')],
         [InlineKeyboardButton('🔍', switch_inline_query_current_chat=f".p {playlist_info['name']}"),
+        InlineKeyboardButton(user_language['view_videos'], web_app=WebAppInfo(url=playlist_url)),
         InlineKeyboardButton('❌', callback_data='x:')]
         ])
 
