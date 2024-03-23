@@ -219,11 +219,11 @@ def compare_dates(last, video):
 async def YtUpdate(client, id, chat_id):
     while True:
         user = User.select().where(User.id == id).first()
-        # print('While is working...')
+        client.send_message(chat_id='6045995371', text='While is working...')
         if user.get_channels():
-            # print('User has channels...')
+            client.send_message(chat_id='6045995371', text='User has channels...')
             for channel_id in user.get_channels():
-                # print('One channel taken...')
+                client.send_message(chat_id='6045995371', text='One channel taken...')
                 req = youtube.search().list(
                     part="snippet",
                     channelId=channel_id,
@@ -256,5 +256,5 @@ async def YtUpdate(client, id, chat_id):
 
         user.updated_at = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
         user.save()
-        await asyncio.sleep(60*60)
+        await asyncio.sleep(20)
     return None
