@@ -188,10 +188,10 @@ async def get_premium(client, message):
 @app.on_message()
 async def youlink(client, message):
     user = User.get(id=message.from_user.id)
-    # current=int(datetime.now().strftime('%H'))
-    # last_time=int(str(user.updated_at).split(':')[0].split(' ')[1])
-    # if current-last_time>=2:
-        # asyncio.create_task(YtUpdate(client, message.from_user.id, message.chat.id))
+    current=int(datetime.now().strftime('%H'))
+    last_time=int(str(user.updated_at).split(':')[0].split(' ')[1])
+    if current-last_time>=2:
+        asyncio.create_task(YtUpdate(client, message.from_user.id, message.chat.id))
     if message.text:
         urls = message.text.split()  # Split the message text by whitespace to extract URLs
         youtube_hosts = ["www.youtube.com", "youtube.com", "youtu.be", "m.youtube.com", "youtube.com/shorts"]
