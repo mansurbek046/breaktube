@@ -61,9 +61,9 @@ async def welcome(client, message):
     try:
         lang = from_user.language_code
         reply_markup=InlineKeyboardMarkup([
-        [InlineKeyboardButton(f'languages[lang]["video"]}', switch_inline_query_current_chat='')],
-        [InlineKeyboardButton(f'languages[lang]["channel"]}', switch_inline_query_current_chat='.c '),
-        InlineKeyboardButton(f'languages[lang]["playlist"]}', switch_inline_query_current_chat='.p ')]
+        [InlineKeyboardButton(f'{languages[lang]["video"]}', switch_inline_query_current_chat='')],
+        [InlineKeyboardButton(f'{languages[lang]["channel"]}', switch_inline_query_current_chat='.c '),
+        InlineKeyboardButton(f'{languages[lang]["playlist"]}', switch_inline_query_current_chat='.p ')]
         [InlineKeyboardButton("🔴 YouTube", web_app=WebAppInfo(url="https://www.youtube.com/"))],
         ])
         await client.send_message(chat_id=message.chat.id, text=languages[lang]['wel'], reply_markup=reply_markup)
