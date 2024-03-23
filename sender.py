@@ -138,7 +138,8 @@ async def send_channel_info(client, chat_id, channel_info, user):
     # Fetching playlists
     playlists=await YtChannelPlaylists(client, channel_info['id'], user.lang)
     playlist_url='https://youtube.com/playlist?list='
-    message=f''
+    message=None
+    playlists_page=None
     for playlist in playlists:
 
         response = requests.get(playlist['photo'])
@@ -160,35 +161,12 @@ async def send_channel_info(client, chat_id, channel_info, user):
             text=text.replace('DESC', '')
         message+=(f'<img src="{telegraph_res[0]["src"]}">'+text+"<p>ㅤㅤㅤㅤㅤㅤ</p>")
         message=message.replace("\n", "<br>")
-    playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
+    if message:
+        playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
     
     channels=user.get_channels()
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
 
-    # Fetching videos
-    # vd_message=''
-    # video_url = f'https://www.youtube.com/watch?v='
-    # channel_videos=await YtChannelVideos(client, channel_info['id'], user.lang)
-    # print(len(channel_videos))
-    # for video in channel_videos:
-        # if video['id']:
-            # response = requests.get(video["snippet"]["thumbnails"]["default"]["url"])
-            # image = response.content
-            # vd_telegraph_res = requests.post(
-                # 'https://telegra.ph/upload',
-                # files={'file': ('file', image)}
-            # ).json()
-# 
-            # content=f'''
-                # <img src="{vd_telegraph_res[0]["src"]}">
-                # {str(video["snippet"]["publishedAt"].split("T")[0]).replace("-",".")}
-                # <br>
-                # <a href="{video_url+video["id"].get("videoId", "W46x31JC74w")}">{video["snippet"]["title"]}</a>
-                # <p>ㅤㅤㅤㅤㅤㅤ</p>
-                # '''
-            # vd_message+=content
-    # videos_page=telegraph.create_page(channel_info['name'], html_content=f'{vd_message}')
- # 
     try:
         video_count = int(channel_info['video_count'])
         view_count = int(channel_info['view_count'])
@@ -210,7 +188,8 @@ async def send_channel_info(client, chat_id, channel_info, user):
             caption=caption.replace('DESC','')
 
         buttons=[[],[]]
-        buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url=playlists_page["url"]))
+        if playlists_page:
+            buttons[0].append(InlineKeyboardButton(user_language['view_playlists'], url=playlists_page["url"]))
         buttons[0].append(InlineKeyboardButton(user_language['view_videos'], web_app=WebAppInfo(url=f"https://youtube.com/channel/{channel_info['id']}/videos")))
         if channel_info['id'] not in channels:
             buttons[1].append(InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{channel_info["id"]}'))

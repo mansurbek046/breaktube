@@ -10,7 +10,7 @@ async def upload_to_telegram(app, file_path, file_type, youtube_id, chat_id, res
     video_name=str(file_path.split('.')[0].split("/")[-1]).replace('_',' ')
     reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🔍', switch_inline_query_current_chat=video_name)]])
     if file_type=='video':
-        caption+='\n\n🤡 @BreakTubebot\n…………………………………………'
+        caption+='\n\n😎 @BreakTubebot\n…………………………………………'
         if thumbnail_file_path:
             thumbnail_response = requests.get(thumbnail_file_path).content
             if str(file_path.split('.')[-1]).lower()=="mkv":
