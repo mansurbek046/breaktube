@@ -54,7 +54,6 @@ async def welcome(client, message):
 
         user = User.create(id=from_user.id, lang=language_code, premium=None, updated_at=datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'))
         asyncio.create_task(YtUpdate(client, from_user.id, message.chat.id))
-
     else:
         user.lang = language_code
         user.save()
