@@ -13,7 +13,6 @@ from models import User, db
 from credentials import API_KEY
 import logging
 
-youtube = build('youtube', 'v3', developerKey=API_KEY())
 x_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌', callback_data='x:')]])
 
 languages = ''
@@ -25,6 +24,7 @@ def error_handler(client, message):
 
 async def YtVideo(client, id, lang):
     try:
+        youtube = build('youtube', 'v3', developerKey=API_KEY())
         req = youtube.videos().list(part='snippet,statistics', id=id)
         res = req.execute()
         video_info = res['items'][0]['snippet']
@@ -46,6 +46,7 @@ async def YtVideo(client, id, lang):
 
 async def YtVideoSubtitles(client, id, lang, download=False):
     try:
+        youtube = build('youtube', 'v3', developerKey=API_KEY())
         if not download:
             transcript_list = YouTubeTranscriptApi.list_transcripts(id)
 
@@ -69,6 +70,7 @@ async def YtVideoSubtitles(client, id, lang, download=False):
 
 async def YtChannel(client, id, lang, is_name=False):
     try:
+        youtube = build('youtube', 'v3', developerKey=API_KEY())
         if is_name:
             id = get_id(id)
         if id:
@@ -100,6 +102,7 @@ async def YtChannel(client, id, lang, is_name=False):
 
 
 async def YtChannels(ids, client, chat_id, user):
+    youtube = build('youtube', 'v3', developerKey=API_KEY())
     user_language=languages[user.lang]
     if ids:
         req = youtube.channels().list(
@@ -123,6 +126,7 @@ async def YtChannels(ids, client, chat_id, user):
 
 async def YtPlaylist(client, id, lang):
     try:
+        youtube = build('youtube', 'v3', developerKey=API_KEY())
         req = youtube.playlists().list(part='snippet,contentDetails', id=id)
         res = req.execute()
 
@@ -147,6 +151,7 @@ async def YtPlaylist(client, id, lang):
 
 async def YtChannelPlaylists(client, channel_id, lang):
     try:
+        youtube = build('youtube', 'v3', developerKey=API_KEY())
         req=youtube.playlists().list(part='snippet,contentDetails', channelId=channel_id)
         res=req.execute()
         msg_content=[]
@@ -174,6 +179,7 @@ async def YtChannelPlaylists(client, channel_id, lang):
 
 async def YtChannelVideos(client, id, lang):
     try:
+        youtube = build('youtube', 'v3', developerKey=API_KEY())
         videos = []
         next_page_token = None
         
@@ -224,6 +230,7 @@ async def YtUpdate(client, id, chat_id):
             print('User has channels...')
             for channel_id in user.get_channels():
                 print('One channel taken...')
+                youtube = build('youtube', 'v3', developerKey=API_KEY())
                 req = youtube.search().list(
                     part="snippet",
                     channelId=channel_id,
