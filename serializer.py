@@ -214,7 +214,7 @@ def compare_dates(last, video):
         last_date = datetime.strptime(last, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.utc)
 
     video_date = datetime.strptime(video, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.utc)
-
+    print(f'COMPARE DATES: {last_date} .. {video_date}')
     if last_date < video_date:
         return True
     elif last_date > video_date:
