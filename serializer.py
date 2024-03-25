@@ -208,8 +208,8 @@ async def YtChannelVideos(client, id, lang):
 
 
 def compare_dates(last, video):
-    last_date=last.replace("T"," ").replace("Z","")
-    video_date=video.replace("T"," ").replace("Z","")
+    last_date=str(last).replace("T"," ").replace("Z","")
+    video_date=str(video).replace("T"," ").replace("Z","")
     print(f'COMPARE DATES: {last_date} .. {video_date}')
     return last_date <= video_date
 
