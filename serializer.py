@@ -227,9 +227,9 @@ async def YtUpdate(client, id, chat_id):
         user = User.select().where(User.id == id).first()
         print('While is working...')
         if user.get_channels():
-            print('User has channels...')
+            # print('User has channels...')
             for channel_id in user.get_channels():
-                print(f'One channel taken...{channel_id}')
+                # print(f'One channel taken...{channel_id}')
                 youtube = build('youtube', 'v3', developerKey=API_KEY())
                 req = youtube.search().list(
                     part="snippet",
@@ -239,7 +239,7 @@ async def YtUpdate(client, id, chat_id):
                     maxResults=4
                 )
                 res = req.execute()
-                print(res)
+                # print(res)
                 for video_info in res['items']:
                     video_id = video_info['id']['videoId']
                     video_info = video_info['snippet']
