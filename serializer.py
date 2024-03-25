@@ -208,19 +208,10 @@ async def YtChannelVideos(client, id, lang):
 
 
 def compare_dates(last, video):
-    if isinstance(last, datetime):
-        last_date = last.replace(tzinfo=pytz.utc)
-    else:
-        last_date = datetime.strptime(last, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.utc)
-
-    video_date = datetime.strptime(video, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.utc)
+    last_date=last.replace("T"," ").replace("Z","")
+    video_date=video.replace("T"," ").replace("Z","")
     print(f'COMPARE DATES: {last_date} .. {video_date}')
-    if last_date < video_date:
-        return True
-    elif last_date > video_date:
-        return False
-    else:
-        return True
+    return last_date <= video_date
 
 async def YtUpdate(client, id, chat_id):
     while True:
