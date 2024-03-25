@@ -244,7 +244,7 @@ async def YtUpdate(client, id, chat_id):
                     video_id = video_info['id']['videoId']
                     video_info = video_info['snippet']
 
-                    # print(user.updated_at, video_info['publishedAt'])
+                    print(user.updated_at, video_info['publishedAt'])
                     if compare_dates(user.updated_at, video_info['publishedAt']):
                         print("NEW VIDEO")
                         video_url = f'https://www.youtube.com/watch?v='
