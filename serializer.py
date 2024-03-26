@@ -216,7 +216,8 @@ def compare_dates(last, video):
 async def YtUpdate(client, id, chat_id):
     while True:
         user = User.select().where(User.id == id).first()
-        print('While is working...')
+        # print('While is working...')
+        user_language=languages[user.lang]
         if user.get_channels():
             # print('User has channels...')
             for channel_id in user.get_channels():
@@ -235,9 +236,9 @@ async def YtUpdate(client, id, chat_id):
                     video_id = video_info['id']['videoId']
                     video_info = video_info['snippet']
 
-                    print(user.updated_at, video_info['publishedAt'])
+                    # print(user.updated_at, video_info['publishedAt'])
                     if compare_dates(user.updated_at, video_info['publishedAt']):
-                        print("NEW VIDEO")
+                        # print("NEW VIDEO")
                         video_url = f'https://www.youtube.com/watch?v='
                         caption = user_language['new_video_caption'].format(
                             video_info['title'],
