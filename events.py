@@ -329,8 +329,11 @@ async def event_controller(client, callback_query, app):
             subscibed=user.add_channel(callback_data[1])
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(user_language['view_playlists'], url=open_playlists),
+                InlineKeyboardButton(user_language['view_videos'], web_app=WebAppInfo(url=f"https://youtube.com/channel/{callback_data[1]}/videos")),
+            ], [
                 InlineKeyboardButton(user_language["unsubscribe"], callback_data=f'unsubscribe:{callback_data[1]}')
-            ], [InlineKeyboardButton('❌', callback_data='x:')]])
+                InlineKeyboardButton('❌', callback_data='x:')
+            ]])
             if subscibed:
                 await client.answer_callback_query(callback_query.id, user_language['sub_added'])
                 await client.edit_message_reply_markup(chat_id=chat_id, message_id=callback_query.message.id, reply_markup=reply_markup)
@@ -344,8 +347,12 @@ async def event_controller(client, callback_query, app):
             unsubscribed=user.remove_channel(callback_data[1])
             reply_markup=InlineKeyboardMarkup([[
                 InlineKeyboardButton(user_language['view_playlists'], url=open_playlists),
+                InlineKeyboardButton(user_language['view_videos'], web_app=WebAppInfo(url=f"https://youtube.com/channel/{callback_data[1]}/videos")),
+            ], [
                 InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{callback_data[1]}')
-            ], [InlineKeyboardButton('❌', callback_data='x:')]])
+                InlineKeyboardButton('❌', callback_data='x:')
+            ]])
+
             if unsubscribed:
                 await client.answer_callback_query(callback_query.id, user_language['unsubscribed'])
                 await client.edit_message_reply_markup(chat_id=chat_id, message_id=callback_query.message.id, reply_markup=reply_markup)
