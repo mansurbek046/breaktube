@@ -331,7 +331,7 @@ async def event_controller(client, callback_query, app):
                 InlineKeyboardButton(user_language['view_playlists'], url=open_playlists),
                 InlineKeyboardButton(user_language['view_videos'], web_app=WebAppInfo(url=f"https://youtube.com/channel/{callback_data[1]}/videos")),
             ], [
-                InlineKeyboardButton(user_language["unsubscribe"], callback_data=f'unsubscribe:{callback_data[1]}')
+                InlineKeyboardButton(user_language["unsubscribe"], callback_data=f'unsubscribe:{callback_data[1]}'),
                 InlineKeyboardButton('❌', callback_data='x:')
             ]])
             if subscibed:
@@ -349,7 +349,7 @@ async def event_controller(client, callback_query, app):
                 InlineKeyboardButton(user_language['view_playlists'], url=open_playlists),
                 InlineKeyboardButton(user_language['view_videos'], web_app=WebAppInfo(url=f"https://youtube.com/channel/{callback_data[1]}/videos")),
             ], [
-                InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{callback_data[1]}')
+                InlineKeyboardButton(user_language['subscribe'], callback_data=f'subscribe:{callback_data[1]}'),
                 InlineKeyboardButton('❌', callback_data='x:')
             ]])
 
