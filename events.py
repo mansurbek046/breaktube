@@ -1,7 +1,7 @@
 from models import User, Video, Audio, db
 import json
 from serializer import YtVideoSubtitles, YtChannel, YtChannelPlaylists
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from emoji_dict import flags_emoji_dict
 import pickle
 from io import BytesIO
