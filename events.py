@@ -293,7 +293,7 @@ async def event_controller(client, callback_query, app):
                         message = app.get_messages(chat_id=CHANNEL_ID, message_ids=message_id)
                         video_name=message.html_text.split(">")[1].split("<")[0]
                         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('🔍', switch_inline_query_current_chat=video_name)]])
-                        await app.copy_message(callback_query.message.chat.id, CHANNEL_ID, message_id)
+                        await app.copy_message(callback_query.message.chat.id, CHANNEL_ID, message_id, reply_markup=reply_markup)
                         await callback_query.message.delete()
                         os.remove(f'Keyboards/{chat_id}_back_keyboard.pkl')
                         
