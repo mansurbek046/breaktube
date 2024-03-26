@@ -30,7 +30,7 @@ async def YtVideo(client, id, lang):
         video_info = res['items'][0]['snippet']
         like_count = res['items'][0]['statistics']['likeCount']
         msg_content = {
-            'photo': video_info['thumbnails']['maxres']['url'],
+            'photo': video_info['thumbnails']['default']['url'],
             'name': video_info['title'],
             'description': video_info['description'],
             'created_at': video_info['publishedAt'].split('T')[0].replace('-','.'),
@@ -133,7 +133,7 @@ async def YtPlaylist(client, id, lang):
         playlist_info = res['items'][0]['snippet']
         video_count = res['items'][0]['contentDetails']['itemCount']
         msg_content = {
-            'photo': playlist_info['thumbnails']['maxres']['url'],
+            'photo': playlist_info['thumbnails']['default']['url'],
             'name': playlist_info['title'],
             'description': playlist_info['description'],
             'created_at': playlist_info['publishedAt'].split('T')[0],
@@ -160,7 +160,7 @@ async def YtChannelPlaylists(client, channel_id, lang):
             video_count = playlist['contentDetails']['itemCount']
             playlist=playlist['snippet']
             playlist_info={
-                'photo': playlist['thumbnails']['maxres']['url'],
+                'photo': playlist['thumbnails']['default']['url'],
                 'name': playlist['title'],
                 'description': playlist['description'],
                 'created_at': playlist['publishedAt'].split('T')[0],
