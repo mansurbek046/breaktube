@@ -140,29 +140,30 @@ async def send_channel_info(client, chat_id, channel_info, user):
     playlist_url='https://youtube.com/playlist?list='
     message=""
     playlists_page=None
-    for playlist in playlists:
+    if playlists:
+        for playlist in playlists:
 
-        response = requests.get(playlist['photo'])
-        image = response.content
-        telegraph_res = requests.post(
-            'https://telegra.ph/upload',
-            files={'file': ('file', image)}
-        ).json()    
+            response = requests.get(playlist['photo'])
+            image = response.content
+            telegraph_res = requests.post(
+                'https://telegra.ph/upload',
+                files={'file': ('file', image)}
+            ).json()    
 
                 
-        text=user_language['caption_playlists'].format(
-            playlist_url+playlist['id'],
-            playlist['name'],
-            playlist['created_at'].replace('-','.'),
-            playlist['video_count'])
-        if playlist['description']:
-            text=text.replace('DESC', f'\n📖 {playlist["description"]}')
-        else:
-            text=text.replace('DESC', '')
-        message+=(f'<img src="{telegraph_res[0]["src"]}">{text}<p>ㅤㅤㅤㅤㅤㅤ</p>')
-        message=message.replace("\n", "<br>")
-    if message:
-        playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
+            text=user_language['caption_playlists'].format(
+                playlist_url+playlist['id'],
+                playlist['name'],
+                playlist['created_at'].replace('-','.'),
+                playlist['video_count'])
+            if playlist['description']:
+                text=text.replace('DESC', f'\n📖 {playlist["description"]}')
+            else:
+                text=text.replace('DESC', '')
+            message+=(f'<img src="{telegraph_res[0]["src"]}">{text}<p>ㅤㅤㅤㅤㅤㅤ</p>')
+            message=message.replace("\n", "<br>")
+        if message:
+            playlists_page=telegraph.create_page(channel_info['name'], html_content=f'{message}')
     
     channels=user.get_channels()
     channel_url = f"https://www.youtube.com/channel/{channel_info['id']}"
