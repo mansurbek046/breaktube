@@ -28,10 +28,10 @@ BreakTube is a powerful Telegram bot built using Pyrogram that allows you to eas
 3. Enjoy the convenience and flexibility that BreakTube offers for all your video downloading needs!
 
 ### Acknowledgements:
-- Developed with ❤️ by OsZayn
+- Developed with ❤️ by [@triple_link](t.me/triple_link)
 - Built using [Pyrogram](https://github.com/pyrogram/pyrogram) - A powerful Telegram library for Python.
 
 ### Contact:
-For any queries, feedback, or support, feel free to reach out via Telegram at [t.me/triple_link](https://t.me/triple_link).
+For any queries, feedback, or support, feel free to reach out via Telegram at [@triple_link](https://t.me/triple_link).
 
 Let's make your YouTube downloading experience smoother and more enjoyable with BreakTube! 🚀🎬🎧
