@@ -2,6 +2,7 @@ import asyncio
 import subprocess
 import logging
 import os
+import signal
 from googleapiclient.discovery import build
 from urllib.parse import urlparse, parse_qs
 from pyrogram import Client, filters
@@ -37,6 +38,17 @@ def channel_updates(client, user_id, chat_id):
         loop.run_until_complete(YtUpdate(client, user_id, chat_id))
 
 x_markup=InlineKeyboardMarkup([[InlineKeyboardButton('❌', callback_data='x:')]])
+
+def signal_handler(sig, frame):
+    print("Stopping bot and task...")
+    loop = asyncio.get_event_loop()
+    tasks = asyncio.all_tasks(loop=loop)
+    for task in tasks:
+        task.cancel()
+
+# Set up signal handling for Ctrl+C
+signal.signal(signal.SIGINT, signal_handler)
+
 
 @app.on_message(filters.command('start'))
 async def welcome(client, message):
