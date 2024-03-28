@@ -1,3 +1,6 @@
+<img src="splash.jpg"/>
+
+
 # Welcome to BreakTube - Your Ultimate Telegram YouTube Video Downloader Bot! 🎥🤖
 
 BreakTube is a powerful Telegram bot built using Pyrogram that allows you to easily download YouTube videos, playlists, channels, and more directly through Telegram. With BreakTube, you can access a wide range of features designed to enhance your video downloading experience.
