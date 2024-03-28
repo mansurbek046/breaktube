@@ -189,6 +189,7 @@ async def youlink(client, message):
     user = User.get(id=message.from_user.id)
     current=int(datetime.now().strftime('%H'))
     last_time=int(str(user.updated_at).split(':')[0].split(' ')[1])
+    print(f'TIMES::::::: {current} MMMMM {last_time}')
     if current-last_time>=2:
         asyncio.create_task(YtUpdate(client, message.from_user.id, message.chat.id))
     if message.text:
