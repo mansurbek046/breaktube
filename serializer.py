@@ -258,5 +258,6 @@ async def YtUpdate(client, id, chat_id):
 
         user.updated_at = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
         user.save()
+        print(user)
         await asyncio.sleep(60*60)
     return None
