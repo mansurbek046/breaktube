@@ -468,8 +468,12 @@ async def event_controller(client, callback_query, app):
             except Exception as e:
                 error_handler(client, f"An error occurred in day_premium command: {e}")
         case 'view':
-            chat_id=callback_query.message.chat.id
-            sender.send_video_info(client, chat_id, callback_data[1], user)
+            try:
+                chat_id=callback_query.message.chat.id
+                await sender.send_video_info(client, chat_id, callback_data[1], user)
+                await callback_query.message.delete()
+            except Exception as e:
+                error_handler(client, f"An error occurred while viewing new video: {e}")
 
         case 'x':
             chat_id=callback_query.message.chat.id
