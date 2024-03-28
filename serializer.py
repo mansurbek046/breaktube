@@ -246,7 +246,7 @@ async def YtUpdate(client, id, chat_id):
                             video_info['channelId'],
                             video_info['channelTitle']
                         )
-                        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(user_language['view_video'], callback_data=f"view:{video_id}")]])
+                        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton(user_language['view_video'], callback_data=f"view:{video_id}"), x_markup]])
                         await client.send_photo(photo=video_info['thumbnails']['high']['url'], caption=caption, chat_id=chat_id, reply_markup=reply_markup)
         if user.premium:
             end_date=str(user.premium).split(' ')[0]
