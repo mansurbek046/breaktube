@@ -49,7 +49,6 @@ def signal_handler(sig, frame):
 # Set up signal handling for Ctrl+C
 signal.signal(signal.SIGINT, signal_handler)
 
-
 @app.on_message(filters.command('start'))
 async def welcome(client, message):
     from_user = message.from_user
@@ -201,8 +200,9 @@ async def youlink(client, message):
     user = User.get(id=message.from_user.id)
     current=int(datetime.now().strftime('%H'))
     last_time=int(str(user.updated_at).split(':')[0].split(' ')[1])
-    print(f'TIMES::::::: {current} MMMMM {last_time}')
     if current-last_time>=2:
+        print(f'TIMES::::::: {current} MMMMM {last_time}')
+
         asyncio.create_task(YtUpdate(client, message.from_user.id, message.chat.id))
     if message.text:
         urls = message.text.split()  # Split the message text by whitespace to extract URLs
