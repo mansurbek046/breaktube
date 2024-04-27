@@ -130,6 +130,7 @@ async def send_video_info(client, chat_id, id, user):
     except Exception as e:
         error_handler(client, f"An error occurred in send_video_info: {e}")
         await client.send_message(chat_id, user_language['err_video_info'], reply_markup=x_markup)
+        await client.send_message(chat_id, f"`{video_url}`")
 
 
 async def send_channel_info(client, chat_id, channel_info, user):
